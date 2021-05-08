@@ -1,0 +1,207 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+    <title>Document</title>
+
+    <style>
+        table>thead>tr>th>a:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<!-- SORT TABLE JQUERY -->
+<!-- https://codepen.io/nathancockerill/pen/OQyXWb -->
+
+<!-- jquery examples -->
+<!-- https://www.w3schools.com/jquery/jquery_examples.asp -->
+
+<!-- How TO - Filter/Search Table -->
+<!--  https://www.w3schools.com/howto/howto_js_filter_table.asp-->
+
+
+<!-- JS tutorial -->
+<!-- https://www.w3schools.com/js/js_htmldom_elements.asp -->
+
+
+<!-- JS Reference -->
+<!-- https://www.w3schools.com/jsref/dom_obj_all.asp -->
+
+<body>
+
+    <div class="container-xl">
+
+        <a href="http://localhost:8090/latest-bootstrap.html">latest bootstrap</a>
+        <a href="http://localhost:8090/testingJquery.html">testing Jquery</a>
+        <a href="http://localhost:8090/timers.html">timers</a>
+        <a href="http://localhost:8090/chat-b4.html">timers</a>
+    
+        <div class="table-and-search">
+            <div class="row justify-content-end">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input 
+                            id = "search-table-inpt"
+                            type="text" 
+                            class="form-control" 
+                            placeholder="type to find row">
+                    </div>
+                </div>
+            </div>
+        
+            <table id="sorting-table" class="table table-striped table-hover">
+        
+                <thead class="table-light">
+                <tr>
+                    <th>
+                        <a id="tb-first-name-heading">Firstname</a>
+                    </th>
+                    <th>
+                        <a id="tb-lastname-heading">Lastname</a>
+                    </th>
+                    <th>
+                        <a id="tb-email-heading">Email</a>
+                    </th>
+                </tr>
+                </thead>
+        
+                <tbody id="myTableBody">
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Moe</td>
+                    <td>mary@mail.com</td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>Dooley</td>
+                    <td>july@greatstuff.com</td>
+                </tr>
+                <tr>
+                    <td>Anja</td>
+                    <td>Ravendale</td>
+                    <td>a_r@test.com</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        clickListener("tb-first-name-heading");
+        clickListener("tb-lastname-heading");
+        clickListener("tb-email-heading");
+
+        function clickListener(idName){
+            document.getElementById(idName).addEventListener('click',()=>{
+                //handle sort
+                sortTable(idName);
+            });
+        }
+        function sortTable(idName){
+            let table = document.getElementById("sorting-table");
+            let rows = table.rows;
+            //get number of row with a element with id idName
+            console.log(rows);
+            let head = rows[0];
+            let links = head.getElementsByTagName("a");
+            let ids = [];
+            let dir = "asc";
+            for (const iterator of links) {
+                if(iterator.id){
+                    ids.push(iterator.id);
+                }
+            }
+            let colNum = ids.indexOf(idName);
+            console.log(ids,"\n",`index of ${idName} = `,colNum);
+            let switching = true;
+            let shouldSwitch = false;
+            let i;
+            let wasSwitches = false;
+            while(switching){
+                switching = false;
+                for(i = 1;i<(rows.length-1);i++){
+                    shouldSwitch=false;//if no switches dont switch last row
+                    let cellFirst = rows[i].getElementsByTagName("td")[colNum];
+                    let cellSecond = rows[i+1].getElementsByTagName("td")[colNum];
+
+                    let dataFirst = cellFirst.innerHTML.toLowerCase().trim();
+                    let dataSecond = cellSecond.innerHTML.toLowerCase().trim();
+                    if(dir=="asc"){
+                        if(dataFirst>dataSecond){
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }else if(dir=="desc"){
+                        if(dataFirst<dataSecond){
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(shouldSwitch){
+                    //switch rows
+                    rows[i].parentNode.insertBefore(rows[i+1],rows[i]);
+                    switching = true;
+                    wasSwitches = true;
+                }else if(!wasSwitches&&dir=="asc"){//on ordered table switches again
+                    dir ="desc";
+                    switching = true;
+                }
+
+
+            }
+        }
+        const searchInput = document.getElementById("search-table-inpt");
+        searchInput.addEventListener('keyup',(event)=>{
+            event.preventDefault();
+            let searchValue = searchInput.value.toLowerCase();
+            let table = document.getElementById("sorting-table");
+            let tbody = table.getElementsByTagName("tbody");
+            let bodyRows = tbody[0].rows;
+            for (let i = 0; i < bodyRows.length; i++) {
+                let htmlRowCollection = bodyRows[i].getElementsByTagName("td");
+                //console.log(htmlRowCollection);
+                let wasNotFound = false;
+                for (let j = 0; j < htmlRowCollection.length; j++) {
+                    let cellData = htmlRowCollection[j].innerHTML.trim().toLowerCase();
+                    if(cellData.indexOf(searchValue)>-1){
+                        wasNotFound = false;
+                        bodyRows[i].style.display="";
+                        break;
+                    }else{
+                        wasNotFound = true;
+                    }
+                }
+                if(wasNotFound){
+                    bodyRows[i].style.display="none";
+                }
+
+            }
+
+        },false)
+        
+
+
+    </script>
+
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> 
+</body>
+</html>

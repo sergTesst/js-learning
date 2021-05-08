@@ -1,0 +1,49 @@
+.dropdown{
+	position: relative;
+	background-color:khaki;
+}
+.dropdown:hover .dropdown-content{
+	display: block;
+}
+.dropdown:hover{
+	background-color: #ffffc5;
+}
+
+/* https://www.cssmatic.com/box-shadow */
+.dropdown-content{
+	display: none;
+	position:absolute;
+	z-index: 1;
+	box-sizing: border-box;
+	background-color: #f1f1f1;
+	-webkit-box-shadow: 14px 9px 20px -6px rgba(0,0,0,0.75);
+	-moz-box-shadow: 14px 9px 20px -6px rgba(0,0,0,0.75);
+	box-shadow: 14px 9px 20px -6px rgba(0,0,0,0.75);
+
+	border-radius: 7px 7px 7px 7px;
+	-moz-border-radius: 7px 7px 7px 7px;
+	-webkit-border-radius: 7px 7px 7px 7px;
+	border: 0px solid #000000;
+}
+.dropdown-content a{
+	display: block;
+	padding: 10px 15px;
+	text-decoration: none;
+	color: black;
+}
+.dropdown-content a:hover{
+	background-color: darkslategray;
+	color: #f1f1f1;
+}
+
+.show-dropdown-clickable {
+	position: relative;
+	background-color:khaki;
+}
+.show-dropdown-clickable:hover{
+	background-color: #ffffc5;
+}
+
+.max-height{
+	height: 100%;
+}

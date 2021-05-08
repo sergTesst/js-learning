@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./assets/latest-bootstrap.styles.css">
+    <!-- Bootstrap CSS -->
+    <link
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.css" 
+     rel="stylesheet" 
+     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
+     crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <style>
+      body{
+        background-color:#e9fbff;
+      }
+      .nav-item-cont .item:hover{
+        cursor: pointer;
+      }
+
+  </style>
+  <body>
+    <!-- all about flex -->
+    <!-- https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background -->
+
+    <!-- width property -->
+      <!-- https://css-tricks.com/almanac/properties/w/width/ -->
+
+      <a href="http://localhost:8090/latest-bootstrap.html">latest bootstrap</a>
+      <a href="http://localhost:8090/testingJquery.html">testing Jquery</a>
+      <a href="http://localhost:8090/timers.html">timers</a>
+      <a href="http://localhost:8090/chat-b4.html">timers</a>
+
+      <div 
+      style="display: flex; 
+      flex-direction: row; 
+      justify-content: center;">
+
+        <h1 style="width:fit-content;">Hello, world!</h1>
+
+      </div>
+    
+<!-- https://getbootstrap.com/docs/5.0/customize/color/ -->
+    <div class="container-fluid">
+        
+        <div 
+            class="container-sm"
+            style="background-color:#67e6be;">
+            100% wide until small breakpoint
+        </div>
+        <div 
+            class="container-md"
+            style="background-color:#6772e6;">
+            100% wide until medium breakpoint
+        </div>
+        <div 
+            class="container-lg"
+            style="background-color:#6f42c1;">
+            100% wide until large breakpoint
+        </div>
+        <div 
+            class="container-xl"
+            style="background-color:#467ff1;">
+            100% wide until extra large breakpoint
+        </div>
+        <div 
+            class="container-xxl"
+            style="background-color:#307fec;">
+            100% wide until extra extra large breakpoint
+        </div>
+
+      <div class="container-xl">
+
+        <div class="row">
+          <div class="col-sm-6">
+            <button id="btn-speech" class="btn btn-primary">start speech recognition</button>
+              <div class="row">
+                <div class="col">
+                  <p>any user speech below</p>
+                  <p class="user-detection"></p>
+                  <p>base counter</p>
+                  <p class="word-detection"></p>
+                </div>
+                <div class="col">
+                  <p class="user-speech"></p>
+                </div>
+                <div class="col">
+                  <p class="user-diagnose"></p>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-3 color-speech-output">
+            <p class="text"></p>
+          </div>
+
+          <div class="row text-center align-items-center nav-item-cont">
+            <div class="col ">
+              
+              <div class="d-flex justify-content-start ">
+                <div class="item me-2 p-2" style="background-color:lightblue;">two two two two</div>
+
+                <div class="item me-2 p-2 dropdown">
+                  <span class="show-dropdown">three three three</span>
+                  <div class="dropdown-content">
+                    <a href="#">one</a>
+                    <a href="#">two</a>
+                    <a href="#">three</a>
+                  </div>                  
+                </div>
+                <div class="item me-2 p-2">
+                  <span id="show-dropdown-clickable-1" class="show-dropdown-clickable p-2">three 1 clickable</span>
+                  <div id="dropdown-content-clickable-1" class="dropdown-content">
+                    <a href="#">one</a>
+                    <a href="#">two</a>
+                    <a href="#">three</a>
+                  </div>                  
+                </div>
+                <div class="item me-2 p-2">
+                  <span id="show-dropdown-clickable-2" class="show-dropdown-clickable p-2">three 2 clickable</span>
+                  <div id="dropdown-content-clickable-2" class="dropdown-content">
+                    <a href="#">one</a>
+                    <a href="#">two</a>
+                    <a href="#">three</a>
+                  </div>                  
+                </div>
+                <script>
+                  document.addEventListener('DOMContentLoaded',()=>{
+                    dropDownShover("show-dropdown-clickable-1","dropdown-content-clickable-1");
+                    dropDownShover("show-dropdown-clickable-2","dropdown-content-clickable-2");
+                  });
+
+                  const dropDownShover = function showDropDown(nameClickable,nameContent){
+                    const clckDropDown1 = document.getElementById(nameClickable);
+                    clckDropDown1.addEventListener('click',()=>{
+                      document.getElementById(nameContent).classList.toggle("d-block");
+                    },false);
+                  };
+                  
+                </script>
+
+              </div>
+              
+            </div>
+
+            <div class="seach-col col-md-auto">
+              <div style="background-color:pink;">
+                <input id="search-item" class=" me-2 p-2 form-control item"  type="text">
+              </div>
+            </div>
+
+            <div class="col col-lg-2">
+              <div class="me-2 p-2 item" style="background-color:lightgrey;">five</div>
+            </div>
+            <div class="col col-lg-2">
+              <div class="me-2 p-2 item" style="background-color:#6f42c1;">six</div>
+            </div>
+
+          </div>
+
+
+
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p class="hints"></p>
+          </div>
+        </div>
+      </div>
+      <div class="container-md mb-4">
+        <div class="display-2">heading</div>
+
+        <div class="row justify-content-center post-big-view">
+
+          <div class="col-md-10 col-sm-8 p-3 mt-3">
+            <div class="row p-2 bg-white shadow-lg p-3 mb-5 bg-body rounded">
+
+              <div class="col p-2">
+                <div class="bd-placeholder-img card-img-top mb-2">
+                  <img class="img-fluid mx-auto d-block user-img" 
+                  src="https://source.unsplash.com/user/solase/400x500" 
+                  alt="some photo"/>	
+                </div>
+
+                <div class="row justify-content-between">
+                  <div class="col-2 mb-2">
+                    <img class="img-fluid mx-auto"
+                    style="height: 30px;"
+                    src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png"
+                    alt="user profile">
+                  </div>
+    
+                  <div class="col">
+                    <p class="mb-1">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae tenetur explicabo fugit exercitationem 
+                      voluptate? Doloribus, quae! Tempore temporibus, libero autem sit, perferendis nostrum velit cum eius maiores quibusdam, 
+                      at quam.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-4 d-flex flex-column justify-content-between" >
+
+                <div class="row overflow-auto" style="max-height: 500px">
+
+                  <div class="col">
+
+                    <div class="row m-2">
+                      <div class="col-sm-auto m-2">
+                        <img class="img-fluid mx-auto"
+                        style="height: 30px; width: 30px;"
+                        src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png"
+                        alt="user profile">
+                      </div>
+                      <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Facere excepturi labore quo nobis ab illo corrupti. Natus assumenda quisquam asperiores 
+                        laboriosam nostrum enim blanditiis, quae quas odio quod quibusdam voluptates?</div>
+                    </div>
+                    <div class="row m-2">
+                      <div class="col-sm-auto m-2">
+                        <img class="img-fluid mx-auto"
+                        style="height: 30px; width: 30px;"
+                        src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png"
+                        alt="user profile">
+                      </div>
+                      <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Facere excepturi labore quo nobis ab illo corrupti. Natus assumenda quisquam asperiores 
+                        laboriosam nostrum enim blanditiis, quae quas odio quod quibusdam voluptates?</div>
+                    </div>
+                    <div class="row m-2">
+                      <div class="col-sm-auto m-2">
+                        <img class="img-fluid mx-auto"
+                        style="height: 30px; width: 30px;"
+                        src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png"
+                        alt="user profile">
+                      </div>
+                      <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Facere excepturi labore quo nobis ab illo corrupti. Natus assumenda quisquam asperiores 
+                        laboriosam nostrum enim blanditiis, quae quas odio quod quibusdam voluptates?</div>
+                    </div>
+                    <div class="row m-2">
+                      <div class="col-sm-auto m-2">
+                        <img class="img-fluid mx-auto"
+                        style="height: 30px; width: 30px;"
+                        src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png"
+                        alt="user profile">
+                      </div>
+                      <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Facere excepturi labore quo nobis ab illo corrupti. Natus assumenda quisquam asperiores 
+                        laboriosam nostrum enim blanditiis, quae quas odio quod quibusdam voluptates?</div>
+                    </div>
+                    <div class="row m-2">
+                      <div class="col-sm-auto m-2">
+                        <img class="img-fluid mx-auto"
+                        style="height: 30px; width: 30px;"
+                        src="https://www.pngkey.com/png/full/73-730477_first-name-profile-image-placeholder-png.png"
+                        alt="user profile">
+                      </div>
+                      <div class="col">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Facere excepturi labore quo nobis ab illo corrupti. Natus assumenda quisquam asperiores 
+                        laboriosam nostrum enim blanditiis, quae quas odio quod quibusdam voluptates?</div>
+                    </div>
+                    
+                    
+
+                  </div>
+                  
+                </div>
+
+                <div class="row p-3">
+                  <div class="col-md-10">
+                    <input id="comment-input" type="text" class="inpt-comment form-control" 
+                      placeholder="Add your comment" aria-label="Add your comment" >
+                  </div>
+
+                  <div class="col-md-2 d-flex justify-content-start">
+                    <button id="post-comment-btn" class="btn btn-outline-secondary" >Post</button>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container">
+        <div class="bd-example bg-light">
+          <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+          
+              <strong class="me-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Hello, world! This is a toast message.
+            </div>
+          </div>
+          </div>
+  
+          <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+          
+              <strong class="me-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Hello, world! This is a toast message.
+            </div>
+          </div>
+  
+          <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+  
+              <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+              
+              <strong class="me-auto">Bootstrap</strong>
+              <small class="text-muted">just now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              See? Just like this.
+            </div>
+          </div>
+  
+  
+        <div class="toast-container">
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <img src="" class="rounded me-2" alt="">
+              <strong class="me-auto">Bootstrap</strong>
+              <small class="text-muted">just now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              See? Just like this.
+            </div>
+          </div>
+        
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <img src="" class="rounded me-2" alt="">
+              <strong class="me-auto">Bootstrap</strong>
+              <small class="text-muted">2 seconds ago</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Heads up, toasts will stack automatically
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+    </div>
+
+
+
+    <script>
+      var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+      var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+      var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+
+      var recognition = new SpeechRecognition();
+      var speechRecognitionList = new SpeechGrammarList();
+      //recognition.continuous = false;
+
+      //https://zhelepa.com/seo-blog/atribut-lang.html
+      recognition.lang = 'en-US';
+      //recognition.lang = 'ru-RU';
+      //recognition.lang = 'uk-UA';
+
+      //not final result
+      recognition.interimResults = false;//on true a lot of duplicates
+      //alternatives for user to choose
+      recognition.maxAlternatives = 1;
+
+      document.addEventListener('DOMContentLoaded', ()=>{
+        recognition.start();
+        userWatcher();
+      });
+
+      let soundStarted = document.querySelector(".user-detection");
+      recognition.onspeechstart = (event)=>{
+        console.log('Started listening \n',event);
+        soundStarted.innerHTML = "listening...";
+      };
+      recognition.onspeechend = (event)=>{
+        recognition.stop();
+        console.log('Stopped listening \n',event);
+        soundStarted.innerHTML = "Ended listening!";
+        userDiagnose.textContent = "end speech";
+      }
+
+      let usrSpeech = document.querySelector(".user-speech");
+      recognition.onresult = (event)=>{
+
+        //TODO: add counter on special word
+        
+        console.log("onresult");
+        console.log(event.results);
+        let speech = event.results[0][0].transcript;
+        usrSpeech.innerHTML+=` ${speech} <br\>`;
+      }
+      recognition.onend = (event)=>{
+        console.log("end\n recognition disconnected");
+        userDiagnose.textContent = "disconnected";
+        recognition.start();
+      }
+      recognition.onaudiostart = (event)=>{
+        console.log("onaudiostart");
+        userDiagnose.textContent = "audio speech is started...";
+      }
+      recognition.onaudioend = (event)=>{
+        console.log("onaudioend");
+      }
+
+      recognition.onnomatch = (event)=>{
+        console.log("onnomatch");
+      }
+      recognition.onsoundstart = (event)=>{
+        console.log("onsoundstart");
+      }
+      recognition.onsoundend = (event)=>{
+        console.log("onsoundend");
+      }
+      recognition.onspeechstart = (event)=>{
+        console.log("onspeechstart");
+      }
+      recognition.onspeechend  = (event)=>{
+        console.log("onspeechend ");
+      }
+
+      let userDiagnose = document.querySelector(".user-diagnose");
+      recognition.onnomatch = function(event) {
+        console.log("onnomatch");
+        userDiagnose.textContent = 'I didnt recognise that';
+      }
+      recognition.onerror = function(event) {
+        console.log("onerror");
+        userDiagnose.textContent = 'Error occurred in recognition: ' + event.error;
+      }
+
+      //https://stackoverflow.com/questions/47378194/fire-a-function-when-innerhtml-of-element-changes
+      const userWatcher = function watchChangesInUserSpeech(){
+        var element = document.querySelector('.user-speech');
+        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+        var observer = new MutationObserver(baseMatcher);
+        observer.observe(element, {
+          childList: true
+        });
+        function baseMatcher(){
+          let regWord = /base/g;
+          let userText = element.innerText;
+          let match = userText.match(regWord);
+          console.log("YES TEXT has been CHANGED!",userText.length?userText.length:"");
+          console.log("base counter",match);
+          document.querySelector(".word-detection").innerText = match?match.length:"";
+        }
+
+      }
+
+      
+    </script>
+
+    <!-- <script>
+      // define speech recognition
+      //and the list of items that follow the equals sign are the alternative values that will be recognized and accepted as appropriate values for the term.
+      var colors = [ 'aqua' , 'azure' , 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate', 'coral', 'crimson', 'cyan', 'fuchsia', 'ghostwhite', 'gold', 'goldenrod', 'gray', 'green', 'indigo', 'ivory', 'khaki', 'lavender', 'lime', 'linen', 'magenta', 'maroon', 'moccasin', 'navy', 'olive', 'orange', 'orchid', 'peru', 'pink', 'plum', 'purple', 'red', 'salmon', 'sienna', 'silver', 'snow', 'tan', 'teal', 'thistle', 'tomato', 'turquoise', 'violet', 'white', 'yellow'];
+      var grammar = `#JSGF V1.0; grammar colors; public <color> = ${colors.join(' | ')} ;`;
+
+      var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+      var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+      var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+      var recognition = new SpeechRecognition();
+      var speechRecognitionList = new SpeechGrammarList();
+
+      //This accepts as parameters the string we want to add, plus optionally a weight 
+      //value that specifies the importance of this grammar in relation of other 
+      //grammars available in the list (can be from 0 to 1 inclusive.)
+
+      //The weight means the importance of this grammar, or the likelihood that it 
+      //will be recognized by the speech recognition service. 
+      //The value can be between 0.0 and 1.0; If not specified, the default used is 1.0.
+      speechRecognitionList.addFromString(grammar, 1);
+      recognition.grammars = speechRecognitionList;
+      //recognition.continuous = false;
+      recognition.lang = 'en-US';
+      //not final result
+      recognition.interimResults = false;
+      //alternatives for user to choose
+      recognition.maxAlternatives = 1;
+
+      document.getElementById("btn-speech").addEventListener('click',()=>{
+        recognition.start();
+        console.log('Ready to receive a color command.');
+        diagnostic.textContent = `Ready to receive a color command...`;
+      });
+
+      var diagnostic = document.querySelector('.text');
+      var bg = document.querySelector('.color-speech-output');
+      var hints = document.querySelector('.hints');
+
+      recognition.onresult = function(event) {
+        console.log('results', event.results);
+        var color = event.results[0][0].transcript;
+        diagnostic.textContent = `Result received: ${color}`;
+        bg.style.backgroundColor = color;
+        console.log('Confidence: ' + event.results[0][0].confidence);
+      }
+
+      //once a single word has been recognized and it has finished being spoken
+      recognition.onspeechend = function() {
+        recognition.stop();
+        diagnostic.textContent = `Try again...`;
+      }
+      recognition.onnomatch = function(event) {
+        diagnostic.textContent = 'I didnt recognise that color.';
+        console.log(event);
+      }
+      recognition.onerror = function(event) {
+        diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
+        console.log(event);
+      }
+
+      var colorHTML= '';
+      colors.forEach(function(v, i, a){
+        //console.log(v, i); output all colors
+        colorHTML += `<span style="background-color:${v};margin:0 2px;">${v}</span>`;
+        if(i>0&&i%16==0){
+          colorHTML +="<br\>";
+        }
+      });
+      hints.innerHTML = `Tap/click then say a color to change the background color of the app. Try <br\> ${colorHTML}.`;
+
+
+    </script> -->
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" 
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

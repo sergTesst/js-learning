@@ -1,0 +1,143 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <textarea name="forText" id="txt" cols="30" rows="10"></textarea>
+        <button id="firstbtn">text 1</button>
+        <button id="secondbtn">text 2</button>
+    </div>
+
+
+    <script>
+        function Input(el){
+            var parent = el,
+                map = {},
+                intervals = {};
+
+            function ev_kdown(ev)
+            {
+                if (ev.defaultPrevented) {
+                    return; 
+                }
+                map[ev.key] = true;
+                ev.preventDefault();
+                return;
+            }
+
+            function ev_kup(ev)
+            {
+                if (ev.defaultPrevented) {
+                    return; 
+                }
+                map[ev.key] = false;
+                ev.preventDefault();
+                return;
+            }
+
+            function key_down(key)
+            {
+                return map[key];
+            }
+
+            function keys_down_array(array)
+            {
+                return typeof array.find( key => !key_down(key) ) === "undefined";
+            }
+
+            function keys_down_arguments(...args)
+            {
+                return keys_down_array(args);
+            }
+
+            function clear()
+            {
+                map = {};
+            }
+
+            function watch_loop(keylist, callback)
+            {
+                return function(){
+                    if(keys_down_array(keylist))
+                        callback();
+                }
+            }
+
+            function watch(name, callback, ...keylist)
+            {
+                intervals[name] = setInterval(watch_loop(keylist, callback), 1000/24);
+            }
+
+            function unwatch(name)
+            {
+                clearInterval(intervals[name]);
+                delete intervals[name];
+            }
+
+            function detach()
+            {
+                parent.removeEventListener("keydown", ev_kdown);
+                parent.removeEventListener("keyup", ev_kup);
+            }
+
+            function attach()
+            {
+                parent.addEventListener("keydown", ev_kdown,true);
+                parent.addEventListener("keyup", ev_kup,true);
+            }
+
+            function Input()
+            {
+                attach();
+
+                return {
+                    key_down:  key_down,
+                    keys_down: keys_down_arguments,
+                    watch:     watch,
+                    unwatch:   unwatch,
+                    clear:     clear,
+                    detach:    detach
+                };
+            }
+
+            return Input();
+        }
+        var input_txt = Input(document.getElementById("txt"));
+
+        input_txt.watch(
+            "print_5", 
+            function(){
+                txt.value += "FIVE ";
+            }, 
+            "r", 
+            "5"
+        );
+
+        let firtsBtn = document.getElementById("firstbtn");
+        let firstBtnInnput = Input(firtsBtn);
+        firstBtnInnput.watch(
+            "btn-set-color",
+            ()=>{
+                firtsBtn.style.backgroundColor="#09DA95";
+                firtsBtn.innerHTML = "pressed first";
+            },
+            "v"
+        );
+
+        let secondBtn = document.getElementById("secondbtn");
+        let secondBtnInput = Input(secondBtn);
+        secondBtnInput.watch(
+            "btn-set-color",
+            ()=>{
+                secondBtn.style.backgroundColor="#F6EB26";
+                secondBtn.innerHTML = "pressed second";
+            },
+            "n"
+        );
+
+    </script>
+</body>
+</html>

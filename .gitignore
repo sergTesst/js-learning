@@ -1,0 +1,4 @@
+*node_modules
+*lock*
+./myapp/package-lock.json
+./learn_js/package-lock.json

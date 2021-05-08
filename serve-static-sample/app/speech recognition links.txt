@@ -1,0 +1,18 @@
+
+SpeechRecognition
+https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
+
+guide speech 
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API
+
+
+
+speech recognition repository github easy from mdn tutorial
+https://github.com/mdn/web-speech-api
+
+
+advanced speech api
+https://github.com/TalAter/annyang
+
+advanced speech api docs
+https://github.com/TalAter/annyang/blob/master/docs/README.md

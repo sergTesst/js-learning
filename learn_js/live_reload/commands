@@ -1,0 +1,15 @@
+
+https://flaviocopes.com/how-to-reload-browser-file-save/
+
+npm install -g browser-sync
+
+browser-sync start --server --files "."
+
+
+C:\Users\sergi\AppData\Roaming\npm\node_modules\browser-sync\dist\bin.js
+
+
+
+
+
+

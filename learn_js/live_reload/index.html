@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
+	crossorigin="anonymous">
+
+
+	<title>Document</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="display-1">some data is changed</h1>
+		<div class="counter-container">
+			<h1 class="display-6 counter"></h1>
+			<button type="submit" class="btn btn-success" id="startCounter">startCounter</button>
+			<button type="submit" class="btn btn-danger"  id="stopCounter">stopCounter</button>
+			<button type="submit" class="btn btn-warning"  id="resetCounter">reset Counter</button>
+		</div>
+
+
+		<script async type="module">
+			import {counterHolder} from './analytics.js';
+			let counterInstance = new counterHolder();
+			counterInstance.registerStartCounter();
+			counterInstance.registerStopCounter();
+			counterInstance.registerResetCounter();
+		</script>
+
+
+		<div class="agree-content">
+			<p>Do you agree?</p>
+			<button type="submit" class="btn btn-success" id="yesBtn">Yes</button>
+			<button type="submit" class="btn btn-danger"  id="noBtn">No</button>
+		</div>
+
+		<script type="module">
+			console.log('defered script says',typeof button);
+		</script>		
+		<script>
+			console.log('script says',typeof button);
+		</script>
+		
+		<button id="button">Кнопка</button>
+
+
+	</div>
+
+
+
+
+	<script src="./script.js" type="module"></script>
+
+
+	<script type="module">
+
+		
+		function Accumulator(){
+			this.value = 0;
+			let args = [...arguments];
+			args.forEach(a=>{
+				this.value+=a;
+			});
+
+			this.read = function(){
+				this.value+=+prompt('add',0);
+			}
+		} 
+	</script>
+
+
+	<script 
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" 
+	crossorigin="anonymous">
+
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">    
+
+    <script>
+        function ready() {
+            alert('DOM готов');
+
+            // изображение ещё не загружено (если не было закешировано), так что размер будет 0x0
+            alert(`Размер изображения: ${img.offsetWidth}x${img.offsetHeight}`);
+        }
+
+        document.addEventListener("DOMContentLoaded", ready);
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          alert("DOM готов! last");//alerts last
+        });
+    </script>
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
+      
+      <script>
+        alert("Библиотека загружена, встроенный скрипт выполнен");
+      </script>
+      <script>
+        window.onload = function() {
+          alert('Страница загружена (window on load event)');
+      
+          // к этому моменту страница загружена
+          alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+        };
+      </script>
+      <script>
+        let analyticsData = {
+             /* объект с собранными данными */ 
+             data:"some important data",
+             info:"some info"
+            };
+        window.addEventListener("unload", function() {
+            alert("On unload event");
+            navigator.sendBeacon("/analytics", JSON.stringify(analyticsData));
+        });
+        window.onbeforeunload = function() {
+
+        return "Есть несохранённые изменения. Всё равно уходим?";
+        };
+        // текущее состояние
+        console.log(document.readyState);
+
+        // вывести изменения состояния
+        document.addEventListener('readystatechange', () => console.log(document.readyState));
+      </script>
+
+
+</body>
+</html>

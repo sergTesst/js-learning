@@ -1,0 +1,479 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Document</title>
+    <!-- https://htmlcolorcodes.com/ color picker -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event -->
+    <!-- https://keycode.info/  get key numbers--> 
+    <!-- https://stackoverflow.com/questions/5203407/how-to-detect-if-multiple-keys-are-pressed-at-once-using-javascript -->
+    <!-- https://getbootstrap.com/docs/4.0/components/buttons/ -->
+<!-- ASYNC FUNCTIONS https://developer.cdn.mozilla.net/ru/docs/Web/JavaScript/Reference/Statements/async_function -->
+<!-- https://zellwk.com/blog/css-values-in-js/ change computed styles That are in external css files -->
+<!-- https://developer.mozilla.org/uk/docs/Web/JavaScript/Guide/Regular_Expressions REGEX -->
+<!-- return multiple values https://stackoverflow.com/questions/2917175/return-multiple-values-in-javascript -->
+<!--Pass By Value And Pass By Reference In JavaScript https://medium.com/nodesimplified/javascript-pass-by-value-and-pass-by-reference-in-javascript-fcf10305aa9c -->
+
+<!-- VERY GOOD Resource https://www.w3schools.com/js/js_function_call.asp -->
+<!-- rem em px vw vh UNITS https://learn.javascript.ru/css-units -->
+
+<!-- getting object properties https://javascript.info/keys-values-entries -->
+</head>
+<body>
+    <div class="container" id="root">
+
+        <a href="http://localhost:8090/latest-bootstrap.html">latest bootstrap</a>
+        <a href="http://localhost:8090/testingJquery.html">testing Jquery</a>
+        <a href="http://localhost:8090/timers.html">timers</a>
+        <a href="http://localhost:8090/chat-b4.html">timers</a>
+
+        <button id="clickable-btn">click me</button>
+        <div>
+            <img id="myImg" 
+                src="https://www.autotrader.co.uk/home-pages/images/static/covid-panel/blue-car-v2.png" 
+                style="width:100%;height:432px;">
+            <br>
+            <button type="button" onclick="myFunction()">Return width of image</button>
+        </div>
+    </div>
+    
+
+    <script>
+        "use strict"
+        function createElement({ tagName, className, attributes = {} }) {
+            const element = document.createElement(tagName);
+
+            if (className) {
+                const classNames = className.split(' ').filter(Boolean);
+                element.classList.add(...classNames);
+            }
+
+            Object.keys(attributes).forEach((key) => 
+                element.setAttribute(key, attributes[key]));
+
+            return element;
+        }
+
+        let btn = document.getElementById("clickable-btn");
+        btn.addEventListener("click",()=>{
+            btn.innerHTML="You clicked"
+            btn.style.backgroundColor="red";
+            btn.disabled = true;
+            setTimeout(()=>{
+                btn.disabled = false;
+                btn.style.backgroundColor="white";
+            },1000);
+
+        },false);
+        const rootElement = document.getElementById("root");
+
+        let keys = [];
+        let newBtn1 = createElement({tagName:"button",className:""});
+        setInitialStylesFirstBtn();
+
+        function setInitialStylesFirstBtn(){
+            newBtn1.innerHTML = "first button";
+            newBtn1.style.backgroundColor = "#F67E26";
+        }
+
+        let newBtn2 = createElement({tagName:"button",className:""});
+        setInitialStylesSecondBtn();
+        
+        function setInitialStylesSecondBtn(){
+            newBtn2.innerHTML = "second button";
+            newBtn2.style.backgroundColor = "#09DA95";
+        }
+
+
+        function setStylesFirstBtn(text){
+            newBtn1.style.backgroundColor= "#fe33ff";
+            newBtn1.innerHTML = text;
+        }
+        function setStylesSecondBtn(text){
+            newBtn2.style.backgroundColor= "#2AF05E";
+            newBtn2.innerHTML = text;
+        }
+        let canSetStylesForFirstBtn = true;
+        let canSetStylesForSecondBtn = true;
+
+        window.addEventListener("keydown",(e)=>{
+            keys[e.code] = true;
+            if(keys["KeyV"]&&keys["KeyG"]){//if key v and g pressed
+                if(canSetStylesForFirstBtn)
+                    setStylesFirstBtn("combo keys v and g");
+                if(canSetStylesForSecondBtn)
+                    setStylesSecondBtn("combo keys v and g");
+            }else if(keys["KeyP"]){ //if p pressed unable to set styles for first button 
+                canSetStylesForFirstBtn = false;
+                newBtn1.disabled = true;
+                newBtn1.innerHTML = "Blocked by pressing key p";
+            }else if(keys["KeyO"]){//if o pressed unable to set styles for first button 
+                canSetStylesForSecondBtn = false;
+                newBtn2.disabled = true;
+                newBtn2.innerHTML = "Blocked by pressing key o";
+            }else if(keys["KeyV"]) {
+                if(canSetStylesForFirstBtn)
+                    setStylesFirstBtn("key v");
+            }else if(keys["KeyG"]){
+                if(canSetStylesForSecondBtn)
+                    setStylesSecondBtn("key g");
+            }  
+            
+        });
+        function clearKeys(e){
+            keys[e.code] = false;
+            keys = keys.filter(elem=>elem!==e.code);
+        }
+
+        window.addEventListener("keyup",(e)=>{
+            if(e.code==="KeyP"){
+                canSetStylesForFirstBtn = true;
+                newBtn1.disabled = false;
+            }else if(e.code==="KeyO"){
+                canSetStylesForSecondBtn = true;
+                newBtn2.disabled = false;
+            }       
+            if(e.code==="KeyV"&&canSetStylesForFirstBtn){
+                clearKeys(e);
+                setInitialStylesFirstBtn();
+                return;
+            }
+            if(e.code==="KeyG"&&canSetStylesForSecondBtn){
+                clearKeys(e);
+                setInitialStylesSecondBtn();
+                return;
+            }
+
+            keys[e.code] = false;
+            keys =keys.filter(elem=>elem!==e.code);
+            
+        });
+        rootElement.append(newBtn1);
+        rootElement.append(newBtn2);
+
+        // let timerId = setInterval(() => alert('tick'), 2000);
+        // setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
+        //setTimeout(() => { alert('stop 5 seconds gone'); }, 5000);
+
+        (function createContent(){
+            const divContainer = createElement({
+                tagName:"div",
+                className:"container",
+                attributes:{
+                    id:"main-container"
+                }
+            });
+            const divContRow = createElement({
+                tagName:"div",
+                className:"row",
+                attributes:{
+                    id:"divContElement"
+                }
+            });
+
+            const formEl = createElement({
+                tagName:"form",
+                attributes:{id:"ajaxForm"}});
+            formEl.style.margin="3em";
+
+            const divForInputText1 = createElement({tagName:"div",
+                className:"form-group",
+                attributes:{id:"myForm"}});
+
+            const inputForm1 = createElement({tagName:"input",
+                className:"form-group",
+                attributes:{
+                    type:"text",
+                    placeholder:"enter message",
+                    name:"title",
+                    value:"test value 1"
+                }});
+
+            const divForInputText2 = createElement({tagName:"div",
+                className:"form-group",
+                attributes:{id:"myForm"}});
+
+            const inputForm2 = createElement({tagName:"input",
+                className:"form-group",
+                attributes:{
+                    type:"text",
+                    placeholder:"enter message",
+                    name:"body",
+                    value:"test value 1"
+            }});
+            const divForInputText3 = createElement({tagName:"div",
+                className:"form-group",
+                attributes:{id:"myForm"}});
+            const inputForm3 = createElement({tagName:"input",
+                className:"form-group",
+                attributes:{
+                    type:"number",
+                    placeholder:"enter id",
+                    name:"userId",
+                    value:1
+                }});
+
+            const promiseBtn = createElement({tagName:"button",
+            className:"btn btn-success"});
+            promiseBtn.innerHTML="initial text";
+
+            promiseBtn.addEventListener("click",()=>{
+                promiseBtn.innerHTML="clicked";
+            });
+
+            const submitBtn = createElement({
+                tagName:"button",
+                className:"btn btn-dark",
+                attributes:{
+                    type:"submit"
+                }
+            });
+            submitBtn.innerHTML = "Submit this";
+
+            const divForButtons = createElement({
+                tagName:"div",
+                className:"form-group"});
+
+            divForButtons.append(promiseBtn,submitBtn)
+            divForInputText1.append(inputForm1);
+            divForInputText2.append(inputForm2);
+            divForInputText3.append(inputForm3);
+                
+            formEl.append(
+                divForInputText1,
+                divForInputText2,
+                divForInputText3,
+                divForButtons);
+
+            const div1 = createElement({tagName:"div"});
+            div1.append(formEl);
+            divContRow.append(div1);
+            divContainer.append(divContRow);
+            rootElement.append(divContainer);
+        })();
+        
+
+        function timeOutPromise(message,interval){
+            return new Promise((resolve,reject)=>{
+                if(message===''||typeof(message)!=="string"){
+                    reject(`message ${message} is empty string or not a string`);
+                }else if(interval<=0|| typeof(interval)!=="number"){
+                    reject(`interval ${interval} is not valid`)
+                }else{
+                    setTimeout(()=>{
+                        resolve(`message: ${message}`);
+                    },interval);    
+                }
+            });
+        }
+
+        timeOutPromise("My message",2000)
+            .then(message=>{
+                const divEl = createElement({tagName:"div"});
+                const pEl = createElement({tagName:"p"});
+                const resultMessage = `message from promise:<br> ${message}`;
+                pEl.innerHTML = resultMessage;
+                divEl.append(pEl);
+                document.getElementById("divContElement").append(divEl);
+
+            }
+        ).catch(e=>{
+            console.log(e);
+            console.error(e.message);
+        });
+
+        (function makeRequest(){
+
+// https://jsonplaceholder.typicode.com
+// https://jsonplaceholder.typicode.com/guide/
+
+            fetch('https://jsonplaceholder.typicode.com/posts/1', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: 1,
+                    title: 'foo',
+                    body: 'bar',
+                    userId: 1,
+                }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+            })
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+
+            // This will return all the posts that belong to the first user
+            fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
+                .then((response) => response.json())
+                .then((json) =>{
+                    console.log("this json");
+                    console.log(json);
+                    const div = createElement({tagName:"div",className:"row"});
+                    const div_col = createElement({tagName:"div",className:"col-sm-4"});
+                    const ul_el = createElement({
+                        tagName:"ul",
+                        className:"list-group"
+                    });
+                    for(let user of json){
+                        const li_el = createElement({
+                            tagName:"li",
+                            className:"list-group-item"
+                        });
+                        li_el.innerHTML = `${user.title} ${user.body}`;
+                        ul_el.append(li_el);
+                    }
+                    div_col.append(ul_el);
+                    div.append(div_col);
+                    rootElement.append(div);
+
+                });
+
+            fetch('https://jsonplaceholder.typicode.com/posts')
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+
+        })();
+
+
+        (function counterExecution(){
+// https://learn.javascript.ru/closure#vlozhennye-funktsii
+            function increment(){
+                let counter = 0;
+                return function (){
+                    return counter++;
+                }
+            }
+            
+            const btn1 = createElement({tagName:"button",className:"btn btn-primary"});
+            btn1.innerHTML = "click to increment";
+            let res = increment();
+            let resultOfIncrement = 0;
+
+            btn1.addEventListener('click',(e)=>{
+                resultOfIncrement = res();
+                btn1.innerHTML = `clicks: ${resultOfIncrement}`;
+            },false);
+            
+            setInterval(()=>{
+                if(resultOfIncrement>5){
+                    btn1.style.backgroundColor = "#7FFEA0";
+                }
+            },1000/24);
+
+            const div = createElement({tagName:"div"});
+            div.append(btn1);
+            document.getElementById("divContElement").append(div);
+        })();
+
+        //https://habr.com/ru/company/piter/blog/426709/
+        //https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_countdown
+        (function CustomTimer(){
+            const p1 = createElement({tagName:"p"});
+            let timeMiliseconds = 300000;//5 min
+            let timeInterval = setInterval(()=>{
+                let now = 1000;
+                timeMiliseconds -= now;
+                let minutes = Math.floor((timeMiliseconds % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((timeMiliseconds % (1000 * 60)) / 1000);
+                p1.innerHTML = `${minutes} m ${seconds} s`;
+                if (timeMiliseconds < 0) {
+                    clearInterval(timeInterval);
+                    p1.innerHTML = "EXPIRED";
+                }
+            },1000);
+            document.getElementById("divContElement").append(p1);
+        })();
+        //https://www.w3schools.com/jsref/prop_style_width.asp
+        const initialCarWidth = document.getElementById("myImg").style.width;
+        function myFunction(){
+            let el = document.getElementById("myImg");
+            console.log("width "+el.style.width);
+            var myRe = /\d+/;
+            let res = myRe.exec(el.style.width);
+            console.log("result "+res);
+            res-=10;
+            el.style.width=res+"%"
+            if(res<0){
+                el.style.width = initialCarWidth;
+            }
+        };
+
+    </script>
+
+    <script>
+        //async sample
+        function resolveAfter2Seconds(x) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                resolve(x);
+                }, 2000);
+            });
+        };
+
+        (async function(x) { // выражение асинхронной функции в виде IIFE
+            var a = resolveAfter2Seconds(20);
+            var b = resolveAfter2Seconds(30);
+            return x + await a + await b;
+        })(10).then(v => {
+            console.log(v);  // выведет 60 после 2 секунд.
+        });
+
+        var add = async function(x) { // назначение выражения асинхронной функции переменной
+            var a = await resolveAfter2Seconds(20);
+            var b = await resolveAfter2Seconds(30);
+            return x + a + b;
+        };
+
+        add(10).then(v => {
+            console.log(v);  // выведет 60 после 4 секунд.
+        });
+    </script>
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+
+    <script>
+        //how to send form
+        // https://coderoad.ru/1960240/jQuery-AJAX-отправить-форму
+
+        //question
+        //https://stackoverflow.com/questions/41431322/how-to-convert-formdata-html5-object-to-json/46774073#46774073
+
+        //how to get data from form element 
+        //https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+
+
+        $("#ajaxForm").submit(function(e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            var formElement = $(this);
+            console.log('Serialized form jquery\n',formElement.serialize());
+
+            let formData = new FormData(document.getElementById("ajaxForm"));
+            let data_values = JSON.stringify(Object.fromEntries(formData));
+            console.log('Serialized form js\n',data_values);
+
+            var url = 'https://jsonplaceholder.typicode.com/posts';//form.attr('action');
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formElement.serialize(), // serializes the form's elements.
+                    success: function(data)
+                    {
+                        console.log("success response");
+                        console.log(data); // show response from the php script.
+                    }
+            });
+        });
+
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<!-- https://github.com/http-party/http-server  -->
+<!-- https://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server?page=1&tab=votes#tab-top -->

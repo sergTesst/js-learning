@@ -1,0 +1,116 @@
+
+<!-- https://jstutorial.medium.com/making-your-own-vanilla-js-router-2e621ffdee88 -->
+
+<!-- https://github.com/javascriptteacher/vanilla/blob/master/router.html -->
+
+<html>
+<head>
+    <title>Hello</title>
+
+    <script type = "module">
+
+        window.onload = event => {
+            // Add history push() event when boxes are clicked
+            window["home"].addEventListener("click", event => push(event))
+            window["about"].addEventListener("click", event => push(event))
+            window["gallery"].addEventListener("click", event => push(event))
+            window["contact"].addEventListener("click", event => push(event))
+            window["help"].addEventListener("click", event => push(event))
+        }
+
+        function push(event) {
+            // Get id attribute of the box or button or link clicked
+            let id = event.target.id;
+            // Visually select the clicked button/tab/box
+            select_tab(id);
+            // Update Title in Window's Tab
+            document.title = id;
+            // Load content for this tab/page
+            load_content(id);
+            // Finally push state change to the address bar
+            window.history.pushState({id}, `${id}`, `/page/${id}`);
+        }
+
+        function select_tab(id) {
+            // remove selected class from all buttons
+            document.querySelectorAll(".route")
+                .forEach(item => item.classList.remove('selected'));
+            // select clicked element (visually)
+            document.querySelectorAll("#" + id)
+                .forEach(item => item.classList.add('selected'));
+        }
+
+        function load_content(id) {
+            console.log("Loading content for {" + id + "}");
+            
+            document.querySelector("#content")
+                .innerHTML = 'Content loading for /' + id + '...';
+        }
+        
+        window.addEventListener("popstate", event => {
+            let stateId = event.state.id;
+            console.log("stateId = ", stateId);
+            select_tab(stateId);
+            load_content(stateId);
+        });
+
+    </script>
+
+    <style>
+            * { /* global font */
+                font-family: Verdana;
+                font-size: 18px;
+            }
+            .container-flex{
+                display: flex;
+                align-items: center; 
+                flex-direction: column;
+            }
+            #root { display: flex; flex-direction: row; }
+            #content { display: flex;
+                display: block;
+                width: 800px;
+                height: 250px;
+                /* vertically centered text */
+                line-height: 250px;
+                border: 2px solid #555;
+                margin: 32px;
+                text-align: center;
+            }
+            .route {
+                cursor: pointer;
+                justify-content: center;
+                width: 150px;
+                height: 50px;
+                /* vertically centered text */
+                line-height: 50px;
+                position: relative;
+                border: 2px solid #555;
+                background: white;
+                text-align: center;
+                margin: 16px;
+            }
+            .route.selected { background: yellow; }
+            
+        </style>
+</head>
+
+<body>
+
+<div class="container-flex">
+    <section id = "root">
+        <section class = "route" id = "home">/home</section>
+        <section class = "route" id = "about">/about</section>
+        <section class = "route" id = "gallery">/gallery</section>
+        <section class = "route" id = "contact">/contact</section>
+        <section class = "route" id = "help">/help</section>
+    </section>
+    
+    <main id = "content">Content loading...</main>
+</div>
+
+
+
+</body>
+
+</html>
