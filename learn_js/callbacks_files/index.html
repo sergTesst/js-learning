@@ -1,0 +1,333 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+</head>
+
+<style>
+	body{
+		font-size:xx-large;
+	}
+	canvas{
+		transition-property: width, height, margin-left, margin-top;
+    transition-duration: 2s;
+	}
+</style>
+
+<body>
+	<div style="display: flex; ">
+		<div style="margin-bottom: 20px;">
+			<h1> data </h1>
+			<button class="btnDrawCircle" >draw circle </button>
+		</div>
+		<div>
+			<canvas  width="500" height="500" style="border:1px solid #d3d3d3;" ></canvas>
+		</div>
+	</div>
+
+
+	
+
+
+	<!-- <script type="module">
+
+		async function loadScript(src, callback){
+
+			return new Promise((resolve)=>{
+				const script = document.createElement('script');
+				script.src = src;
+				script.onload = () =>{
+					
+					callback(script)
+				};
+				script.onerror = () => callback(
+					new Error(`Не удалось загрузить скрипт ${src}`));
+
+					document.head.append(script);
+				resolve(()=>{
+					
+					return 'loaded';
+				});
+			},(reject)=>{
+				console.log('error happend');
+				reject('not loaded');
+			});
+
+		}
+
+		const callBack = function(script){
+			console.log(script.src, ' has been loaded');
+			heavyExecution();
+		};
+
+		const res1 = await loadScript('./script.js',callBack);
+		
+		const res2 = await loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',(script)=>{
+			console.log(script.src, ' has been loaded');
+			console.log(_)
+		});
+
+		try {
+			loadScript('not existing script',function(error,script){
+				if(error instanceof Error){
+					console.log(error.message)
+				}
+			}).catch(err=>console.log(err.name))
+
+		} catch (error) {
+			console.error(error.name);
+		}
+
+	</script> -->
+
+	<script type="module">
+
+		function loadScript(src){
+
+			return new Promise((resolve,reject)=>{
+				const script = document.createElement('script');
+				script.src = src;
+				script.onload = () =>{
+					console.log('successfylly loaded');
+					return resolve(script);
+				} 
+
+				script.onerror = () => {
+					console.log('error happend');
+					return reject(new Error(`Не удалось загрузить скрипт ${src}`))
+				}
+				document.head.append(script);
+			});
+		}
+
+		const callBackErrorHandling = function(error){
+			console.log(`Error occured while loading script ${error.name}, ${error.message}`);
+		}
+
+		loadScript('./script.js')
+		.then(function(script){
+			console.log(`${script.src} has been loaded`);
+			heavyExecution();
+		},callBackErrorHandling);
+
+		loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js')
+		.then((script)=>{
+			console.log(script.src, ' has been loaded');
+			console.log(_)
+		},callBackErrorHandling);
+
+		loadScript('not existing script')
+		.then(function(script){
+			console.log(script.src, ' has been loaded');
+		},callBackErrorHandling)
+		.catch(err=>{
+			console.log('catch block');
+			console.log(err.name)
+		})
+
+	</script>
+
+	<!-- <script type="module">
+
+		function loadScript(src, callback){
+
+			const script = document.createElement('script');
+			script.src = src;
+			script.onload =() =>callback(script, null);
+			script.onerror = () => callback(null, new Error(`Не удалось загрузить скрипт ${src}`));
+			document.head.append(script);
+
+		}
+
+		function handleError(error){
+
+			if(error instanceof Error){
+				console.log(error.message)
+			}else{
+				console.log('unknown error');
+			}
+
+		}
+
+		try {
+
+			loadScript('./script.js',loadFileScript);
+
+			function loadFileScript(script,error){
+				
+				if(error){
+					handleError(error);
+				}else{
+					console.log(script.src, ' has been loaded');
+
+					loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',loadLodash);
+				}
+			}
+			
+			function loadLodash(script,error){
+				if(error){
+					handleError(error);
+				}else{
+					console.log(script.src, ' has been loaded');
+					loadScript('not existing script',loadNonExistingScript);
+				}
+			}
+
+			function loadNonExistingScript(script,error){
+				if(error){
+					handleError(error);
+				}else{
+					console.log(script.src, ' has been loaded');
+					console.log('successfylly finished')
+				}
+			}
+
+
+
+		} catch (error) {
+			console.log('catch called');
+			console.log(error.message);
+		}
+
+	</script> -->
+
+	<script type="module">
+
+		// function drawCircle(x,y,radius,startAngle,endAngle,colour, callback){
+
+		// 	let initialRadius = 0;
+		// 	window.requestAnimationFrame(draw);
+
+		// 	function draw(){
+		// 		const canvas = document.querySelector('canvas');
+		// 		const ctx = canvas.getContext('2d');
+		// 		ctx.clearRect(0,0,500,500);
+
+		// 		ctx.fillStyle = colour;
+		// 		ctx.beginPath();
+		// 		// console.log(endAngle);
+
+		// 		ctx.arc(x,y,initialRadius,startAngle,endAngle);
+		// 		ctx.fill();
+
+		// 		const time = 5000;
+		// 		const timeOutId = setTimeout(()=>{
+		// 			// console.log('in timeOut');
+
+		// 			if(initialRadius<radius){
+		// 				initialRadius+=Math.floor(radius*radius/time);
+		// 				window.requestAnimationFrame(draw);
+		// 			}else{
+		// 				clearTimeout(timeOutId)
+		// 				callback(ctx);
+		// 			}
+		// 		},Math.floor(time/radius))
+
+				
+		// 	}
+
+		// }
+
+		// document.querySelector('.btnDrawCircle').addEventListener('click',()=>{
+		// 	const x = 250;
+		// 	const y = 250;
+		// 	drawCircle(x,y,150,0,Math.PI*2,'red',function(ctx){
+		// 		//const ctx = document.querySelector('canvas').getContext('2d');
+		// 		ctx.fillStyle = 'black'
+		// 		ctx.font = '48px serif';
+		// 		ctx.textAlign = 'center';
+		// 		ctx.fillText('Circle is drawn', x, y);
+		// 	});
+		// })
+
+
+		function drawCircle(x,y,radius,startAngle,endAngle,colour){
+
+			return new Promise((resolve,reject)=>{
+
+				let initialRadius = 0;
+				window.requestAnimationFrame(draw);
+
+				function draw(){
+					const canvas = document.querySelector('canvas');
+					const ctx = canvas.getContext('2d');
+					ctx.clearRect(0,0,500,500);
+
+					ctx.fillStyle = colour;
+					ctx.beginPath();
+					// console.log(endAngle);
+
+					ctx.arc(x,y,initialRadius,startAngle,endAngle);
+					ctx.fill();
+
+					const time = 5000;
+					const timeOutId = setTimeout(()=>{
+						// console.log('in timeOut');
+
+						if(initialRadius<radius){
+							initialRadius+=Math.floor(radius*radius/time);
+							window.requestAnimationFrame(draw);
+						}else{
+							clearTimeout(timeOutId)
+							resolve(ctx);
+						}
+					},Math.floor(time/radius))
+
+				}
+
+			})
+
+		}
+
+
+		document.querySelector('.btnDrawCircle').addEventListener('click',()=>{
+			const x = 250;
+			const y = 250;
+
+			drawCircle(x,y,150,0,Math.PI*2,'red')
+			.then(function(ctx){
+				ctx.fillStyle = 'black'
+				ctx.font = '48px serif';
+				ctx.textAlign = 'center';
+				ctx.fillText('Circle is drawn', x, y);
+			});
+			
+		})
+
+
+		document.addEventListener("DOMContentLoaded", ()=> {
+			console.log("DOM build"); 
+			console.log(Math.floor(2000/150))
+		});
+
+
+	</script>
+
+	<script type="module">
+		const promise = new Promise((resolve,reject)=>{
+			setTimeout(()=>{reject(new Error('uncaught Error!'))},2000)
+		})
+
+		try {
+			promise.finally(()=>{console.log('stop loading')})
+			.then(
+			(result)=>{
+				console.log(result)
+			},
+			error=> console.log(error)
+		)
+		} catch (error) {
+			console.log('Error occured');
+		}
+
+		// promise.catch(alert)
+
+
+	</script>
+
+	
+</body>
+</html>
