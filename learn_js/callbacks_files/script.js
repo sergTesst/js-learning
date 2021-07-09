@@ -27,7 +27,23 @@ function promiseTasks(){
 		
 		delay(3000).then((result) => alert('выполнилось через 3 секунды ',result));
 	}
-	taks2();
+
+	function task3(){
+
+		new Promise(function(resolve, reject) {
+			setTimeout(() => {
+				// reject( 
+					new Error("Whoops!") 
+				// );
+			}, 1000);
+		}).catch(err=>{
+			console.log('Error block');
+			console.log(err.message)
+		});
+	}
+
+	task3();
+	// taks2();
 	//taks1();
 
 }

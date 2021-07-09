@@ -3,6 +3,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
 	<title>Document</title>
 
 </head>
@@ -15,88 +21,38 @@
 		transition-property: width, height, margin-left, margin-top;
     transition-duration: 2s;
 	}
+
 </style>
 
 <body>
-	<div style="display: flex; ">
+	<div class="cont d-flex" >
+
 		<div style="margin-bottom: 20px;">
 			<h1> data </h1>
 			<button class="btnDrawCircle" >draw circle </button>
 		</div>
+
 		<div>
+			<!--  width="500" height="500" -->
 			<canvas  width="500" height="500" style="border:1px solid #d3d3d3;" ></canvas>
 		</div>
+
 	</div>
 
 
-	
 
-
+	<!-- loading scripts with promise chaing -->
 	<!-- <script type="module">
 
-		async function loadScript(src, callback){
-
-			return new Promise((resolve)=>{
-				const script = document.createElement('script');
-				script.src = src;
-				script.onload = () =>{
-					
-					callback(script)
-				};
-				script.onerror = () => callback(
-					new Error(`Не удалось загрузить скрипт ${src}`));
-
-					document.head.append(script);
-				resolve(()=>{
-					
-					return 'loaded';
-				});
-			},(reject)=>{
-				console.log('error happend');
-				reject('not loaded');
-			});
-
-		}
-
-		const callBack = function(script){
-			console.log(script.src, ' has been loaded');
-			heavyExecution();
-		};
-
-		const res1 = await loadScript('./script.js',callBack);
-		
-		const res2 = await loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',(script)=>{
-			console.log(script.src, ' has been loaded');
-			console.log(_)
-		});
-
-		try {
-			loadScript('not existing script',function(error,script){
-				if(error instanceof Error){
-					console.log(error.message)
-				}
-			}).catch(err=>console.log(err.name))
-
-		} catch (error) {
-			console.error(error.name);
-		}
-
-	</script> -->
-
-	<script type="module">
-
-		function loadScript(src){
+		const loadScript = (src) => {
 
 			return new Promise((resolve,reject)=>{
 				const script = document.createElement('script');
 				script.src = src;
 				script.onload = () =>{
-					console.log('successfylly loaded');
 					return resolve(script);
-				} 
-
+				}
 				script.onerror = () => {
-					console.log('error happend');
 					return reject(new Error(`Не удалось загрузить скрипт ${src}`))
 				}
 				document.head.append(script);
@@ -110,16 +66,14 @@
 		loadScript('./script.js')
 		.then(function(script){
 			console.log(`${script.src} has been loaded`);
-			heavyExecution();
-		},callBackErrorHandling);
-
-		loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js')
+			return loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js')
+		
+		},callBackErrorHandling)
 		.then((script)=>{
 			console.log(script.src, ' has been loaded');
-			console.log(_)
-		},callBackErrorHandling);
+			return loadScript('not existing script')
 
-		loadScript('not existing script')
+		},callBackErrorHandling)
 		.then(function(script){
 			console.log(script.src, ' has been loaded');
 		},callBackErrorHandling)
@@ -127,63 +81,86 @@
 			console.log('catch block');
 			console.log(err.name)
 		})
+		.finally(()=>{
+			console.log('Finnaly block');
 
-	</script>
+			heavyExecution();
+			console.log(_);
+		})
 
-	<!-- <script type="module">
+	</script> -->
+
+<!-- loading scripts with callbacks -->
+	<script type="module">
+		
+		import { functionPromiseWrapperBuilder } from './helpers.js';
 
 		function loadScript(src, callback){
 
 			const script = document.createElement('script');
 			script.src = src;
-			script.onload =() =>callback(script, null);
+			script.onload =() =>callback( null,script );
 			script.onerror = () => callback(null, new Error(`Не удалось загрузить скрипт ${src}`));
 			document.head.append(script);
 
 		}
 
-		function handleError(error){
+		// function handleError(error){
 
-			if(error instanceof Error){
-				console.log(error.message)
-			}else{
-				console.log('unknown error');
-			}
+		// 	if(error instanceof Error){
+		// 		console.log(error.message)
+		// 	}else{
+		// 		console.log('unknown error');
+		// 	}
 
-		}
+		// }
 
 		try {
-
-			loadScript('./script.js',loadFileScript);
-
-			function loadFileScript(script,error){
-				
-				if(error){
-					handleError(error);
-				}else{
-					console.log(script.src, ' has been loaded');
-
-					loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',loadLodash);
-				}
-			}
 			
-			function loadLodash(script,error){
-				if(error){
-					handleError(error);
-				}else{
-					console.log(script.src, ' has been loaded');
-					loadScript('not existing script',loadNonExistingScript);
-				}
-			}
 
-			function loadNonExistingScript(script,error){
-				if(error){
-					handleError(error);
-				}else{
-					console.log(script.src, ' has been loaded');
-					console.log('successfylly finished')
-				}
-			}
+			//loadScript('./script.js',loadFileScript);
+
+			let loadScriptPromise = functionPromiseWrapperBuilder(loadScript);
+			loadScriptPromise('./script.js')
+			.then((script)=>{
+				console.log('then block ');
+				console.log(`${script.src} has been loaded`);
+			})
+			.catch(err=>{
+				console.log('error happend');
+				console.log('message, name ',err.message, err.name)
+			})
+
+
+			// function loadFileScript(script,error){
+				
+			// 	if(error){
+			// 		handleError(error);
+			// 	}else if(script){
+			// 		console.log('loadFileScript executing')
+			// 		console.log(script.src, ' has been loaded');
+
+			// 		// loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js',loadLodash);
+			// 	}
+			// }
+			
+			// function loadLodash(script,error){
+			// 	if(error){
+			// 		handleError(error);
+			// 	}else{
+			// 		console.log(script.src, ' has been loaded');
+			// 		loadScript('not existing script',loadNonExistingScript);
+			// 	}
+			// }
+
+			// function loadNonExistingScript(script,error){
+			// 	if(error){
+			// 		handleError(error);
+			// 	}else{
+			// 		console.log(script.src, ' has been loaded');
+			// 		console.log('successfylly finished')
+			// 	}
+			// }
 
 
 
@@ -192,8 +169,9 @@
 			console.log(error.message);
 		}
 
-	</script> -->
+	</script>
 
+	<!-- drawing circle -->
 	<script type="module">
 
 		// function drawCircle(x,y,radius,startAngle,endAngle,colour, callback){
@@ -294,19 +272,20 @@
 				ctx.textAlign = 'center';
 				ctx.fillText('Circle is drawn', x, y);
 			});
-			
+
 		})
 
 
 		document.addEventListener("DOMContentLoaded", ()=> {
 			console.log("DOM build"); 
-			console.log(Math.floor(2000/150))
+			// console.log(Math.floor(2000/150))
 		});
 
 
 	</script>
 
-	<script type="module">
+<!-- training promises -->
+	<!-- <script type="module">
 		const promise = new Promise((resolve,reject)=>{
 			setTimeout(()=>{reject(new Error('uncaught Error!'))},2000)
 		})
@@ -326,8 +305,158 @@
 		// promise.catch(alert)
 
 
-	</script>
+	</script> -->
 
+<!-- loading users from github -->
+<script type="module">
+
+	const alert = console.log;
+
+	function loadJson(url,page,per_page) {
+  return fetch(`${url}?page=${page}&per_page=${per_page}`,
+		// {
+		// 	method:'GET',
+		// 	headers:{
+		// 		// Authorization: JSON.stringify(
+		// 		// 	{token:"8d4ea00c51172445ec5277b48c5c79d56ab54ddc"}), 
+
+		// 		'page':JSON.stringify(page),
+		// 		'per_page':JSON.stringify(per_page)
+		// 	}
+		// }
+	)
+    .then(response => response.json());
+	}
+
+	function loadGithubUser(name) {
+		return fetch(`https://api.github.com/users/${name}`)
+			.then(response => response.json());
+	}
+
+	function showAvatar(githubUser,time) {
+		return new Promise(function(resolve, reject) {
+			console.log( 'githubUser in showAvatar ',githubUser.login)
+			let img = document.createElement('img');
+			img.src = githubUser.avatar_url;
+			img.className = "img-fluid";
+			img.style.width = '400px'
+			img.style.height = '400px'
+			document.querySelector('.cont').append(img);
+
+			setTimeout(() => {
+				img.remove();
+				console.log( 'githubUser in showAvatar in setTimeout ',githubUser.login)
+				resolve(githubUser);
+			}, time);
+		});
+	}
+	function randomInt(min,max){
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random()*(max-min))+min;
+	}
+
+	function getUserFromArr(a){
+		return new Promise((resolve,reject)=>{
+
+			const rI = randomInt(0,a.length);
+			console.log('random int ',rI);
+			const u = a[rI];
+			console.log('user in getUserFromArr \n ', u.login);
+			resolve(u);
+		})
+
+	}
+
+	// try {
+	// 	const users = await loadJson('https://api.github.com/users',3,50);
+	// 	let a = Array.from(users);
+	// 		while(a){
+	// 			console.log('length of users arr ', a.length);
+	// 			const user = await getUserFromArr(a)
+	// 			const githubUser = await showAvatar(user,2000);
+	// 			alert(`Показ аватара ${githubUser.login} завершён`);
+	// 			a = a.filter(u=>u!==githubUser);
+	// 			if(a.length==0)
+	// 				break;
+	// 		}
+	// } catch (error) {
+	// 	console.log(error.message);
+	// }
+
+</script>
+
+<!-- error handling for promises -->
+<!-- <script type="module">
+	
+
+
+	try {
+		//logging error to console
+		fetch('https://no-such-server.blabla') // ошибка
+			.then(response => response.json())
+			.catch(err => console.log(err))
+
+			hhe;
+	} catch (error) {
+		console.log(error.name)
+	}
+
+	window.addEventListener('unhandledrejection',(e)=>{
+		console.log(e.promise);
+		console.log(e.reason);
+	})
+
+	new Promise(function(resolve, reject) {
+		setTimeout(() => {
+			reject( new Error("Whoops!"));
+		}, 1000);
+	}).catch(err=>{
+		console.log('Error block');
+		console.log(err)
+	});
+
+</script> -->
+
+
+<script type="module" >
+	'use strict';
+
+const asyncRange = {
+
+  from: 1,
+  to: 5,
+
+  [Symbol.asyncIterator]() { 
+   
+		return {
+      current: this.from,
+      last: this.to,
+
+      
+      async next() { 
+         await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+        if (this.current <= this.last) {
+          return { done: false, value: this.current++ };
+        } else {
+          return { done: true };
+        }
+      }
+    };
+  }
+};
+
+(async () => {
+
+  for await (let val of asyncRange) { // (4)
+    console.log('returned value ',val); // 1,2,3,4,5
+  }
+
+})()
+
+
+</script>
 	
 </body>
 </html>

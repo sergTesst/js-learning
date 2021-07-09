@@ -1,0 +1,355 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+	<link
+		 
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+		rel="stylesheet" 
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+		crossorigin="anonymous">
+	<script 
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+		crossorigin="anonymous"></script>
+
+
+</head>
+
+ <style>
+ 
+	#app  {
+		margin:15px;
+		background-color: rgb(0, 179, 255);
+		display: flex;
+	}
+	/* * {
+		background-color: deeppink;
+	} */
+	#app div {
+		margin:15px;
+		background-color: rgba(106, 255, 0, 0.212);
+		border: 1px solid black;
+		border-radius: 3px;
+		padding: 4px;
+		width:max-content;
+		min-height: 20px;
+		min-width: 100px;
+	}
+	.inner-of-the-second {
+		display: flex;
+	}
+
+
+ </style>
+<body>
+  
+  <div id="app">
+    
+    <div>
+			The grand father of first elements
+      <div>
+				after grand father
+        <div>
+          firt part
+          <div>
+						father of not me
+            <div>
+              not me
+            </div>
+
+          </div>
+          
+        </div>
+        
+        <div>
+					second part
+          <div>
+						father of also not me
+            <div>
+              also not me
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    
+    <div>
+			The grand father of second elements
+      <div>
+				the first part of grand father of second
+				<div class="inner-of-the-second">
+
+					
+					<div>
+						after grand father 
+						<div>
+							father
+							<div>
+								close to I am lowwer
+								<div>
+									I am lowwer
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div>
+						the second part of grand father of second
+						<div>
+							after grand father of second
+							<div>
+								father
+								<div>
+									son of father
+									<div>
+										close to the highest
+										<div>
+											I am the highest
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div>
+						the third part of grand father of second
+						<div>
+							after grand father of third
+							<div>
+								close to mosty the highest
+								<div>
+									I am mostly the highest but no
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+      </div>
+
+    </div>
+    
+  </div>
+  
+
+
+
+	<script defer>
+
+		// const add = (...argsOne) => {
+		// 	const reducerSum = (a,c)=>a+c;
+			
+		// 	const sumFirst = argsOne.reduce(reducerSum);
+			
+		// 	if(argsOne.length==1){
+		// 		return function(...argsTwo){
+
+		// 			const sumSecond = argsTwo.reduce(reducerSum);
+
+		// 			return sumFirst+sumSecond;
+		// 		}
+		// 	}
+		// 	return sumFirst;
+
+
+		// }
+
+		// console.log('add(5)(2) =  ', add(5)(2));
+
+		// console.log('add(5,2) =  ',add(5,2));
+		// console.log('add(5,2) === add(5)(2) ',add(5,2) === add(5)(2)); 
+
+
+	</script>
+
+	<script defer>
+		 
+		// const getExtension = (str) => {
+		// 	if(typeof str !== 'string'){
+		// 		throw new Exeption('Invalid type of parameter')
+		// 	}
+		// 	const parts = str.split('.');
+		// 	return parts.length === 1 ? null: parts[parts.length-1]
+		// }
+
+		// console.log(getExtension('aboba'))
+		// console.log(getExtension('aboba.mr'))
+		// console.log(getExtension('aboba.mr.ado.aa')) 
+
+	</script>
+  
+	<!-- <script defer>
+
+
+		const paintEveryDiv = () => {
+			const appDiv = document.querySelector('#app');
+			
+		}
+
+		const getTheHighestDivElement = async () => {
+
+			const traverseElement = async (elem) => {
+				
+				const getNextElement = (elem) => {
+
+					return new Promise((resolve)=>{
+
+						const timeOutId = setTimeout(()=>{
+							elem.style.backgroundColor = '';
+
+							if(elem.nextElementSibling){
+								siblingElements.push(elem.nextElementSibling);
+							}
+
+							elem = elem.firstElementChild;
+
+							clearTimeout(timeOutId);
+							resolve(elem);
+
+						},1000);
+
+					})
+
+				}
+
+				while(elem.firstElementChild!=null){
+					elem.style.backgroundColor = 'deeppink';
+					elem = await getNextElement(elem);
+				}
+				console.log(elem);
+
+				let helperElem = elem;
+				let counter = 0;
+				while(helperElem.parentElement!=null) {
+					counter++;
+					helperElem = helperElem.parentElement;
+				}
+				const highestElement = {elem,counter};
+				console.log(highestElement)
+				highestElements.push(highestElement)
+			}
+
+			const appDiv = document.querySelector('#app');
+			elem = appDiv.firstElementChild;
+			let siblingElements = [];
+			const highestElements = [];
+
+			await traverseElement(elem);
+
+			let counter = 0;
+			while(siblingElements.length>0){
+
+				await traverseElement(siblingElements[counter]);
+
+				siblingElements.splice(counter,1);
+
+			}
+			let highestElement = {elem:null, counter:0};
+			highestElements.forEach(elem=>{
+
+				if(elem.counter>highestElement.counter){
+					highestElement = elem;
+				}
+
+			})
+			
+			console.log('highest element ', highestElement);
+
+		}
+		getTheHighestDivElement();
+
+		// for (let node of document.body.childNodes) {
+  	// 	console.log(node); // покажет все узлы из коллекции
+		// }
+
+		// for (let prop in document.body.childNodes) console.log(prop);	
+		
+		// for (let node of document.body.children) {
+  	// 	console.log(node); 
+		// }
+		
+	</script> -->
+
+<script type="module">
+	const appDiv = document.querySelector('#app');
+	
+	const getMaxDepth = async (elem, currentLevel) => {
+
+		if(elem.children.length == 0) return 0;
+		let maxDepth = currentLevel;
+
+		// Array.from(elem.children).forEach(async el=>{
+		
+		// 	el.style.backgroundColor = 'deeppink';
+
+		// 	// maxDepth = Math.max(getMaxDepth(el, ++currentLevel), maxDepth)
+		// 	maxDepth = await promiseMax(el, getMaxDepth, el, ++currentLevel, maxDepth)
+	
+		// })
+		// return maxDepth;
+
+		return await iterateThroughElemChildren(elem,maxDepth,currentLevel);
+		
+	}
+
+	const iterateThroughElemChildren = async (elem, maxDepth, currentLevel) => {
+
+		// return new Promise(async (resolve)=>{
+
+		// 	for(let el of Array.from(elem.children)){
+		// 		el.style.backgroundColor = 'deeppink';
+		// 		console.log(maxDepth)
+		// 		maxDepth = await promiseMax(el, getMaxDepth, el, ++currentLevel, maxDepth)
+		// 	}
+		// 	resolve(maxDepth)
+		// })
+
+		const allDepths = Array.from(elem.children).map( async el=>{
+			el.style.backgroundColor = 'deeppink';
+			console.log(maxDepth);
+			maxDepth = await promiseMax(el, getMaxDepth, el, ++currentLevel, maxDepth)
+			return maxDepth;
+		})
+
+		const arrayResult = await Promise.all(allDepths);
+		console.log('all promise finished');
+		console.log(arrayResult);
+	}
+
+	const promiseMax = (el, callBack, ...args) => {
+		return new Promise((resolve)=>{
+			const timeOutId = setTimeout(()=>{
+				clearTimeout(timeOutId);
+				el.style.backgroundColor = '';
+				// console.log(el)
+				resolve(Math.max(callBack.call(this, args[0], args[1] ),args[2]))
+
+			},1000)
+		})
+	}
+
+	//console.log(getMaxDepth(appDiv,0))
+</script>
+
+<script defer>
+	// get div element
+	const divElement = document.children[0].children[1].children[2]; 
+	console.log('divElement ',divElement); 
+
+	console.log('divElement.lastChild.nextSibling ',divElement.lastChild.nextSibling);
+
+	// console.log(divElement.children[0].previousElementSibling)
+
+
+
+</script>
+
+
+</body>
+</html>

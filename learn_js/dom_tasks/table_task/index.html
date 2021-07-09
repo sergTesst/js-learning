@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link
+		 
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+<script 
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+	crossorigin="anonymous"></script>
+
+
+	<title>Document</title>
+</head>
+<body>
+	
+	<div id="app">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-5">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th>one</th>
+								<th>two</th>
+								<th>three</th>
+							</tr>
+						</thead>
+							<tr>
+								<td>1:1</td>
+								<td>2:2</td>
+								<td>3:3</td>
+							</tr>
+							<tr>
+								<td>1:1</td>
+								<td>2:2</td>
+								<td>3:3</td>
+							</tr>
+							<tr>
+								<td>1:1</td>
+								<td>2:2</td>
+								<td>3:3</td>
+							</tr>
+							<tr>
+								<td>1:1</td>
+								<td>2:2</td>
+								<td>3:3</td>
+							</tr>	
+							<tr>
+								<td>1:1</td>
+								<td>2:2</td>
+								<td>3:3</td>
+							</tr>	
+						<tbody>
+			
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+
+	<script type="module">
+
+		const paintCellWithTimeOut = async (cell,color)=>{
+			return await sleep(1000).then(_=>{
+				cell.style.backgroundColor = color;
+			})
+		}
+
+		const sleep = (ms) =>{
+			return new Promise((resolve)=>{
+				setTimeout(resolve,ms)
+			})
+		}
+
+
+		const table = document.querySelector('.table');
+		console.log('table.rows[0].cells[1].innerHTML ',table.rows[0].cells[1].innerHTML);
+		console.log('table.rows instanceof HTMLCollection ',table.rows instanceof HTMLCollection);
+
+		//paint every cell with timeOut
+		// for await(let row of Array.from(table.rows)){
+		// 	for await(let cell of Array.from(row.cells)){
+		// 		await paintCellWithTimeOut(cell,'red');
+		// 	}
+		// }
+
+
+		for(let i = 0;i<table.rows.length-1;i++){
+			let row;
+			if(table.rows) row = table.rows[i+1];
+			let cell;
+			if(row.cells) cell = row.cells[i];
+			if(cell) await paintCellWithTimeOut(cell,'red');
+		}
+
+
+	</script>
+</body>
+</html>

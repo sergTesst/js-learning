@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}\\functionsDeeper.js"
+			"program": "${workspaceFolder}\\generators.js"
 		}
 	]
 }
