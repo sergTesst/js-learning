@@ -1,0 +1,1413 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+	
+	<script 
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+		crossorigin="anonymous"></script>
+
+
+	<style>
+		
+	.clearConsole{
+		position: fixed;
+		width: 300px;
+		height: 100px;
+		background-color: rgba(255, 140, 0, 0.659);
+		right: 0;
+	}
+
+	.alert {
+		padding: 15px;
+		border: 1px solid #d6e9c6;
+		border-radius: 4px;
+		color: #3c763d;
+		background-color: #dff0d8;
+	}
+
+	.grid{
+		display: grid;
+		grid-template-columns: 50px 1fr 2fr;
+	}
+	
+
+	</style>
+
+
+</head>
+
+<body>
+
+	<script>
+		const cl = console.log;
+	</script>
+	
+	<div class="border rounded p-3 m-3 clearConsole" >
+		<button onclick="clearConsole()" 
+			class=" m-3 btn btn-primary">clearConsole</button>
+		<script>
+			 const clearConsole = () => console.clear();
+		</script>
+	</div>
+	
+	
+	<div id="app">
+	
+	
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6 border">
+					<h1>Theory</h1>
+
+					<div class="border rounded p-3 m-3 ">
+
+						<button 
+							onclick="createElements()" 
+							class=" m-3 btn btn-primary"> 
+							createElements
+						</button>
+
+							<div class="target-div-1"></div>
+						<script>
+							function createElements(){
+								let div = document.createElement('div');
+								let textNode = document.createTextNode(`Here I am`);
+								div.classList.add('alert');
+								div.innerHTML = `<strong>Всем привет!</strong> Вы прочитали важное сообщение.`;
+								document.querySelector('.target-div-1').append(div);
+							}
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<code>
+							node.append(...nodes or strings) - add nodes or strings at the end of a node <br>
+							node.prepend(...nodes or strings) - inserts nodes or strings at the beginning of a node<br>
+
+							node.before(...nodes or strings) –- вставляет узлы или строки до node,<br>
+node.after(...nodes or strings) –- вставляет узлы или строки после node,<br>
+node.replaceWith(...nodes or strings) –- заменяет node заданными узлами или строками.<br>
+						</code>
+					</div>
+
+
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="addElements()" 
+							class=" m-3 btn btn-primary"> 
+							addElements
+						</button>
+						<div>
+							<ol id="ol">
+								<li>01</li>
+								<li>02</li>
+								<li>03</li>
+							</ol>
+						</div>
+						<div id="div3"></div>
+						<script>
+							function addElements(){
+								ol.before('before');
+								ol.after('after');
+								const li1=document.createElement('li');
+								li1.innerHTML = 'prepend';
+								ol.prepend(li1);
+								const li2=document.createElement('li');
+								li2.innerHTML = 'append';
+								ol.append(li2);
+
+								div3.before('<p>Привет</p>', document.createElement('hr'));
+
+							}
+						</script>
+					</div>
+					<div class="border rounded p-3 m-3 ">
+						<p>
+						we use insertAdjacentHTML/Text/Element to insert HTML into HTML document<br>
+						elem.insertAdjacentHTML(where, html);<br>
+						variants of where statement: <br>
+						<code>"beforebegin"</code> -- insert html just before elem<br>
+						<code>"afterbegin"</code> -- insert html at the begininng of an elem<br>
+						<code>"beforeend"</code> -- insert html at the end of an elem<br>
+						<code>"afterend"</code> -- insert html just after elem<br>
+
+							
+						</p>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="insertHTML1()" 
+							class=" m-3 btn btn-primary"> 
+							insertHTML1
+						</button>
+						<div id="div4"></div>
+						<script>
+							function insertHTML1(){
+								div4.insertAdjacentHTML('beforebegin', `<p>HELLO</p>`)
+								div4.insertAdjacentHTML('beforeend', `<p>Bye</p>`)
+							}
+						</script>
+					</div>
+					<div class="border rounded p-3 m-3 " 
+					style="background: linear-gradient( #e66465, #9198e5);">
+						<style>
+							#remove-btn{
+								background: darkmagenta; 
+								border-color: darkmagenta;
+								position:relative;
+								
+								margin: 0;
+								width:min-content;
+								color: white;
+								
+							}
+
+							#remove-btn:hover{
+								cursor: pointer;
+								background-color: rgb(198, 6, 198);
+								border-color: darkmagenta;
+								background-size: 50%;
+
+							}
+
+							.same-styles{
+								border-radius: 3px;
+								padding: 2%;
+							}
+							.remove-btn-animation{
+								animation: remove-btn-animation-keyframes;
+								animation-duration: 2s;
+								animation-timing-function: linear;
+								width:100%;
+								height: 100%;
+								position:absolute;
+								background:#d6e9c698;
+								top:-0.1%;
+								left:-0.1%;
+							}
+
+							@keyframes remove-btn-animation-keyframes {
+								0%{
+									background:#d6e9c698;
+									width: 0;
+									border-radius: 3px; 
+								}
+
+								80%{
+									background:#d6e9c698;
+									width: 100%;
+									border-radius: 3px;
+									
+								}
+								100%{
+									background:#d6e9c698;
+									width: 100%;
+									border-radius: 3px;
+									
+								}
+
+							}
+
+							.noselect {
+								-webkit-touch-callout: none; /* iOS Safari */
+									-webkit-user-select: none; /* Safari */
+									-khtml-user-select: none; /* Konqueror HTML */
+										-moz-user-select: none; /* Old versions of Firefox */
+											-ms-user-select: none; /* Internet Explorer/Edge */
+													user-select: none; /* Non-prefixed version, currently
+																								supported by Chrome, Edge, Opera and Firefox */
+							}
+
+							.with-fullfilling{
+								color: #d6e9c6;
+								transition: color, 0.3s;
+								position: relative;
+								border: 0;
+								background-color: dodgerblue;
+							}
+							.with-fullfilling:hover{
+								background-color: deepskyblue;
+							}
+
+							.with-fullfilling::after{
+								content: "";
+								position:absolute;
+								display: block;
+								width: 100%;
+								height: 100%;
+								background-color: #d6e9c698;
+								top:0;
+								left:0;
+								border-radius: 3px;
+								transition: width 1s linear, opacity 0.5s ease 1s;
+							}
+							.with-fullfilling:active::after{
+								width:0%;
+								opacity: 1;
+								transition: 0s;
+							}
+
+						</style>
+						<div
+							id="remove-btn"
+							class="same-styles noselect"
+							onclick="deleteAlertOnTimeOut()" >
+							deleteAlertOnTimeOut
+						</div>
+
+						<button
+							class=" same-styles  m-3 with-fullfilling"
+							onclick="deleteAlertOnTimeOut()" >
+							show alert message
+						</button>
+
+
+						<div id="div5">here</div>
+						<script>
+
+							function deleteAlertOnTimeOut(){
+								let div = document.createElement('div');
+								div.className = "alert";
+								div.innerHTML = "<strong>Всем привет!</strong> Вы прочитали важное сообщение.";
+								
+								let innerDiv = document.createElement('div');
+								innerDiv.classList.add('remove-btn-animation');
+								window['remove-btn'].append(innerDiv);
+								div5.append(div);
+
+								const clonedDivAlertMessage = div.cloneNode(true);
+								clonedDivAlertMessage.querySelector('strong').innerHTML = 'Good Bye everyone';
+								div.after(clonedDivAlertMessage);
+
+								setTimeout(() => {
+									
+									innerDiv.classList.remove('remove-btn-animation')
+									innerDiv.remove();
+									div.remove();
+									clonedDivAlertMessage.remove();
+
+								}, 2000);
+
+
+
+							}
+
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="makeAndAppendFragment()" 
+							class=" m-3 btn btn-primary"> 
+							makeAndAppendFragment
+						</button>
+						
+						<button 
+							onclick="makeAndAppendSpreadList()" 
+							class=" m-3 btn btn-primary"> 
+							makeAndAppendSpreadList
+						</button>
+						
+						
+						<ul id="append-fragment-here"> </ul>
+
+						<script>
+							function makeAndAppendFragment(){
+								const makeFragment = ()=>{
+									const fragment = new DocumentFragment();
+									for (let index = 0; index < 3; index++) {
+										const element = document.createElement('li');
+										element.innerText = `${index} element`;
+										fragment.append(element);
+									}
+									return fragment;
+								}
+								window['append-fragment-here'].append(makeFragment());
+							}
+							function makeAndAppendSpreadList(){
+								const makeFragment = ()=>{
+									const elems = [];
+									for (let index = 0; index < 3; index++) {
+										const element = document.createElement('li');
+										element.innerText = `${index} element`;
+										elems.push(element);
+									}
+									return elems;
+								}
+								window['append-fragment-here'].append(...makeFragment());
+							}
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="funcName()" 
+							class=" m-3 btn btn-primary"> 
+							funcName
+						</button>
+
+						<script>
+							function funcName(){
+								
+							}
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="document_write()" 
+							class=" m-3 btn btn-primary with-fullfilling"> 
+							document_write
+						</button>
+
+						<p>Через одну секунду содержимое этой страницы будет заменено...</p>
+
+						<script>
+							function document_write(){
+								// document.write через 1 секунду
+								// вызов происходит после того, как страница загрузится, поэтому метод затирает содержимое
+								setTimeout(() => document.write('<b>...Этим.</b>'), 1000);
+							}
+						</script>
+					</div>
+					
+
+				</div>
+
+
+				<div class="col-sm-6 border">
+					<h1>Tasks</h1>
+					
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="clearListElements()" 
+							class=" m-3 btn btn-primary"> 
+							clearListElements
+						</button>
+						
+						<ol id="ol-elem">
+							<li>Привет</li>
+							<li>Мир</li>
+						</ol>
+
+						<script>
+							function clearListElements(){
+
+								function clear(elem) { 
+
+									Array.from(elem.getElementsByTagName('li')).forEach(el=>{
+										el.remove();
+									})
+								}
+
+								clear(window['ol-elem']); // очищает список
+							}
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="removeTable()" 
+							class=" m-3 btn btn-primary"> 
+							removeTable
+						</button>
+						
+						<div>
+							<table class="table" id="table">
+								aaa
+								<tr>
+									<td>Тест</td>
+									<td>Тест</td>
+									<td>Тест</td>
+								</tr>
+								<tr>
+									<td>Тест</td>
+									<td>Тест</td>
+									<td>Тест</td>
+								</tr>
+								<tr>
+									<td>Тест</td>
+									<td>Тест</td>
+									<td>Тест</td>
+								</tr>
+							</table>
+						</div>
+
+
+						<script>
+							function removeTable(){
+								table.remove();
+							}
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+
+						<div class="row g-3">
+							<div class="col-sm-7">
+								<input type="text" class="form-control" 
+									id="inputPassword2" placeholder="elem...">
+							</div>
+							<div class="col-auto">
+								<button onclick="addElementToList()"
+									class="btn btn-primary mb-3">Add element</button>
+							</div>
+						</div>
+						<ul id="target-ul-list-2"></ul>
+						<script>
+							function addElementToList(){
+								let value = window['inputPassword2'].value.trim();
+								let lielem = document.createElement('li');
+								lielem.id = `${Date.now()}`
+								lielem.innerText = value !==''?value:'Empty elem';
+								window['target-ul-list-2'].append(lielem);
+							}
+						</script>
+					</div>
+
+
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="createTreeFromObject_withDom()" 
+							class=" m-3 btn btn-primary"> 
+							createTreeFromObject_withDom
+						</button>
+						<button 
+							onclick="createTreeFromObject_fromString()" 
+							class=" m-3 btn btn-primary"> 
+							createTreeFromObject_fromString
+						</button>
+						<button 
+							onclick="removeDataFromTargetContainer()" 
+							class=" m-3 btn btn-primary"> 
+							removeDataFromTargetContainer
+						</button>
+						<button 
+							onclick="addQuantityToParents()" 
+							class=" m-3 btn btn-primary"> 
+							addQuantityToParents
+						</button>
+						<button 
+							onclick="shortAddQuantityToParents()" 
+							class=" m-3 btn btn-primary"> 
+							shortAddQuantityToParents
+						</button>
+						
+						<div class="container">
+							<div class="row">
+								<div class="targetData col-auto">
+
+								</div>
+							</div>
+						</div>
+
+						<script>
+
+							const data = {
+								"Cущества":{
+									"Рыбы": {
+										"форель": {},
+										"лосось": {}
+									},
+								"Деревья": {
+									"Огромные": {
+										"секвойя": {},
+										"дуб": {}
+									},
+									"Цветковые": {
+										"яблоня": {},
+										"магнолия": {}
+									}
+								}
+								}
+
+							};
+
+							function createTreeFromObject_withDom(){
+								const targetDiv = document.querySelector('.targetData');
+								createTree(targetDiv, data);
+								
+								function createTree(container, data){
+									cl(data);
+									
+									container.append(traverseData(data))
+
+									function traverseData(data){
+										if(!Object.keys(data).length) return;
+										let ul = document.createElement('ul');
+
+										for(let key in data){
+											let li = document.createElement('li');
+											li.innerHTML = key;
+											let childredUl = traverseData(data[key])
+											if(childredUl){
+												li.append(childredUl);
+											}
+											ul.append(li);
+										}
+
+										return ul;
+
+									}
+								}
+							}
+
+							function createTreeFromObject_fromString(){
+								const targetDiv = document.querySelector('.targetData');
+								createTree(targetDiv, data);
+								function createTree(container, data){
+									container.innerHTML = traverseData(data);
+									function traverseData(data){
+										if(!Object.keys(data).length) return '';
+											let li = '';
+											let ul;
+										for(let key in data){
+											li +='<li>'+key+' '+traverseData(data[key])+'</li>';
+											// cl('li ', li);
+											if(li){
+												ul = '<ul>'+li+'</ul>';
+											}
+
+										}
+										if(ul)
+											return ul;
+									}
+
+								}
+							}
+						
+							function removeDataFromTargetContainer(){
+								Array.from(document.querySelector('.targetData').children).forEach(c=>c.remove())
+							}
+						
+							function addQuantityToParents(){
+								const targetDiv = document.querySelector('.targetData');
+								updateTree(targetDiv);
+								function updateTree(container){
+									if(!container|| !container.children.length) {
+										return;
+									}
+									traverseData(container.children);
+									function traverseData(dataChildren){
+
+										for(let child of Array.from(dataChildren)){
+
+											if(child.children.length){
+												if(child.tagName === 'LI'){
+													// cl(child.childNodes)
+													
+													let resCount = getInnerChildrenLength(child.children, 0);
+													cl('resCount ', resCount);
+													child.firstChild.data +=` [${resCount}]`;
+													child.insertAdjacentHTML('afterbegin',` ${resCount} `)
+													
+												}
+												traverseData(child.children)
+											}
+										}
+									}
+									function getInnerChildrenLength(dataChildren, count){
+										for(let child of Array.from(dataChildren)){
+											if(child.children.length){
+												count=getInnerChildrenLength(child.children, count);
+											}else{
+												cl(child);
+												++count;
+											}
+
+										}
+										return count;
+										
+									}
+
+
+								} 
+							}
+
+							function shortAddQuantityToParents(){
+								const container = document.querySelector('.targetData')
+								if(!container) return;
+								let lis = container.getElementsByTagName('li');
+								for(let li of lis){
+									let countOfChildLi = li.getElementsByTagName('li').length;
+									if(!countOfChildLi) continue;
+									li.firstChild.data += ` [${countOfChildLi}]`;
+								}
+							}
+
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="generateCalendar()" 
+							class=" m-3 btn btn-primary"> 
+							generateCalendar
+						</button>
+						
+						<div class="container">
+							<div class="row">
+
+								<div class="col-sm-5">
+									<div class="col-auto d-flex m-2">
+										<span class="m-2" >year</span>
+										<input type="number" class="form-control" 
+											id="year-inp" placeholder="year">
+									</div>
+									<div class="col-auto d-flex m-2">
+										<span class="m-2">month</span>
+										<input type="number" class="form-control" 
+											id="month-inp" placeholder="month">
+									</div>
+								</div>
+
+								<div>
+									<table class="table">
+
+										<thead>
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col">First</th>
+												<th scope="col">Last</th>
+												<th scope="col">Handle</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr>
+												<th scope="row">1</th>
+												<td>Mark</td>
+												<td>Otto</td>
+												<td>@mdo</td>
+											</tr>
+											<tr>
+												<th scope="row">2</th>
+												<td>Jacob</td>
+												<td>Thornton</td>
+												<td>@fat</td>
+											</tr>
+											<tr>
+												<th scope="row">3</th>
+												<td colspan="2">Larry the Bird</td>
+												<td>@twitter</td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+
+								<div class="calendar-elem col-sm-7">
+									..here
+
+									
+								</div>
+
+							</div>
+						</div>
+
+						<script>
+							window['year-inp'].value = 2021;
+								window['month-inp'].value = 6;
+
+							function generateCalendar(){
+								const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+									'Thursday', 'Friday', 'Saturday'];
+								
+								const months= ["January","February","March","April","May","June","July",
+            			"August","September","October","November","December"];
+
+								const allDaysInCalendarForMonth = 42;
+								const calendarElem = document.querySelector('.calendar-elem');
+								
+								const yearValue = window['year-inp'].value;
+								const monthValue = window['month-inp'].value;
+								if(yearValue && monthValue ){
+									cl(yearValue, monthValue );
+									const dateNow = new Date();
+									// cl(`${dateNow.getMonth()} ${dateNow.getFullYear()}`);
+									let isCurrentMonth = false;
+									if(monthValue == dateNow.getMonth() && yearValue == dateNow.getFullYear()){
+										cl('current month')
+										isCurrentMonth = true;
+									}
+									createCalendar(calendarElem, yearValue, monthValue-1, isCurrentMonth)
+								}
+
+								function createCalendar(targetElem, year, month, isCurrentMonth){
+
+									let date = new Date(year, month);
+									cl('date ', date);
+									let daysInMonth = getDaysInMonth(month, year);
+									cl('Days in month', daysInMonth);
+									let monthDataArr = [];
+									for (let index = 0; index < daysInMonth; index++) {
+										let dayForDate = index+1;
+										// cl('dayForDate ', dayForDate)	
+										let dayNum = new Date(year, month, dayForDate).getDay();
+
+										if(index===0){
+											let previousMonth = month-1;
+											let previousYear = year;
+											if(month<0){
+												month=0;
+												--previousYear;
+											}
+											let daysInPreviousMonth = getDaysInMonth(previousMonth, previousYear);
+											cl('daysInPreviousMonth ', daysInPreviousMonth)
+											for (let j = 0; j < dayNum; j++) {
+												let previousMonthDay = daysInPreviousMonth-(dayNum-j-1);
+												let previousDayNum = new Date(
+													previousYear, previousMonth,previousMonthDay).getDay()
+
+												monthDataArr.push({
+													index:index,
+													day:previousMonthDay,
+													dayNum:previousDayNum,
+													dayValue:days[previousDayNum],
+													month:previousMonth,
+													year:previousYear
+												})
+											}
+										}
+
+										if(monthDataArr.length<allDaysInCalendarForMonth){
+											
+											let dayValue = days[dayNum];
+
+											monthDataArr.push({
+												index:index,
+												day:dayForDate,
+												dayNum:dayNum,
+												dayValue:dayValue,
+												year:year,
+												month:month
+											})
+										}
+
+										if(index===daysInMonth-1){
+											// let n = dayNum+1;
+											// if(n===7){
+											// 	n=0;
+											// }
+											let nextMonth = month+1;
+											let nextYear = year;
+											if(month===12){
+												month=0;
+												++nextYear;
+											}
+											for(let n =0; monthDataArr.length!==allDaysInCalendarForMonth;n++){
+												// let nextDayForDate = n===0?++n:n;
+												let nextDayForDate = n+1;
+												let nextDayNum = new Date(nextYear, nextMonth, nextDayForDate).getDay();
+
+												monthDataArr.push({
+													index:index,
+													day:nextDayForDate,
+													dayNum:nextDayNum,
+													dayValue:days[nextDayNum],
+													month:nextMonth,
+													year:nextYear
+												})
+											}
+										}
+
+									}
+
+									cl(monthDataArr);
+									createTableFromDate(targetElem, monthDataArr, month, year, isCurrentMonth);
+								}
+
+								function getDaysInMonth(month, year) 
+								{ 
+									const date = 	new Date(year, month, 32);
+									cl('date with 32', date);
+									const subtractionResult = date.getDate();
+									cl('day ', day);
+									return 32 - subtractionResult;
+								}
+
+
+								function createTableFromDate(targetElem, monthDataArr, month, year, isCurrentMonth){
+									let tableelem = document.createElement('table');
+									let theadelem = document.createElement('thead');
+									let tbodyelem = document.createElement('tbody');
+									let trelem = document.createElement('tr');
+									let thelem = document.createElement('th');
+									let tdelem = document.createElement('td');
+
+									const thelems = [];
+
+									for (let index = 0; index < days.length; index++) {
+										thelem.innerText = days[index];
+										thelems.push(thelem);
+										thelem = thelem.cloneNode(false)
+									}
+
+									trelem.append(...thelems)
+									theadelem.append(trelem);
+									tableelem.append(theadelem)
+									tableelem.classList.add('table')
+
+									
+									let count = 0;
+									for (let i = 0; i < 6; i++) {
+										let tdelems = [];
+										trelem = trelem.cloneNode(false)
+										for(let j = 0; j < 7; j++){
+											
+											let elem = monthDataArr[count];
+											if(elem){
+											tdelem.innerText = elem.day;
+												if(isCurrentMonth && elem.day == (new Date()).getDate() ){
+													cl('elem.day ',elem.day, 'new Date()).getDay()', new Date().getDay())
+													tdelem.style.backgroundColor = 'purple';
+													tdelem.style.color = 'white';
+												}
+												else{
+													tdelem.style.backgroundColor = 'transparent';
+													tdelem.style.color = 'black';
+												}
+											tdelems.push(tdelem);
+											tdelem = tdelem.cloneNode(false);
+											count++;
+											}
+
+										}
+										trelem.append(...tdelems);
+										tbodyelem.append(trelem);
+									}
+									tableelem.append(tbodyelem);
+
+									let divElem = document.createElement('div');
+
+									divElem.innerHTML = `month: ${months[month]}, year: ${year}`;
+									targetElem.append(divElem);
+									
+									targetElem.append(tableelem);
+
+								}
+
+
+
+							}
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+
+
+						<button 
+							onclick="initClock()" 
+							class=" m-3 btn btn-primary"> 
+							initClock
+						</button>
+						<button 
+							onclick="createClock()" 
+							class=" m-3 btn btn-primary"> 
+							createClock
+						</button>
+						<button 
+							onclick="startClock()" 
+							class=" m-3 btn btn-primary"> 
+							startClock
+						</button>
+						<button 
+							onclick="stopClock()" 
+							class=" m-3 btn btn-primary"> 
+							stopClock
+						</button>
+						
+						<div class="row">
+							<div class="col-sm-5 clock-div"></div>
+						</div>
+
+						<script >
+
+							function initClock(){
+
+							class CustomClock{
+
+								_initialHours;
+								_initialMinutes;
+								_initialSeconds;
+								targetClockDiv = document.querySelector('.clock-div');
+
+								spanElHours = document.createElement('span');
+								spanElMinutes = document.createElement('span');
+								spanElSeconds = document.createElement('span');
+								isAllowedToStart = true;
+
+								constructor(initialDate){
+
+							
+									if(initialDate instanceof Date){
+										this.spanElHours.id = 'spanHours';
+										this.spanElHours.style.color = 'red';
+
+										this.spanElMinutes.id = 'spanMinutes';
+										this.spanElMinutes.style.color = 'green';
+
+										this.spanElSeconds.id = 'spanSeconds';
+										this.spanElSeconds.style.color = 'blue';
+
+										this.targetClockDiv
+											.append(this.spanElHours, this.spanElMinutes, this.spanElSeconds);
+
+										this.setInitialDate(initialDate);
+										this.outputTime(this._initialHours, this._initialMinutes, this._initialSeconds)
+
+									}else{
+										cl('no initial date provided');
+									}
+
+								}
+								setInitialDate(initialDate){
+									this._initialHours = initialDate.getHours();
+										this._initialMinutes = initialDate.getMinutes();
+										this._initialSeconds = initialDate.getSeconds();
+									return {
+										hours:this._initialHours,
+										minutes:this._initialMinutes,
+										seconds:this._initialSeconds
+									}
+								}
+								
+								outputTime(hours, minutes, seconds){
+
+									cl(`hours,minutes,seconds new Date()`,hours,minutes,seconds, new Date())
+																	
+									this.spanElHours.innerHTML = `${hours} : `;
+
+									this.spanElMinutes.innerHTML = `${minutes} : `;
+
+									this.spanElSeconds.innerHTML = `${seconds}`;
+
+								}
+
+
+								async startClock(){
+									if(this.started) return;
+
+									this.isAllowedToStart = true;
+
+									while(this.isAllowedToStart){
+										this.started = true;
+
+										await helper.sleep(1000)
+										// .then(r=>{
+											cl('setting time')
+
+											if(this._initialSeconds == 59){
+												this._initialSeconds = 0;
+
+												if(this._initialMinutes == 59){
+													this._initialMinutes = 0;
+
+													if(this._initialHours == 23){
+														this._initialHours = 0;
+													}else{
+														++this._initialHours;
+													}
+
+												}else{
+													++this._initialMinutes
+												}
+
+											}
+											++this._initialSeconds;
+											this.outputTime(this._initialHours, this._initialMinutes, this._initialSeconds)
+										
+										// })
+									}
+									cl('leaving loop')
+									
+								}
+
+								stopClock(){
+									this.started = false;
+									this.isAllowedToStart = false;
+								}
+
+							}
+
+							const helper=()=>{
+							}
+							helper.sleep = (ms)=>{
+								cl('sleeping')
+								return new Promise(resolve=>setTimeout(resolve, ms))
+							}
+							const customClock =  new CustomClock(new Date());
+							customClock.startClock();
+
+							//you have not to await object async methods from event listener
+							// you have to leave them not awaited
+							function createClock(){
+								// const targetClockDiv = document.querySelector('.clock-div');
+
+								// let intervalId = setInterval(()=>{
+								// 	cl(`date.getHours(), date.getMinutes(), date.getSeconds() `,
+								// 		(new Date()).getHours(), (new Date()).getMinutes(), (new Date()).getSeconds())
+								// },1000)
+								const {hours, minutes, seconds} = customClock.setInitialDate(new Date());
+								customClock.outputTime(hours, minutes, seconds);
+								customClock.startClock();
+							}
+							function startClock(){
+								customClock.startClock();
+
+							}
+							function stopClock(){
+								customClock.stopClock();
+
+							}
+
+
+
+						}
+						</script>
+
+					</div>
+
+
+					<div class="border rounded p-3 m-3 ">
+
+
+						<div class="table-and-search">
+								<div class="row justify-content-end">
+										<div class="col-sm-4">
+												<div class="input-group">
+														<input 
+																id = "search-table-inpt"
+																type="text" 
+																class="form-control" 
+																placeholder="type to find row">
+												</div>
+										</div>
+								</div>
+						
+								<table id="sorting-table" class="table table-striped table-hover">
+						
+										<thead class="table-light">
+										<tr>
+												<th>
+														<a id="tb-first-name-heading">Firstname</a>
+												</th>
+												<th>
+														<a id="tb-lastname-heading">Lastname</a>
+												</th>
+												<th>
+														<a id="tb-email-heading">Email</a>
+												</th>
+										</tr>
+										</thead>
+						
+										<tbody id="myTableBody">
+										<tr>
+												<td>John</td>
+												<td>Doe</td>
+												<td>john@example.com</td>
+										</tr>
+										<tr>
+												<td>Mary</td>
+												<td>Moe</td>
+												<td>mary@mail.com</td>
+										</tr>
+										<tr>
+												<td>July</td>
+												<td>Dooley</td>
+												<td>july@greatstuff.com</td>
+										</tr>
+										<tr>
+												<td>Anja</td>
+												<td>Ravendale</td>
+												<td>a_r@test.com</td>
+										</tr>
+										</tbody>
+								</table>
+						</div>
+
+						<script>
+
+								clickListener("tb-first-name-heading");
+								clickListener("tb-lastname-heading");
+								clickListener("tb-email-heading");
+
+								function clickListener(idName){
+										document.getElementById(idName).addEventListener('click',()=>{
+												//handle sort
+												sortTable(idName);
+										});
+								}
+								function sortTable(idName){
+										let table = document.getElementById("sorting-table");
+										let rows = table.rows;
+										//get number of row with a element with id idName
+										console.log(rows);
+										let head = rows[0];
+										let links = head.getElementsByTagName("a");
+										let ids = [];
+										let dir = "asc";
+										for (const iterator of links) {
+												if(iterator.id){
+														ids.push(iterator.id);
+												}
+										}
+										let colNum = ids.indexOf(idName);
+										console.log(ids,"\n",`index of ${idName} = `,colNum);
+										let switching = true;
+										let shouldSwitch = false;
+										let i;
+										let wasSwitches = false;
+										while(switching){
+												switching = false;
+												for(i = 1;i<(rows.length-1);i++){
+														shouldSwitch=false;//if no switches dont switch last row
+														let cellFirst = rows[i].getElementsByTagName("td")[colNum];
+														let cellSecond = rows[i+1].getElementsByTagName("td")[colNum];
+
+														let dataFirst = cellFirst.innerHTML.toLowerCase().trim();
+														let dataSecond = cellSecond.innerHTML.toLowerCase().trim();
+														if(dir=="asc"){
+																if(dataFirst>dataSecond){
+																		shouldSwitch = true;
+																		break;
+																}
+														}else if(dir=="desc"){
+																if(dataFirst<dataSecond){
+																		shouldSwitch = true;
+																		break;
+																}
+														}
+												}
+
+												if(shouldSwitch){
+														//switch rows
+														rows[i].parentNode.insertBefore(rows[i+1],rows[i]);
+														switching = true;
+														wasSwitches = true;
+												}else if(!wasSwitches&&dir=="asc"){//on ordered table switches again
+														dir ="desc";
+														switching = true;
+												}
+
+
+										}
+								}
+								const searchInput = document.getElementById("search-table-inpt");
+								searchInput.addEventListener('keyup',(event)=>{
+										event.preventDefault();
+										let searchValue = searchInput.value.toLowerCase();
+										let table = document.getElementById("sorting-table");
+										let tbody = table.getElementsByTagName("tbody");
+										let bodyRows = tbody[0].rows;
+										for (let i = 0; i < bodyRows.length; i++) {
+												let htmlRowCollection = bodyRows[i].getElementsByTagName("td");
+												//console.log(htmlRowCollection);
+												let wasNotFound = false;
+												for (let j = 0; j < htmlRowCollection.length; j++) {
+														let cellData = htmlRowCollection[j].innerHTML.trim().toLowerCase();
+														// cl('cellData ', cellData)// all data from td cells of targeted table
+														if(
+															cellData.indexOf(searchValue)>-1 
+															// || cellData.split('').
+															){
+
+																wasNotFound = false;
+																bodyRows[i].style.display="";
+																break;
+														}else{
+																wasNotFound = true;
+														}
+												}
+												if(wasNotFound){
+														bodyRows[i].style.display="none";
+												}
+
+										}
+
+								},false)
+								
+
+
+						</script>
+
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="insertIlBetweenTargetedIls()" 
+							class=" m-3 btn btn-primary"> 
+							insertIlBetweenTargetedIls
+						</button>
+
+						<div>
+							<ul id="ul">
+								<li id="one">1</li>
+								<li id="two">4</li>
+							</ul>
+
+						</div>
+						
+						<script>
+							function insertIlBetweenTargetedIls(){
+								let ilsStr = `<li>2</li><li>3</li>`;
+								let oneIl = window['ul'].querySelector('#one');
+								cl(`oneIl `,oneIl)
+								oneIl.insertAdjacentHTML('afterend', ilsStr);
+								// oneIl.after(ilsStr);
+								// let lis = [];
+								// let li = document.createElement('li');
+								// li.innerText = `2`;
+								// lis.push(li);
+								// li = li.cloneNode(false);
+								// li.innerText = `3`;
+								// lis.push(li);
+								// oneIl.after(...lis);
+							}
+						</script>
+					</div>
+
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="addListenersForTableBelowToSort()" 
+							class=" m-3 btn btn-primary"> 
+							addListenersForTableBelowToSort
+						</button>
+
+						<div>
+							<table class="table table-users-sort">
+								<tr>
+									<th>Company</th>
+									<th>Contact</th>
+									<th>Country</th>
+								</tr>
+								<tr>
+									<td>Alfreds Futterkiste</td>
+									<td>Maria Anders</td>
+									<td>Germany</td>
+								</tr>
+								<tr>
+									<td>Centro comercial Moctezuma</td>
+									<td>Francisco Chang</td>
+									<td>Mexico</td>
+								</tr>
+								<tr>
+									<td>Ernst Handel</td>
+									<td>Roland Mendel</td>
+									<td>Austria</td>
+								</tr>
+								<tr>
+									<td>Island Trading</td>
+									<td>Helen Bennett</td>
+									<td>UK</td>
+								</tr>
+								<tr>
+									<td>Laughing Bacchus Winecellars</td>
+									<td>Yoshi Tannamuri</td>
+									<td>Canada</td>
+								</tr>
+								<tr>
+									<td>Magazzini Alimentari Riuniti</td>
+									<td>Giovanni Rovelli</td>
+									<td>Italy</td>
+								</tr>
+							</table>
+							
+						</div>
+						
+						<script>
+							function addListenersForTableBelowToSort(){
+								let table = document.querySelector('.table-users-sort');
+								// cl(`table.rows[0].cells `,table.rows[0].cells);
+								// cl(`table.tBodies `,table.tBodies);
+								Array.from(table.rows[0].children).forEach((child, index)=>{
+									child.addEventListener('mouseenter',function(event){
+										// cl(event.target)
+										// cl('child, index ',child,index)
+
+										const elem = event.target;
+										elem.style.cursor = "pointer";
+										elem.style.backgroundColor = '#212529'
+										elem.style.color = 'white'
+									})
+									child.addEventListener('mouseleave',function(event){
+										const elem = event.target;
+										elem.style.backgroundColor = 'transparent'
+										elem.style.color = 'black'
+									})
+									child.addEventListener('click', function(event){
+										const elem = event.target;
+										let sortedRows = Array.from(table.rows)
+											.slice(1)
+											.sort((rowA, rowB) => rowA.cells[index].innerHTML > rowB.cells[index].innerHTML ? 1 : -1 );
+										table.tBodies[0].append(...sortedRows);//new element tBodies
+									})
+								})
+
+								
+							}
+						</script>
+					</div>
+
+
+
+				</div>
+
+			</div>
+
+			<div class="container">
+				<div class="row">
+
+					<div class="sm-5">
+						<p>
+							<time datetime="07-21-1969">July 21, 1969</time>, Neil Armstrong said, 
+							<q cite="https://www.hq.nasa.gov/alsj/all/all.step.html">That's one small step for man, one giant leap for mankind</q>
+						</p>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+	
+		<div class="container">
+			<div style="width: 500px;">
+
+				<div class="grid">
+					<div class="bg-primary">1</div>
+					<div class="bg-success">2</div>
+					<div class="bg-secondary">3</div>
+					<div class="bg-warning">1</div>
+				</div>
+
+			</div>
+		</div>
+
+
+	</div>
+	
+	
+
+</body>
+
+</html>

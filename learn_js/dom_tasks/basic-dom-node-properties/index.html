@@ -1,0 +1,498 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+
+
+		<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+		rel="stylesheet" 
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+		crossorigin="anonymous">
+		
+		<script 
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+			crossorigin="anonymous"></script>
+
+		<style>
+			
+		.clearConsole{
+			position: fixed;
+			width: 300px;
+			height: 100px;
+			background-color: rgba(255, 140, 0, 0.659);
+			right: 0;
+		}
+
+		body::-webkit-scrollbar {
+  width: 1em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+
+
+		</style>
+
+	</head>
+
+	<body>
+		
+
+	<script>
+		const cl = console.log;
+		
+	</script>
+
+	<div class="border rounded p-3 m-3 clearConsole" >
+		<button onclick="clearConsole()" 
+			class=" m-3 btn btn-primary">clearConsole</button>
+		<script>
+			 const clearConsole = () => console.clear();
+		</script>
+	</div>
+	
+	
+	<div id="app">
+	
+	
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6 border">
+					<h1>Theory</h1>
+
+					<div class="border rounded p-3 m-3 ">
+					
+						<button 
+							onclick="getNameOfTheClassOfDomElement()" 
+							class=" m-3 btn btn-primary">
+							getNameOfTheClassOfDomElement 
+						</button>
+						<script>
+							function getNameOfTheClassOfDomElement(){
+								console.log('document.body.constructor.name ', document.body.constructor.name );
+								
+								console.log(' document.body ', document.body);
+								Object.entries(document.body).forEach(keyValuePair=>cl(" ", ...keyValuePair));
+								console.table({a:'first',b:'second', nested:{prop:'value'}});
+
+							}
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="checkForInheritance()" 
+							class=" m-3 btn btn-primary">
+							check body ForInheritance 
+						</button>
+						<script>
+							function checkForInheritance(){
+
+								console.log('document.body instanceof HTMLBodyElement', document.body instanceof HTMLBodyElement ); // true
+								console.log('document.body instanceof HTMLElement', document.body instanceof HTMLElement ); // true
+								console.log('document.body instanceof Element', document.body instanceof Element ); // true
+								console.log('document.body instanceof Node', document.body instanceof Node ); // true
+								console.log(' document.body instanceof EventTarget', document.body instanceof EventTarget ); // true
+								
+								console.log(document.body)
+							}
+
+						</script>
+
+					</div>
+					<div class="border rounded p-3 m-3 ">
+
+						<button 
+						onclick="getNodeType()" 
+						class=" m-3 btn btn-primary">
+						getNodeType 
+						</button>
+
+						<script>
+							function getNodeType() {
+								const alert = console.log
+								let elem = document.body;
+								console.log('let elem = document.body')
+								// посмотрим что это?
+								alert('elem.nodeType', elem.nodeType); // 1 => элемент
+
+								// и первый потомок...
+								alert('elem.firstChild.nodeType', elem.firstChild.nodeType); // 3 => текст
+
+								// для объекта document значение типа -- 9
+								alert('document.nodeType',  document.nodeType ); // 9
+							}
+
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+						onclick="getNodeNameAndTagName()" 
+						class=" m-3 btn btn-primary">
+						getNodeNameAndTagName 
+						</button>
+						
+						<script>
+							function getNodeNameAndTagName() {
+								cl('document.body.nodeName', document.body.nodeName ); // BODY
+								cl('document.body.tagName', document.body.tagName ); // BODY
+							}
+							
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+
+						<div class="selectedDiv"><!--comment-->
+
+						</div>
+
+						<button 
+						onclick="getDiv()" 
+						class=" m-3 btn btn-primary">
+						getNodeNameAndTagName 
+						</button>
+
+						<script>
+							function getDiv(){
+								const div = document.querySelector('div.selectedDiv');
+								// для комментария
+								cl('div.firstChild.tagName ', div.firstChild.tagName ); // undefined (не элемент)
+								cl(' div.firstChild.nodeName ', div.firstChild.nodeName ); // #comment
+						
+								// for document
+								cl('div.tagName ', div.tagName ); // undefined (не элемент)
+								cl('div.nodeName ', div.nodeName ); // #document
+							}
+
+						</script>
+					
+					</div>
+
+					<div class="border rounded p-3 m-3 elemCont">
+						<div id="elem">Привет <b>Мир</b></div>
+						<button 
+						onclick="logOuterHTML()" 
+						class=" m-3 btn btn-primary"> 
+						logOuterHTML
+					</button>
+						<script>
+							function logOuterHTML(){
+								cl('elem.outerHTML ',elem.outerHTML); // <div id="elem">Привет <b>Мир</b></div>
+								document.querySelector('.elemCont').append(elem.outerHTML)
+							}
+							
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="assign_outerHTML()" 
+							class=" m-3 btn btn-primary"> 
+							assign_outerHTML
+						</button>
+						<div class="target-div">Привет, мир!</div>
+						<script>
+							function assign_outerHTML(){
+								let div = document.querySelector('.target-div');
+						
+								// заменяем div.outerHTML на <p>...</p>
+								div.outerHTML = '<p>Новый элемент</p>'; // (*)
+							
+								// Содержимое div осталось тем же!
+								cl('div.outerHTML ',div.outerHTML); // <div>Привет, мир!</div> (**)
+							}
+							// Это потому, что использование outerHTML не изменяет DOM-элемент, 
+							//а удаляет его из внешнего контекста и вставляет вместо него новый HTML-код.
+
+
+						</script>
+
+
+					</div>
+
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="readNodeValue()" 
+							class=" m-3 btn btn-primary"> 
+							readNodeValue
+						</button>
+
+						<div class="second-target-div">
+							Привет
+							<!-- Комментарий -->
+							<script>
+								function readNodeValue(){
+									let text = document.querySelector('.second-target-div').firstChild;
+									cl('text.data ',text.data); // Привет
+							
+									let comment = text.nextSibling;
+									cl('comment.data ',comment.data); // Комментарий
+								}
+
+							</script>
+						</div>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="readTextContent()" 
+							class=" m-3 btn btn-primary"> 
+							readTextContent
+						</button>
+
+						<div id="news">
+							<h1>Срочно в номер!</h1>
+							<p>Марсиане атаковали человечество!</p>
+						</div>
+						
+						<script>
+
+							function readTextContent(){
+								// Срочно в номер! Марсиане атаковали человечество!
+								cl('news.textContent',news.textContent);
+							}
+							
+						</script>
+
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="enterName()" 
+							class=" m-3 btn btn-primary"> 
+							enterName
+						</button>
+
+						<div id="elem1"></div>
+						<div id="elem2"></div>
+
+						<script>
+							function enterName(){
+								let name = prompt("Введите ваше имя?", "<b>Винни-пух!</b>");
+
+								elem1.innerHTML = name;
+								elem2.textContent = name;
+							}
+							
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="makeElemUnvisible()" 
+							class=" m-3 btn btn-primary"> 
+							makeElemUnvisible
+						</button>
+						<button 
+						onclick="blinkingElem()" 
+						class=" m-3 btn btn-primary"> 
+						blinkingElem
+					</button>
+						<button 
+						onclick="resetBlinkigElem()" 
+						class=" m-3 btn btn-primary"> 
+						resetBlinkigElem
+					</button>
+						<div>Оба тега DIV внизу невидимы</div>
+
+						<div hidden>С атрибутом "hidden"</div>
+
+						<div id="elemPHUGUIGOIHPOJ">С назначенным JavaScript свойством "hidden"</div>
+
+						<script>
+
+							function makeElemUnvisible(){
+								elemPHUGUIGOIHPOJ.hidden = !elemPHUGUIGOIHPOJ.hidden;
+
+							}
+							let blink = true;
+							let intervalId = 0;
+							function resetBlinkigElem(){
+								blink = !blink;
+								clearInterval(intervalId);
+							}
+							function blinkingElem(){
+								if(!blink) return;
+								intervalId = setInterval(() => {
+									elemPHUGUIGOIHPOJ.hidden = !elemPHUGUIGOIHPOJ.hidden;
+									
+									const color = `rgba(${getRandomInt(0,255)}, ${getRandomInt(0,255)}, ${getRandomInt(0,255)}, ${Math.random()})`;
+									elemPHUGUIGOIHPOJ.style.backgroundColor = color;
+
+									// cl(color)
+								}, 1000);
+
+							}
+
+							function getRandomInt(min,max){
+								min = Math.floor(min);
+								max = Math.ceil(max);
+								return Math.floor(Math.random()*(max-min+1)+min)
+							}
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="" 
+							class=" m-3 btn btn-primary"> 
+							
+						</button>
+					</div>
+
+
+
+				</div>
+
+
+				<div class="col-sm-6 border">
+					<h1>Tasks</h1>
+
+					<div class="border rounded p-3 m-3 ">
+
+						<button 
+							onclick="countElemsInList()" 
+							class=" m-3 btn btn-primary"> 
+							countElemsInList
+						</button>
+						<button 
+							onclick="logTextContentInList()" 
+							class=" m-3 btn btn-primary"> 
+							logTextContentInList
+						</button>
+						<button 
+							onclick="traverseUlList()" 
+							class=" m-3 btn btn-primary"> 
+							traverseUlList
+						</button>
+						<button 
+							onclick="loopThroughList()" 
+							class=" m-3 btn btn-primary"> 
+							loopThroughList
+						</button>
+
+						<script>
+							function countElemsInList(){
+								const targetUl = document.querySelector('ul.target-ul');
+								console.log('targetUl ',targetUl)
+								console.log('targetUl.children ',targetUl.children)
+							}
+							function logTextContentInList(){
+								const targetUl = document.querySelector('ul.target-ul');
+								console.log('targetUl.textContent ',targetUl.textContent)
+							}
+							
+							function traverseUlList(){
+								const targetUl = document.querySelector('ul.target-ul');
+								traverseElem(targetUl);
+								function traverseElem(elem){
+									const print = cl;
+									// const print = alert;
+									if(elem.tagName=='LI'){
+
+										if(	elem.children[0]
+											&&elem.children[0].tagName==='UL'
+											&&elem.children[0].children){
+											print(`${elem.firstChild.data.trim()} : ${elem.children[0].children.length.toString().trim()}`)
+										}else{
+											print(`${elem.firstChild.data.trim()} : ${elem.children.length.toString().trim()}`)
+										}
+
+									}
+									if(elem.children.length==0) return;
+
+									Array.from(elem.children).forEach(innerEl=>{
+										traverseElem(innerEl);
+									})
+								}
+
+							}
+						
+							function loopThroughList(){
+								const targetUl = document.querySelector('ul.target-ul');
+								const lis = targetUl.querySelectorAll('li');
+								lis.forEach(li=>{
+									const title = li.firstChild.data.trim();
+									const childrenAndNestedChildrenLength = li.querySelectorAll('li').length;
+									cl(`${title} : ${childrenAndNestedChildrenLength}`)
+								})
+							}
+						</script>
+
+						<ul class="target-ul">
+							Животные
+							<li>Наземные
+								<ul>
+									<li>Млекопитающие
+										<ul>
+											<li>Коровы</li>
+											<li>Ослы</li>
+											<li>Собаки</li>
+											<li>Тигры</li>
+										</ul>
+									</li>
+									<li>Другие
+										<ul>
+											<li>Змеи</li>
+											<li>Птицы</li>
+											<li>Ящерицы</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>Рыбы
+								<ul>
+									<li>Аквариумные
+										<ul>
+											<li>Гуппи</li>
+											<li>Рыба-ангел</li>
+										</ul>
+									</li>
+									<li>Морские
+										<ul>
+											<li>Морская форель</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+
+
+					</div>
+					
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+	
+	</div>
+
+</body>
+
+</html>

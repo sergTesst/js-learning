@@ -1,0 +1,373 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+<script 
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+	crossorigin="anonymous"></script>
+
+<style>
+
+.clearConsole{
+	position: fixed;
+	width: 200px;
+	height: 100px;
+	background-color: rgba(255, 140, 0, 0.659);
+	right: 0;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div class="border rounded p-3 clearConsole" >
+		<button onclick="clearConsole()" 
+			class=" m-3 btn btn-primary">clearConsole</button>
+		<script>
+			 const clearConsole = () => console.clear();
+		</script>
+	</div>
+	
+
+	<div id="app">
+
+		<div class="container-fluid">
+
+			<div class="row ">
+
+				<div class="col-sm-6 border">
+
+					<h1>Theory</h1>
+
+						<div class="border rounded p-3 m-3 ">
+
+							<div class="links">
+								<a href="http://example.com/file.zip">first link</a>
+								<a href="http://ya.ru">second link</a>
+					
+							</div>
+				
+							<button onclick="MatchHrefAttribute()" 
+								class=" m-3 btn btn-primary">Match href attribute</button>
+				
+						</div>
+				
+						<script>
+				
+							function MatchHrefAttribute() {
+					
+								const listElems = (elements) => {
+					
+					
+									for(let elem of elements){
+										// console.log(elem);
+										if(elem.matches('a[href$="zip"]')){
+											console.log('link for archive ', elem.href);
+										}
+										if(elem.children.length>0){
+											listElems(elem.children)
+										}
+					
+									}
+								}
+					
+								listElems(document.body.children);
+					
+							}
+					
+						</script>
+				
+						<div class="border rounded p-3 m-3 ">
+				
+							<div class="book-contents">
+								<h1>Content</h1>
+								<div class="contents">
+									<ul class="book">
+										<li class="chapter">Chapter 1</li>
+										<li class="chapter">Chapter 2</li>
+									</ul>
+								</div>
+							</div>
+				
+							<button onclick="GetClosestElementsToChapter()" 
+								class=" m-3 btn btn-primary">GetClosestElementsToChapter</button>
+				
+						</div>
+				
+						<script>
+				
+							function GetClosestElementsToChapter () {
+								const chapter = document.querySelector('.chapter')
+								console.log('chapter.nodeName ', chapter.nodeName);
+								
+								console.log(`chapter.closest('.book') `,chapter.closest('.book'))
+								console.log(`chapter.closest('.contents') `,chapter.closest('.contents'))
+					
+								console.log(`chapter.closest('h1') is null, because h1 is not parent `,chapter.closest('h1'))
+							}
+					
+					
+						</script>
+				
+				
+					<div class="border rounded p-3 m-3 ">
+				
+						<table id="table">
+							<tr>
+								<td>Ваш возраст:</td>
+				
+								<td>
+									<label>
+										<input type="radio" name="age" value="young" checked> младше 18
+									</label>
+									<label>
+										<input type="radio" name="age" value="mature"> от 18 до 50
+									</label>
+									<label>
+										<input type="radio" name="age" value="senior"> старше 60
+									</label>
+								</td>
+							</tr>
+						</table>
+				
+						<button onclick="getElementsByTagNameInput()" 
+							class=" m-3 btn btn-primary">getElementsByTagNameInput</button>
+				
+					</div>
+				
+					<script>
+						function getElementsByTagNameInput(){
+				
+							let inputs = table.getElementsByTagName('input');
+				
+							for (let input of inputs) {
+								console.log(`input.value + ': ' + input.checked  `, input.value + ': ' + input.checked );
+							}
+				
+						}
+				
+					</script>
+				
+				
+					<div class="border rounded p-3 m-3 ">
+				
+						<div>First div</div>
+				
+						<button onclick="executeFirstScript_getElementsByTagName()" 
+						class=" m-3 btn btn-primary">executeFirstScript_getElementsByTagName</button>
+				
+						<script>
+							function executeFirstScript_getElementsByTagName() {
+				
+								console.log('first script')
+								let divs = document.getElementsByTagName('div');// returns live collection
+							
+								console.log('divs.length ',divs.length); // 5
+							}
+				
+						</script>
+						
+						<div>Second div</div>
+				
+						<button onclick="logDivsLength_AfterCreatedSecondDiv()" 
+						class=" m-3 btn btn-primary">logDivsLength_AfterCreatedSecondDiv</button>
+				
+						
+						<script>
+							function logDivsLength_AfterCreatedSecondDiv(){
+				
+								console.log('second script after created div')
+								console.log('divs.length ',divs.length); // 6
+							}
+				
+						</script>
+						
+						
+					</div>
+				
+				
+				
+					<div class="border rounded p-3 m-3 ">
+						<div>third div</div>
+				
+						<button onclick="Static_querySelectorAll_DivsLength()" 
+						class=" m-3 btn btn-primary">Static_querySelectorAll_DivsLength</button>
+				
+						<script>
+							function Static_querySelectorAll_DivsLength() {
+				
+								console.log('third script')
+								divs = document.querySelectorAll('div');// returns live collection
+								
+								console.log('divs.length ',divs.length); // 7
+				
+							}
+				
+						</script>
+						
+						<div>Fourth div</div>
+				
+						<button 
+							onclick="Static_querySelectorAll_DivsLength_afterCreatedDiv()" 
+							class=" m-3 btn btn-primary">
+								Static_querySelectorAll_DivsLength_afterCreatedDiv
+						</button>
+				
+						<script>
+							function Static_querySelectorAll_DivsLength_afterCreatedDiv(){
+								console.log('Fourth script after created div')
+								console.log('divs.length ',divs.length); // 7
+							}
+				
+						</script>
+				
+					</div>
+
+						<script>
+							//elemA.contains(elemB) 
+						</script>
+							
+				</div>
+			
+
+				<div class="col-sm-6 border">
+					<h1>Tasks</h1>
+
+					<div>
+						<form name="search">
+
+							<label>Search the site:
+								<input type="text" name="search">
+							</label>
+
+							<input type="submit" value="Search!">
+						</form>
+					
+						<hr>
+
+					</div>
+
+					<div>
+
+						<form class="form-control" name="search-person">
+							Search the visitors:
+							<table id="age-table">
+								<tr>
+									<td>Age:</td>
+									<td id="age-list">
+										<label>
+											<input type="radio" name="age" value="young">less than 18</label>
+										<label>
+											<input type="radio" name="age" value="mature">18-50</label>
+										<label>
+											<input type="radio" name="age" value="senior">more than 50</label>
+									</td>
+								</tr>
+					
+								<tr>
+									<td>Additionally:</td>
+									<td>
+										<input type="text" name="info[0]">
+										<input type="text" name="info[1]">
+										<input type="text" name="info[2]">
+									</td>
+								</tr>
+					
+							</table>
+					
+							<input type="submit" value="Search!">
+						</form>
+						
+						<div class="">
+
+							<button 
+								onclick="getAgeTable()" 
+								class="btn btn-primary"> 
+								get table id="age-table"
+							</button>
+
+							<script>
+								
+								function getAgeTable(){
+									console.log(window['age-table'])
+								}
+							</script>
+
+								<button 
+									onclick="getAllLabelElementsInsideTable()" 
+									class="btn btn-primary"> 
+									getAllLabelElementsInsideTable 
+								</button>
+
+								<script>
+
+									function getAllLabelElementsInsideTable(){
+
+										const labels = window['age-table'].getElementsByTagName('label');
+										console.log('labels ', labels)
+										console.log('labels length ', labels.length)
+									}
+
+								</script>
+
+								<button 
+									onclick="getFirstTdInTable()" 
+									class="btn btn-primary">
+									getFirstTdInTable
+								</button>
+
+								<script>
+									function getFirstTdInTable(){
+										// const firstInput = window['age-table'].querySelectorAll('input[name="age"]')[0]
+										// console.log(firstInput)
+										const firstTDWithAgeWord = window['age-table'].rows[0].cells[0];
+										console.log('firstTDWithAgeWord.nodeName ',firstTDWithAgeWord.nodeName)
+										console.log('firstTDWithAgeWord.innerHTML ',firstTDWithAgeWord.innerHTML)
+
+									}
+								</script>
+
+							<button 
+								onclick="getFormWithCertainName()" 
+								class="btn btn-primary">
+								getFormWithCertainName
+							</button>
+							<script>
+								function getFormWithCertainName(){
+									const form = document.querySelector('form[name="search"]');
+									console.log(form)
+									const inputElements = form.getElementsByTagName('input');
+									console.log(inputElements[0])
+									console.log(inputElements[inputElements.length-1])
+								}
+							</script>
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+</body>
+</html>

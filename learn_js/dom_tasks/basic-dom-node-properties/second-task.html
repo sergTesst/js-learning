@@ -1,0 +1,35 @@
+<html>
+
+<body>
+  <script defer>
+    console.log('document.body.lastChild ',document.body.lastChild);
+    console.log('document.body.lastChild.nodeType ',document.body.lastChild.nodeType);//1
+  </script>
+
+<script>
+  let body = document.body;
+
+  body.innerHTML = "<!--" + body.tagName + "-->";
+
+  console.log('body.firstChild.data', body.firstChild.data ); 
+  console.log('body', body.firstChild); 
+</script>
+
+	<script>
+		console.log('document ',document);
+		console.log('document.constructor.name ',
+			document.constructor.name); // HTMLDocument
+		console.log('HTMLDocument.prototype.constructor === HTMLDocument ',
+			HTMLDocument.prototype.constructor === HTMLDocument); // true
+		console.log('HTMLDocument.prototype.constructor.name ',
+			HTMLDocument.prototype.constructor.name); // HTMLDocument
+		console.log('HTMLDocument.prototype.__proto__.constructor.name ',
+			HTMLDocument.prototype.__proto__.constructor.name); // Document
+		console.log('HTMLDocument.prototype.__proto__.__proto__.constructor.name ',
+			HTMLDocument.prototype.__proto__.__proto__.constructor.name); // Node
+	
+	</script>
+
+</body>
+
+</html>

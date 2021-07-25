@@ -1,0 +1,501 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+	crossorigin="anonymous">
+	
+	<script 
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
+		crossorigin="anonymous"></script>
+
+	<style>
+		
+	.clearConsole{
+		position: fixed;
+		width: 300px;
+		height: 100px;
+		background-color: rgba(255, 140, 0, 0.659);
+		right: 0;
+	}
+
+	</style>
+
+</head>
+
+<body>
+
+	<script>
+		const cl = console.log;
+	</script>
+	
+	<div class="border rounded p-3 m-3 clearConsole" >
+		<button onclick="clearConsole()" 
+			class=" m-3 btn btn-primary">clearConsole</button>
+		<script>
+			 const clearConsole = () => console.clear();
+		</script>
+	</div>
+	
+	
+	<div id="app">
+	
+	
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-6 border">
+					<h1>Theory</h1>
+
+					<div class="border rounded p-3 m-3 ">
+
+						<button 
+							onclick="addPropertyToBody()" 
+							class=" m-3 btn btn-primary"> 
+							addPropertyToBody
+						</button>
+
+					<button 
+						onclick="addFuncToBody()" 
+						class=" m-3 btn btn-primary"> 
+						addFuncToBody
+					</button>
+					<button 
+						onclick="addFuncToAllElements()" 
+						class=" m-3 btn btn-primary"> 
+						addFuncToAllElements
+					</button>
+
+
+						<script>
+							function addPropertyToBody(){
+								document.body.myData = {
+									name: 'Caesar',
+									title: 'Imperator'
+								};
+
+								cl("document.body.myData.title",document.body.myData.title); // Imperator
+
+							}
+
+							function addFuncToBody(){
+								document.body.printTagName = function(){
+									cl('this.tagName ',this.tagName);
+								}
+								document.body.printTagName();
+							}
+
+							function addFuncToAllElements(){
+
+								//May be Node instead of Element
+								Element.prototype.sayHi = function() {
+									cl('this.tagName ',`Hello, I'm ${this.tagName}`);
+								};
+
+								document.documentElement.sayHi(); // Hello, I'm HTML
+								document.body.sayHi(); // Hello, I'm BODY
+							}
+
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="logNonStandartAttribute()" 
+							class=" m-3 btn btn-primary"> 
+							logNonStandartAttribute
+						</button>
+						<button 
+							onclick="readNonStandartAttribute()" 
+							class=" m-3 btn btn-primary"> 
+							readNonStandartAttribute
+						</button>
+
+						<div id="test" class="target-7329-div" something="non-standard">
+
+							<script>
+								function logNonStandartAttribute(){
+									const targetDiv = document.querySelector('.target-7329-div')
+									cl('targetDiv.id ',targetDiv.id); // test
+										// нестандартный атрибут не преобразуется в свойство
+									cl('targetDiv.something ',targetDiv.something); // undefined
+								}
+
+								function readNonStandartAttribute(){
+									const targetDiv = document.querySelector('.target-7329-div')
+									cl(`targetDiv.getAttribute('something') `,targetDiv.getAttribute('something'))
+								}
+							</script>
+						</div>
+						<div>
+							
+						<code>
+							elem.hasAttribute(name) – проверяет наличие атрибута.
+							elem.getAttribute(name) – получает значение атрибута.
+							elem.setAttribute(name, value) – устанавливает значение атрибута.
+							elem.removeAttribute(name) – удаляет атрибут.<br>
+
+							elem.attributes - get all attributes.
+						</code>
+
+
+						</div>
+						
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<h1>working with attributes</h1>
+						<button 
+							onclick="workWithAttributes()" 
+							class=" m-3 btn btn-primary"> 
+							workWithAttributes
+						</button>
+
+						<div id="elem-div-122" about="Elephant"></div>
+
+						<script>
+							function workWithAttributes(){
+
+								cl(`window['elem-div-122'].getAttribute('About') `,
+									window['elem-div-122'].getAttribute('About') ); // (1) 'Elephant', чтение
+					
+								cl(`window['elem-div-122'].setAttribute('Test', 123);`)
+								window['elem-div-122'].setAttribute('Test', 123); // (2), запись
+						
+								cl(`window['elem-div-122'].outerHTML `, window['elem-div-122'].outerHTML ); // (3), посмотрим, есть ли атрибут в HTML (да)
+						
+								for (let attr of window['elem-div-122'].attributes) { // (4) весь список
+									cl('${attr.name} = ${attr.value}', `${attr.name} = ${attr.value}` );
+								}
+							}
+
+
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="attributeValuesBinding()" 
+							class=" m-3 btn btn-primary"> 
+							attributeValuesBinding
+						</button>
+						<button 
+							onclick="valueAttributeBinding()" 
+							class=" m-3 btn btn-primary"> 
+							valueAttributeBinding
+						</button>
+
+						<input type="text" class="target-input-1">
+						<script>
+							function attributeValuesBinding(){
+								const input = document.querySelector('input[class="target-input-1"]');
+								input.setAttribute('id', 'inputID');
+								cl('input.id ',input.id);
+
+								input.id = 'changedId';
+								cl('input.id changed',input.getAttribute('id'));
+							}
+
+							function valueAttributeBinding(){
+								const input = document.querySelector('input[class="target-input-1"]');
+
+								// атрибут => значение
+								input.setAttribute('value', 'text');
+								cl('input.value ',input.value); // text
+
+								// свойство => атрибут
+								input.value = 'newValue';
+								// text (не обновилось!)
+								cl(`input.getAttribute('value') not changed`,input.getAttribute('value')); 
+							}
+
+							
+						</script>
+						
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="domPropsTyped()" 
+							class=" m-3 btn btn-primary"> 
+							domPropsTyped
+						</button>
+						<input id="input-checkbox-1" type="checkbox" checked="true"> checkBox
+						<script>
+							function domPropsTyped(){
+								console.log(
+									`window['input-checkbox-1'].getAttribute('checked')`,
+									window['input-checkbox-1'].getAttribute('checked'))
+								console.log(
+									`window['input-checkbox-1'].checked`,	
+								window['input-checkbox-1'].checked)
+							}
+						</script>
+						
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="logStyleAttribute()" 
+							class=" m-3 btn btn-primary"> 
+							logStyleAttribute
+						</button>
+						<div id="div1" style="color:red;font-size:120%">Hello</div>
+
+						<script>
+							function logStyleAttribute(){
+							// строка
+							cl(`div1.getAttribute('style') `,div1.getAttribute('style')); // color:red;font-size:120%
+
+							// объект
+							cl(`div1.style`, div1.style); // CSS2Properties { color → "red", "font-size" → "120%" }
+							cl(`div1.style.color `, div1.style.color); // red
+
+							}
+
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="differenceBetweenElemGetAttributeAndElemDotProp()" 
+							class=" m-3 btn btn-primary"> 
+							differenceBetweenElemGetAttributeAndElemDotProp
+						</button>
+						<a id="a1" href="#hello">link</a>
+
+						<script>
+
+							function differenceBetweenElemGetAttributeAndElemDotProp(){
+								// атрибут
+								cl(`a1.getAttribute('href') `, a1.getAttribute('href')); // #hello
+
+								// свойство
+								cl(`a1.href `, a1.href ); // полный URL в виде http://site.com/page#hello
+								
+							}
+
+						</script>
+					</div>
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="handlePrintingUserData()" 
+							class=" m-3 btn btn-primary"> 
+							handlePrintingUserData
+						</button>
+
+						<div show-info="name"></div>
+						<div show-info="age"></div>
+						<script>
+							const user = {
+								name: "UserName",
+								age: 34
+							}
+
+							function handlePrintingUserData(){
+								printNameAndAge(user);
+							}
+
+							function printNameAndAge(user){
+
+								const userInfoElements = document.querySelectorAll('[show-info]');
+								Array.from(userInfoElements).forEach(elem=>{
+									const field = elem.getAttribute('show-info');
+									elem.innerText = user[field];
+								})
+
+							}
+						</script>
+
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="funcName()" 
+							class=" m-3 btn btn-primary"> 
+							funcName
+						</button>
+
+					</div>
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="setAttributeToDiv()" 
+							class=" m-3 btn btn-primary"> 
+							setAttributeToDiv
+						</button>
+						<button 
+							onclick="changeDivAttiribute()" 
+							class=" m-3 btn btn-primary"> 
+							changeDivAttiribute
+						</button>
+						<style>
+							.order[order-state="new"]{
+								background-color: rgb(47, 255, 241);
+							}
+							.order[order-state="pending"]{
+								background-color:rgb(255, 208, 0);
+							}
+							.order[order-state="canceled"]{
+								background-color:brown;
+							}
+							.order[order-state="done"]{
+								background-color:green;
+							}
+						</style>
+						<div class="order" order-state="new">
+							new
+						</div>
+						<div class="order" order-state="pending">
+							pending
+						</div>
+						<div class="order" order-state="canceled">
+							canceled
+						</div>
+
+						<div>We use attributes because they are easier to manipulate with</div>
+						<div id="targetdiv2" class="order"> set me an attribute</div>
+						<script>
+							function setAttributeToDiv(){
+								window['targetdiv2'].setAttribute('order-state', 'pending');
+							}
+							function changeDivAttiribute(){
+								window['targetdiv2'].setAttribute('order-state', 'done');
+							}
+						</script>
+
+						<div class="fs-3">
+							all attributes with data- are reserved for programmers.<br>
+							They are accessible in dataset property
+						</div>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="logDataAboutAttributeValue()" 
+							class=" m-3 btn btn-primary"> 
+							logDataAboutAttributeValue
+						</button>
+						<div id="targetdiv3" data-about="valueOfDataAttribute">div with data attibute</div>
+						<script>
+							function logDataAboutAttributeValue(){
+								cl(`window['targetdiv3'].dataset.about `,
+								window['targetdiv3'].dataset.about);
+							}
+						</script>
+					</div>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="readAndAssignOrderState_Attribute()" 
+							class=" m-3 btn btn-primary"> 
+							readAndAssignOrderState_Attribute
+						</button>
+						<style>
+							.order[data-order-state="new"]{
+								background-color: rgb(47, 255, 241);
+							}
+							.order[data-order-state="pending"]{
+								background-color:rgb(255, 208, 0);
+							}
+							.order[data-order-state="canceled"]{
+								background-color:brown;
+							}
+							.order[data-order-state="done"]{
+								background-color:green;
+							}
+						</style>
+						<div id="targetDiv4" class="order" data-order-state="new">
+							new
+						</div>
+
+						<script>
+							function readAndAssignOrderState_Attribute(){
+								cl(`window['targetDiv4'].dataset.orderState `,
+									window['targetDiv4'].dataset.orderState);
+									window['targetDiv4'].dataset.orderState = prompt('enter one of the following states [new, pending, canceled, done]');
+							}
+						</script>
+					</div>
+
+
+
+				</div>
+
+
+				<div class="col-sm-6 border">
+					<h1>Tasks</h1>
+
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="readDataWidgetNameAttribute()" 
+							class=" m-3 btn btn-primary"> 
+							readDataWidgetNameAttribute
+						</button>
+						<div data-widget-name="menu">Choose the genre</div>
+
+
+						<script>
+							function readDataWidgetNameAttribute(){
+								cl(`document.querySelector('[data-widget-name]').dataset.widgetName`,
+								document.querySelector('[data-widget-name]').dataset.widgetName);
+							}
+						</script>
+					</div>
+					<div class="border rounded p-3 m-3 ">
+						<button 
+							onclick="makeExternalLinksOrange()" 
+							class=" m-3 btn btn-primary"> 
+							makeExternalLinksOrange
+						</button>
+
+						<div class="target-task-div1">
+
+							<a name="list">the list</a>
+							<ul>
+								<li><a href="http://google.com">http://google.com</a></li>
+								<li><a href="/tutorial">/tutorial.html</a></li>
+								<li><a href="local/path">local/path</a></li>
+								<li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+								<li><a href="http://nodejs.org">http://nodejs.org</a></li>
+								<li><a href="http://internal.com/test">http://internal.com/test</a></li>
+							</ul>
+						</div>
+
+						<script>
+							function makeExternalLinksOrange(){
+
+								const links = document
+									.querySelector('.target-task-div1')
+									.querySelectorAll('a[href]');
+								Array.from(links).forEach(link=>{
+									const field = link.getAttribute('href');
+									// const field = link.href;
+									cl(`field `, field);
+									if(field&&field.match(/\:\/\//g)&&!field.includes(`http://internal.com`))
+										link.style.color='orange';
+								})
+							}
+						</script>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	
+	</div>
+
+</body>
+
+</html>
