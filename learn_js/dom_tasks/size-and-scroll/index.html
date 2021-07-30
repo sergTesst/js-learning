@@ -1,0 +1,476 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 border">
+            <h1>Theory</h1>
+            <div>
+              <img
+                class="img img-fluid"
+                src="./imgs/Screenshot 2021-07-30 142908.jpg"
+                alt=""
+              />
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="applyCoordinatesComputing()"
+                class="m-3 btn btn-primary"
+              >
+                applyCoordinatesComputing
+              </button>
+
+              <style>
+                #example {
+                  width: 300px;
+                  height: 200px;
+                  overflow: auto;
+                  border: 25px solid #e8c48f;
+                  padding: 20px;
+                }
+                .example-wrapper {
+                  position: relative;
+                  width: max-content;
+                }
+
+                .key {
+                  cursor: pointer;
+                  text-decoration: underline;
+                }
+                .toTop {
+                  right: -35px;
+                  bottom: 0;
+                }
+                .toBottom {
+                  top: 0;
+                  right: -35px;
+                }
+                .mover {
+                  background-color: rgb(204, 204, 204);
+                  width: max-content;
+                  border-radius: 5px;
+                  padding: 10px;
+                  color: #ffff;
+                  position: absolute;
+                }
+                .mover:hover {
+                  cursor: pointer;
+                  background-color: rgb(121, 97, 133);
+                }
+              </style>
+
+              <div class="example-wrapper">
+                <div id="example">
+                  <h3>Introduction</h3>
+                  <p>
+                    This Ecma Standard is based on several originating
+                    technologies, the most well known being JavaScript
+                    (Netscape) and JScript (Microsoft). The language was
+                    invented by Brendan Eich at Netscape and first appeared in
+                    that company's Navigator 2.0 browser. It has appeared in all
+                    subsequent browsers from Netscape and in all browsers from
+                    Microsoft starting with Internet Explorer 3.0. The
+                    development of this Standard started in November 1996. The
+                    first edition of this Ecma Standard was adopted by the Ecma
+                    General Assembly of June 1997.
+                  </p>
+
+                  <p>
+                    That Ecma Standard was submitted to ISO/IEC JTC 1 for
+                    adoption under the fast-track procedure, and approved as
+                    international standard ISO/IEC 16262, in April 1998. The
+                    Ecma General Assembly of June 1998 approved the second
+                    edition of ECMA-262 to keep it fully aligned with ISO/IEC
+                    16262. Changes between the first and the second edition are
+                    editorial in nature.
+                  </p>
+
+                  <p>
+                    The third edition of the Standard introduced powerful
+                    regular expressions, better string handling, new control
+                    statements, try/catch exception handling, tighter definition
+                    of errors, formatting for numeric output and minor changes
+                    in anticipation of forthcoming internationalisation
+                    facilities and future language growth. The third edition of
+                    the ECMAScript standard was adopted by the Ecma General
+                    Assembly of December 1999 and published as ISO/IEC
+                    16262:2002 in June 2002.
+                  </p>
+                </div>
+
+                <div class="toTop mover" onclick="moveToTop()">🔼</div>
+                <div class="toBottom mover" onclick="moveToBottom()">🔽</div>
+              </div>
+
+              <div id="mouse-wrap">
+                Координаты мыши: <span id="mouse">...</span>
+              </div>
+
+              <div id="info"></div>
+
+              <script>
+                function applyCoordinatesComputing() {
+                  let props = {
+                    geometry: [
+                      "clientLeft",
+                      "clientTop",
+                      "clientWidth",
+                      "clientHeight",
+                      "offsetWidth",
+                      "offsetHeight",
+                      "scrollWidth",
+                      "scrollHeight",
+                    ],
+                    scroll: ["scrollLeft", "scrollTop"],
+                    offsetParent: ["offsetParent", "offsetLeft", "offsetTop"],
+                  };
+
+                  info.innerHTML = "<h3>Click to see the value:</h3>";
+                  for (let k in props) {
+                    info.innerHTML += `<h4>${k}</h4>`;
+                    let prop = props[k];
+                    for (let i = 0; i < prop.length; i++) {
+                      info.innerHTML +=
+                        "<span class='key'>" +
+                        prop[i] +
+                        '</span>: <span id="' +
+                        prop[i] +
+                        '">&nbsp;</span>' +
+                        " ";
+                      i++;
+                      if (i < prop.length) {
+                        info.innerHTML +=
+                          "<span class='key'>" +
+                          prop[i] +
+                          '</span>: <span id="' +
+                          prop[i] +
+                          '">&nbsp;</span>';
+                      }
+                      info.innerHTML += "<br/>";
+                    }
+                  }
+
+                  document.onclick = function (event) {
+                    let target = event.target;
+                    if (!target.classList.contains("key")) return;
+
+                    let prop = target.innerHTML;
+                    let value = example[prop];
+                    value = value.tagName || value;
+                    document.getElementById(prop).innerHTML = value;
+                  };
+
+                  document.onmousemove = function (e) {
+                    document.getElementById("mouse").innerHTML =
+                      Math.round(e.clientX) + ":" + Math.round(e.clientY);
+                  };
+                }
+                async function moveToTop() {
+                  while (example.scrollTop != 0) {
+                    await sleep(5);
+                    example.scrollTop -= 50;
+                  }
+                  cl('example.scrollTop ', example.scrollTop);
+                }
+                async function moveToBottom() {
+                  cl(
+                    `example.scrollTop, 
+                    example.scrollHeight, 
+                    example.scrollTop < example.scrollHeight`,
+                    example.scrollTop,
+                    example.scrollHeight,
+                    example.scrollTop < example.scrollHeight
+                  );
+                  cl(
+                    `example.scrollHeight-example.scrollTop `,
+                    Math.ceil(example.scrollHeight - example.scrollTop)
+                  );
+                  while (
+                    example.scrollTop <
+                    example.scrollHeight - example.clientHeight
+                  ) {
+                    await sleep(5);
+                    example.scrollTop += 50;
+                  }
+                  cl('example.scrollTop ', example.scrollTop);
+                }
+                const sleep = (ms) =>
+                  new Promise((resolve) => setTimeout(resolve, ms));
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="GetFullHeightOfTheDocument()"
+                class="m-3 btn btn-primary"
+              >
+                GetFullHeightOfTheDocument
+              </button>
+
+              <script>
+                function GetFullHeightOfTheDocument() {
+                  let scrollHeight = Math.max(
+                    document.body.scrollHeight,
+                    document.documentElement.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.offsetHeight,
+                    document.body.clientHeight,
+                    document.documentElement.clientHeight
+                  );
+
+                  cl(
+                    "Полная высота документа с прокручиваемой частью: scrollHeight" +
+                      scrollHeight
+                  );
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="getCurrentScroll()" class="m-3 btn btn-primary">
+                getCurrentScroll
+              </button>
+
+              <script>
+                function getCurrentScroll() {
+                  cl('document.body.scrollTop ', document.body.scrollTop)
+                  cl('document.body.scrollTop == window.pageYOffset ', document.body.scrollTop == window.pageYOffset)
+                  cl("Текущая прокрутка сверху: window.pageYOffset " + window.pageYOffset);
+                  cl("Текущая прокрутка слева:  window.pageXOffset " + window.pageXOffset);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="windowScrollBy010()" class="m-3 btn btn-primary">
+                windowScrollBy010
+              </button>
+              <button onclick="windowScrollTo00()" class="m-3 btn btn-primary">
+                windowScrollTo00
+              </button>
+
+              <script>
+                function windowScrollBy010() {
+                  window.scrollBy(0, 10);
+                }
+                function windowScrollTo00() {
+                  window.scrollTo(0, 0);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="this_scrollIntoView(event)" class="m-3 btn btn-primary">
+                this_scrollIntoView
+              </button>
+              <button onclick="this_scrollIntoViewFalse(event)" class="m-3 btn btn-primary">
+                this_scrollIntoViewFalse
+              </button>
+
+              <script>
+                function this_scrollIntoView(event) {
+                  event.target.scrollIntoView();
+                }
+                function this_scrollIntoViewFalse(event) {
+                  event.target.scrollIntoView(false);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="setDocumentBodyOverflowHidden()" class="m-3 btn btn-primary">
+                setDocumentBodyOverflowHidden
+              </button>
+              <button onclick="resetDocumentBodyOverflow()" class="m-3 btn btn-primary">
+                resetDocumentBodyOverflow
+              </button>
+
+              <script>
+                function setDocumentBodyOverflowHidden(){
+                  let scrollWidth = window.innerWidth - document.documentElement.clientWidth;
+                  if(scrollWidth){
+                    document.body.style.paddingRight = `${scrollWidth}px`;
+                  }
+                  document.body.style.overflow = 'hidden';
+                }
+                function resetDocumentBodyOverflow(){
+                  let rightBodyPadding = document.body.style.paddingRight;
+                  if(rightBodyPadding){
+                    document.body.style.paddingRight = '';
+                  }
+                  document.body.style.overflow = '';
+                }
+              </script>
+            </div>
+
+            <div>
+              <img class="img img-fluid" 
+                src="./imgs//Screenshot 2021-07-30 194504.jpg" alt="pageXY clientXY">
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <img class="img img-fluid"  
+              src="./imgs/Screenshot 2021-07-30 195958.jpg" alt="">
+
+              <button onclick="button_getBoundingClientRect(event.target)" class="m-3 btn btn-primary">
+                button_getBoundingClientRect
+              </button>
+
+              <script>
+                function button_getBoundingClientRect() {
+                  Array.from(arguments).forEach(el=>{
+                    if(el){
+                      cl(`el.getBoundingClientRect() `,el.getBoundingClientRect() )
+                    }
+                  })
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+
+          </div>
+
+          <div class="col-sm-6 border">
+            <h1>Tasks</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="calculate_scrollBottom()"
+                class="m-3 btn btn-primary"
+              >
+                calculate_scrollBottom
+              </button>
+
+              <script>
+                function calculate_scrollBottom() {
+                  let res =
+                    example.scrollHeight -
+                    example.clientHeight -
+                    example.scrollTop;
+
+                  let toTheBottom = Math.abs(Math.ceil(res));
+                  cl("scrollBottom", toTheBottom);
+                  cl("example.scrollTop", Math.floor(example.scrollTop));
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="getScrollBarWidth()" class="m-3 btn btn-primary">
+                getScrollBarWidth
+              </button>
+
+              <script>
+                function getScrollBarWidth() {
+                  cl(
+                    `example.clientWidth `,
+                    example.offsetWidth - example.clientWidth
+                  );
+                  cl(
+                    `example.clientWidth `,
+                    window.innerWidth - document.documentElement.clientWidth
+                  );
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <style>
+                #field {
+                  width: 200px;
+                  border: 10px groove black;
+                  background-color: #00ff00;
+                  position: relative;
+                }
+
+                #ball {
+                  position: absolute;
+                }
+              </style>
+
+              <button
+                onclick="placeBallOnTheCenterOfField()"
+                class="m-3 btn btn-primary"
+              >
+                placeBallOnTheCenterOfField
+              </button>
+              <div id="field">
+                <img src="https://en.js.cx/clipart/ball.svg" id="ball" />
+                . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . .
+              </div>
+              <script>
+                function placeBallOnTheCenterOfField() {
+                  let resultLeft = `${Math.round(
+                    field.clientWidth / 2 - ball.clientWidth / 2
+                  )}px`;
+                  let resultTop = `${Math.round(
+                    field.clientHeight / 2 - ball.clientHeight / 2
+                  )}px`;
+                  ball.style.left = resultLeft;
+                  ball.style.top = resultTop;
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
