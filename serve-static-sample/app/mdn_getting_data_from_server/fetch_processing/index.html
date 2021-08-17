@@ -1,0 +1,157 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"  -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+		rel="stylesheet" 
+		
+		crossorigin="anonymous">
+
+	<link rel="stylesheet" href="styles.css">
+
+	<title>Document</title>
+</head>
+<body>
+
+	<!-- https://eu-central-1.console.aws.amazon.com/console/home?region=eu-central-1# 
+		
+		free apis
+			https://proglib.io/p/7-besplatnyh-api-o-kotoryh-nikto-ne-govorit-2020-12-07
+
+		recipes search docs
+			https://developer.edamam.com/edamam-docs-recipe-api
+		
+		edamam account
+			https://developer.edamam.com/admin/applications/1409621733917?service_id=2555417725632
+		
+		search sample
+			https://www.edamam.com/results/recipes/?search=
+
+	
+	-->
+
+	
+	<div class="container-fluid">
+
+		<div class="row justify-content-center bg-light">
+			<div class="col-sm-5">
+				<div class="m-2 p-2">
+					<h1 class="display-3 text-center">Recipes</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row gx-5 my-2">
+
+				<div class="col-sm-3 col-md-3 col-lg-4 ">
+					<div class="p-3 border bg-light rounded">
+						
+						<div class="my-3">
+
+							<!-- <button type="button" class="btn btn-secondary" 
+							data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+								Tooltip on top
+							</button> -->
+
+
+							<input class="form-control" 
+								type="text" 
+								placeholder="Search word..." 
+								aria-label="default input example">
+								
+						</div>
+						
+						<div class="m-3 row">
+							<div class="d-flex caloriesInputsContainer justify-content-around">
+								<div class="m-1">
+									<label for="fromKCalInput" class="form-label">From kCal</label>
+									<input type="text" class="form-control" id="fromKCalInput">
+								</div>
+								<div class="m-1">
+									<label for="toKCalInput" class="form-label">to kCal</label>
+									<input type="text" class="form-control" id="toKCalInput">
+								</div>
+							</div>
+							
+							
+						</div>
+
+						<div class="p-2">
+							<span class="text-muted result-count">
+
+							</span>
+						</div>
+
+						<div class="checkboxFilter">
+
+							<div class="dietPanel border p-2 rounded">
+
+								<h3>Health</h3>
+								<div class="healthCheckBoxes">
+									
+								</div>
+
+								<h3>Diet</h3>
+								<div class="dietCheckBoxes">
+									
+								</div>
+
+							</div>
+
+
+						</div>
+						<div class="m-3">
+							<button class="btn btn-primary" id="btn-filter-data">filter</button>
+						</div>
+
+					</div>
+				 </div>
+
+				 <div class="col-sm-9 col-md-8 ">
+					
+					<div class="m-4 p-3" style="z-index: 1000;">
+						<div
+							data-bs-toggle-custom="tooltip"
+							title-custom="tooltip text"
+							class="custom-tooltip bg-primary text-white p-3 fs-4 rounded d-inline">
+							hover over me
+						</div>
+					</div>
+
+					 <div class="p-3 border bg-light rounded">
+							<!-- <div><span>Custom column padding</span></div> -->
+
+							<div class="m-3 recipes-container row gx-2">
+
+							</div>
+							<div hidden id="spinner"></div>
+
+						</div>
+				 </div>
+
+			</div>
+
+		</div>
+
+	</div>	
+
+
+	<!-- integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"  -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.js" 
+	
+	crossorigin="anonymous"></script>
+	
+	<script
+		type="module"
+		src="custom_poppers.js"
+	></script>
+
+	<script
+		type="module"
+		src="gettingData.js"></script>
+
+</body>
+</html>

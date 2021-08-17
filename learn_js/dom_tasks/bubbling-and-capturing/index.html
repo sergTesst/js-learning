@@ -1,0 +1,543 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="bubblingListener1()" class="m-3 btn btn-primary">
+                bubblingListener1
+              </button>
+              <div onclick="bubblingListener1.divHandler(event)">
+                <em
+                  >Если вы кликните на <code>EM</code>, сработает обработчик на
+                  <code>DIV</code></em
+                >
+              </div>
+
+              <script>
+                function bubblingListener1() {}
+                bubblingListener1.divHandler = (event) => {
+                  cl("div click handler", event);
+                };
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="bubblingShow1(event)"
+                class="m-3 btn btn-primary"
+              >
+                bubblingShow1
+              </button>
+
+              <style>
+                .targetDiv1 * {
+                  margin: 10px;
+                  border: 1px solid #6dff83;
+                  padding: 5px;
+                  transition: all 1s;
+                }
+                .targetDiv2 * {
+                  margin: 10px;
+                  border: 1px solid #6df0ff;
+                  padding: 5px;
+                  transition: all 1s;
+                }
+                div.targetDiv1 form:hover {
+                  cursor: pointer;
+                  border: 4px solid #6dc7ff;
+                }
+                div.targetDiv1 form div:hover {
+                  cursor: pointer;
+                  border: 4px solid #6dc7ff;
+                }
+                div.targetDiv1 form div p:hover {
+                  cursor: pointer;
+                  border: 4px solid #6dc7ff;
+                }
+              </style>
+
+              <div class="targetDiv1">
+                <form onclick="bubblingShow3(event)">
+                  FORM
+                  <div onclick="bubblingShow2(event)">
+                    DIV
+                    <p onclick="bubblingShow1(event)">
+                      P with event.stopPropagation();
+                    </p>
+                  </div>
+                </form>
+              </div>
+
+              <div class="targetDiv2">
+                <form onclick="cl('form')">
+                  FORM
+                  <div onclick="cl('div')">
+                    DIV
+                    <p onclick="cl('p')">P</p>
+                  </div>
+                </form>
+              </div>
+
+              <script>
+                const rootHandlerForBubbling = (event) => {
+                  cl("event.target.tagName ", event.target.tagName);
+                  cl(
+                    "event.currentTarget.tagName ",
+                    event.currentTarget.tagName
+                  );
+
+                  const element = event.target;
+                  cl(
+                    "event.target === event.currentTarget",
+                    event.target === event.currentTarget
+                  );
+
+                  element.style.background = "#6ee4ff";
+                  const timeOutId = setTimeout(() => {
+                    element.style.background = "";
+                    clearTimeout(timeOutId);
+                  }, 1000);
+                };
+                function bubblingShow1(event) {
+                  rootHandlerForBubbling(event);
+                  event.stopPropagation();
+                }
+                function bubblingShow2(event) {
+                  rootHandlerForBubbling(event);
+                  // event.stopPropagation();
+                }
+                function bubblingShow3(event) {
+                  rootHandlerForBubbling(event);
+                  // event.stopPropagation();
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="differentCurrentAndTarget()"
+                class="m-3 btn btn-primary"
+              >
+                differentCurrentAndTarget
+              </button>
+              <style>
+                div.targetDiv3 * {
+                  transition: all 1s linear;
+                  text-align: center;
+                }
+                div.targetDiv3 form {
+                  background-color: chartreuse;
+                  width: 200px;
+                  height: 200px;
+                }
+                div.targetDiv3 form div {
+                  background-color: rgb(0, 255, 187);
+                  width: 150px;
+                  height: 150px;
+                  margin: 0 auto;
+                }
+                div.targetDiv3 form div p {
+                  background-color: rgba(102, 0, 255, 0.489);
+                  width: 100px;
+                  height: 100px;
+                  display: block;
+                  margin: 0 auto;
+                }
+                div.targetDiv3 form:hover {
+                  cursor: pointer;
+                  border: 1px solid gray;
+                  background-color: rgb(217, 0, 255);
+                }
+                .targetDiv3 form .divInner:hover {
+                  cursor: pointer;
+                  background-color: rgb(0, 42, 255);
+                  border: 1px solid gray;
+                }
+                div.targetDiv3 form div p:hover {
+                  cursor: pointer;
+                  background-color: rgb(255, 60, 0);
+                  border: 1px solid gray;
+                }
+              </style>
+              <div class="targetDiv3">
+                <form
+                  onclick="differentCurrentAndTarget.formClickHandler(event)"
+                >
+                  FORM
+                  <div class="divInner">
+                    DIV
+                    <p class="pInner">P</p>
+                  </div>
+                </form>
+              </div>
+
+              <script>
+                function differentCurrentAndTarget() {}
+                differentCurrentAndTarget.formClickHandler = (event) => {
+                  event.target.style.backgroundColor = "yellow";
+                  const timeOutId = setTimeout(() => {
+                    event.target.style.background = "";
+                    clearTimeout(timeOutId);
+                  }, 1000);
+                };
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div onclick="alert(`сюда всплытие не дойдёт`)">
+                <button
+                  onclick="event.stopPropagation()"
+                  class="m-3 btn btn-primary"
+                >
+                  event will not show because we using stopPropagation
+                </button>
+
+                <div>
+                  event.stopImmediatePropagation() stop event execution on the
+                  current target
+                </div>
+              </div>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="eventPhases()" class="m-3 btn btn-primary">
+                eventPhases
+              </button>
+              <div>
+                <h1>event phases</h1>
+
+                <div>1 capturing phase</div>
+                <div>2 target phase</div>
+                <div>3 bubbling phase</div>
+              </div>
+              <div>
+                <img
+                  style="width: 700px; height: 500px"
+                  src="./imgs/Screenshot 2021-08-17 180439.jpg"
+                  alt="event phases"
+                />
+              </div>
+
+              <div>
+                <iframe
+                  src="./eventPhasesExample.html"
+                  title="capture-target-bubbling-example"
+                >
+                </iframe>
+              </div>
+
+              <script>
+                function eventPhases() {}
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="highlightSelected_td()"
+                class="m-3 btn btn-primary"
+              >
+                highlightSelected_td
+              </button>
+
+              <style>
+                .targetDiv4 table td:hover {
+                  border-bottom: 1px solid black;
+                  cursor: pointer;
+                }
+              </style>
+
+              <div class="targetDiv4">
+                <table class="table table-striped" id="bagua-table">
+                  <tr>
+                    <th colspan="3">
+                      Квадрат<em>Bagua</em>: Направление, Элемент, Цвет,
+                      Значение
+                    </th>
+                  </tr>
+                  <tr>
+                    <td class="nw">
+                      <strong>Северо-Запад</strong> <br />Металл <br />Серебро
+                      <br />Старейшины
+                    </td>
+                    <td class="n">
+                      <strong>Север</strong> <br />Вода <br />Синий
+                      <br />Перемены
+                    </td>
+                    <td class="ne">
+                      <strong>Северо-Восток</strong> <br />Земля <br />Жёлтый
+                      <br />Направление
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="w">
+                      <strong>Запад</strong> <br />Металл <br />Золото
+                      <br />Молодость
+                    </td>
+                    <td class="c">
+                      <strong>Центр</strong> <br />Всё <br />Пурпурный
+                      <br />Гармония
+                    </td>
+                    <td class="e">
+                      <strong>Восток</strong> <br />Дерево <br />Синий
+                      <br />Будущее
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sw">
+                      <strong>Юго-Запад</strong> <br />Земля <br />Коричневый
+                      <br />Спокойствие
+                    </td>
+                    <td class="s">
+                      <strong>Юг</strong> <br />Огонь <br />Оранжевый
+                      <br />Слава
+                    </td>
+                    <td class="se">
+                      <strong>Юго-Восток</strong> <br />Дерево <br />Зелёный
+                      <br />Роман
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <script>
+                function highlightSelected_td() {}
+                highlightSelected_td.selectedTd;
+
+                highlightSelected_td.highlightTd = (element) => {
+                  if (highlightSelected_td.selectedTd) {
+                    highlightSelected_td.selectedTd.classList.remove(
+                      "table-active"
+                    );
+                  }
+                  highlightSelected_td.selectedTd = element;
+                  highlightSelected_td.selectedTd.classList.add("table-active");
+                };
+
+                //TODO: add handler if click was on inner elements inside td element
+                window["bagua-table"].onclick = (event) => {
+                  let element = event.target;
+                  if (element.tagName !== "TD") return;
+                  highlightSelected_td.highlightTd(element);
+                };
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="bindDataActionToClassMethods()"
+                class="m-3 btn btn-primary"
+              >
+                bindDataActionToClassMethods
+              </button>
+
+              <div class="targetDiv5">
+                <div class="menu">
+                  <button class="m-3 btn btn-primary" data-action="save">
+                    Сохранить
+                  </button>
+                  <button class="m-3 btn btn-primary" data-action="load">
+                    Загрузить
+                  </button>
+                  <button class="m-3 btn btn-primary" data-action="search">
+                    Поиск
+                  </button>
+                </div>
+              </div>
+
+              <script>
+                function bindDataActionToClassMethods() {}
+
+                class Menu {
+                  constructor(elem) {
+                    this._elem = elem;
+                    this._elem.onclick = this.onClick.bind(this);
+                  }
+
+                  save() {
+                    cl("saving ...");
+                  }
+                  load() {
+                    cl("loading ...");
+                  }
+                  search() {
+                    cl("searching ...");
+                  }
+
+                  onClick(event) {
+                    // cl('onclick event');
+                    let action = event.target.dataset.action;
+                    // cl('action', action);
+                    if (action) {
+                      // calling own method
+                      this[action]();
+                    }
+                  }
+                }
+                const menuelem = document.querySelector(".targetDiv5 .menu");
+                // cl(menuelem);
+                const menuInstance = new Menu(menuelem);
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="addListenerForButtons()" class="m-3 btn btn-primary">
+                addListenerForButtons
+              </button>
+
+              <div class="targetDiv6">
+                <h1>
+                  Всегда используйте метод addEventListener для обработчиков на уровне документа
+                </h1>
+                <input type="button" value="1"  class="m-3 btn btn-primary" data-counter/>
+                <input type="button" value="2"  class="m-3 btn btn-primary" data-counter/>
+              </div>
+
+              <script>
+                function addListenerForButtons() {
+
+                  document.querySelector('.targetDiv6').addEventListener('click' , (event)=>{
+                    if(event.target.dataset.counter!==undefined){
+                      event.target.value++;
+                    }
+                  })
+
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="addEventListenerForButtonToggleId()" class="m-3 btn btn-primary">
+                addEventListenerForButtonToggleId
+              </button>
+
+              <div class="targetDir7">
+                <button data-toggle-id="email-form" class="m-3 btn btn-primary">
+                  show form
+                </button>
+
+                <form id="email-form" hidden>
+                  your email: <input  type="email">
+                </form>
+              </div>
+
+
+              <script>
+                function addEventListenerForButtonToggleId() {
+                  const targetDiv7 = document.querySelector('.targetDir7');
+                  targetDiv7.addEventListener('click', (event)=>{
+                    cl(event);
+
+                    let id = event.target.dataset.toggleId;
+                    if(!id) return;
+                    const showHideElem = targetDiv7.querySelector(`#${id}`);
+                    if(showHideElem){
+                      showHideElem.hidden = !showHideElem.hidden;
+                    }
+                  })
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <style>
+                
+              </style>
+
+              <div class="targetDivForMessage">
+                <div>
+                  <h3>insert messages after me</h3>
+                </div>
+              </div>
+
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <h2>add message with close button above document</h2>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

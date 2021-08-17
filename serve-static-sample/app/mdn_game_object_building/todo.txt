@@ -1,0 +1,7 @@
+
+article
+	Введение в объекты JavaScript
+	https://developer.mozilla.org/ru/docs/Learn/JavaScript/Objects
+
+[]Добавление функциональности к демо с прыгающими шариками
+	https://developer.mozilla.org/ru/docs/Learn/JavaScript/Objects

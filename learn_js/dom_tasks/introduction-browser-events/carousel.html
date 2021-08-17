@@ -1,0 +1,256 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      "use strict";
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <style>
+                .carousel {
+                  position: relative;
+                  background-color: #f0e9e9a7;
+                  border-radius: 0.4em;
+                  /* width: 70%; */
+                  margin: 0 auto;
+                }
+                .carousel ul {
+                  margin-top: auto;
+                  margin-bottom: auto;
+                  padding-left: 0;
+                  padding-right: 0;
+                  padding-top: 1.2em;
+                  padding-bottom: 1.2em;
+                  position: relative;
+                  width: 9999px;
+                  transition: all 1s;
+                  word-spacing: 3px;
+                }
+                .carousel ul li {
+                  list-style-type: none;
+                  width: max-content;
+                  display: inline-block;
+                  border-radius: 0.3em;
+                  background-color: rgba(233, 150, 122, 0.762);
+                }
+                /* in order to  remove tails after inline img elements*/
+                .carousel ul li img {
+                  display: block;
+                  width: 130px;
+                  height: 130px;
+                }
+                .arrow:focus {
+                  outline: none;
+                }
+                .arrow:hover {
+                  background: #ccc;
+                  cursor: pointer;
+                }
+                .carousel .arrow {
+                  position: absolute;
+                  border-radius: 0.4em;
+                  font-size: 24px;
+                  line-height: 24px;
+                  border: 1px solid gray;
+                }
+                .carousel .arrow {
+                  top: 50%;
+                  z-index: 2;
+                }
+                .carousel .arrow:nth-child(2) {
+                  top: 50%;
+                  right: 0;
+                }
+                .gallery {
+                  margin: 0 auto;
+                  /* width: 77%; */
+                  overflow: hidden;
+                }
+                /* if more than 1200px */
+                @media (min-width: 1200px) {
+                  .carousel {
+                    width: 750px;
+                  }
+                  .gallery {
+                    width: 670px;
+                  }
+                }
+                /* if less than 1200px */
+                @media (max-width: 1200px) {
+                  .carousel {
+                    width: 500px;
+                  }
+                  .gallery {
+                    width: 400px;
+                  }
+                }
+                /* if less than 770px */
+                @media (max-width: 770px) {
+                  .carousel {
+                    width: 200px;
+                  }
+                  .gallery {
+                    width: 130px;
+                  }
+                }
+              </style>
+              <button onclick="InitCarousel()" class="m-3 btn btn-primary">
+                InitCarousel
+              </button>
+
+              <div class="carousel">
+                <button class="arrow prev">⇦</button>
+                <button class="arrow next">⇨</button>
+
+                <div class="gallery">
+                  <ul>
+                    <li><img src="https://ru.js.cx/carousel/1.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/2.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/3.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/4.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/5.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/6.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/7.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/8.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/9.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/10.png" /></li>
+                  </ul>
+                </div>
+              </div>
+
+              <script>
+                function InitCarousel() {}
+                cl(
+                  `document.querySelectorAll('li').length `,
+                  document.querySelectorAll("li").length
+                );
+                InitCarousel.carousel = document.querySelector(".carousel");
+                // cl('InitCarousel.carousel', InitCarousel.carousel)
+                InitCarousel.imgWidth = 130;
+                InitCarousel.visibleImages = 3;
+                InitCarousel.wordSpacing = 3;
+
+                InitCarousel.ulel =
+                  InitCarousel.carousel.querySelector(".carousel ul");
+                // cl('InitCarousel.ulel', InitCarousel.ulel);
+                InitCarousel.liels = Array.from(
+                  InitCarousel.ulel.getElementsByTagName("li")
+                );
+                // cl('InitCarousel.liels', InitCarousel.liels);
+                InitCarousel.initialPosition = 0;
+
+                const prevArrow =
+                  InitCarousel.carousel.querySelector(".arrow.prev");
+                // cl('prevArrow', prevArrow);
+                prevArrow.addEventListener("click", (event) => {
+                  InitCarousel.initialPosition +=
+                    InitCarousel.imgWidth * InitCarousel.visibleImages;
+                  // cl('InitCarousel.initialPosition ', InitCarousel.initialPosition);
+
+                  // getting only negative values or
+                  //0 if InitCarousel.initialPosition is positive number
+                  InitCarousel.initialPosition = Math.min(
+                    InitCarousel.initialPosition,
+                    0
+                  );
+                  cl(
+                    "InitCarousel.initialPosition ",
+                    InitCarousel.initialPosition
+                  );
+
+                  InitCarousel.ulel.style.cssText = `margin-left:${InitCarousel.initialPosition}px;`;
+                });
+                const nextArrow =
+                  InitCarousel.carousel.querySelector(".arrow.next");
+                // cl('nextArrow', nextArrow);
+                nextArrow.addEventListener("click", (event) => {
+                  InitCarousel.initialPosition -=
+                    InitCarousel.imgWidth * InitCarousel.visibleImages;
+                  cl(
+                    "InitCarousel.initialPosition ",
+                    InitCarousel.initialPosition
+                  );
+                  const maxLengthOfImages =
+                    -InitCarousel.imgWidth *
+                      (InitCarousel.liels.length - InitCarousel.visibleImages) -
+                    InitCarousel.wordSpacing * (InitCarousel.liels.length - 1) - 30;
+                  
+                  cl("maxLengthOfImages ", maxLengthOfImages);
+                  InitCarousel.initialPosition = Math.max(
+                    InitCarousel.initialPosition,
+                    maxLengthOfImages
+                  );
+
+                  InitCarousel.ulel.style.cssText = `margin-left:${InitCarousel.initialPosition}px;`;
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -2,3 +2,4 @@
 *lock*
 ./myapp/package-lock.json
 ./learn_js/package-lock.json
+/learn_js/typescript

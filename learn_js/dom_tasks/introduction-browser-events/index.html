@@ -1,0 +1,618 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      "use strict";
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addEventHandlerFromClass()"
+                class="m-3 btn btn-primary"
+              >
+                addEventHandlerFromClass
+              </button>
+              <div class="target1"></div>
+              <!-- <button id="elem">Нажми меня</button> -->
+
+              <script>
+                function addEventHandlerFromClass() {
+                  let button = document.createElement("button");
+                  button.id = "elem";
+                  button.innerHTML = `Нажми меня`;
+                  document.querySelector(".target1").append(button);
+                  class Menu {
+                    handleEvent(event) {
+                      switch (event.type) {
+                        case "mousedown":
+                          elem.innerHTML = "Нажата кнопка мыши";
+                          break;
+                        case "mouseup":
+                          elem.innerHTML += "...и отжата.";
+                          break;
+                      }
+                    }
+                  }
+
+                  let menu = new Menu();
+                  elem.addEventListener("mousedown", menu);
+                  elem.addEventListener("mouseup", menu);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addEventHandlerFromClass2()"
+                class="m-3 btn btn-primary"
+              >
+                addEventHandlerFromClass2
+              </button>
+              <button id="elem2">Нажми меня</button>
+              <script>
+                function addEventHandlerFromClass2() {
+                  class Menu {
+                    handleEvent(event) {
+                      // mousedown -> onMousedown
+                      let method =
+                        "on" +
+                        event.type[0].toUpperCase() +
+                        event.type.slice(1);
+                      this[method](event);
+                    }
+
+                    onMousedown() {
+                      elem2.innerHTML = "Кнопка мыши нажата";
+                    }
+
+                    onMouseup() {
+                      elem2.innerHTML += "...и отжата.";
+                    }
+                  }
+
+                  let menu = new Menu();
+                  elem2.addEventListener("mousedown", menu);
+                  elem2.addEventListener("mouseup", menu);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+
+          <div class="col-sm-6 border">
+            <h1>Tasks</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addEventListenerForBall()"
+                class="m-3 btn btn-primary"
+              >
+                addEventListenerForBall
+              </button>
+              <div
+                class="target2"
+                style="
+                  height: 350px;
+                  background: rgb(217, 245, 116);
+                  width: 350px;
+                  overflow-y: scroll;
+                "
+              >
+                <style>
+                  .field {
+                    width: 300px;
+                    height: 250px;
+                    background-color: chartreuse;
+                    border: 10px groove black;
+                    overflow: hidden;
+                    cursor: pointer;
+                    position: relative;
+                  }
+                  #ball1 {
+                    position: absolute;
+                    transition: all 1s;
+                    width: 40px;
+                    height: 40px;
+                  }
+                </style>
+
+                <div class="field">
+                  <img
+                    src="https://ru.js.cx/clipart/ball.svg"
+                    id="ball1"
+                    style="width: 64px; height: 54px"
+                  />
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                  . . . . . . . . . . . . . . .
+                </div>
+                <div style="height: 800px"></div>
+              </div>
+
+              <script>
+                function addEventListenerForBall() {
+                  // let target = document.querySelector(".target2");
+
+                  let field = document.querySelector(".field");
+                  field.addEventListener("click", fieldEventHandler);
+                  function fieldEventHandler(event) {
+                    let target = event.currentTarget;
+                    cl(`event.currentTarget `, target);
+
+                    let rect = target.getBoundingClientRect();
+                    cl(`target rect `, rect);
+
+                    // let { scrollTop, scrollLeft } = target;
+
+                    // cl(`scrollTop, scrollLeft `, scrollTop, scrollLeft);
+
+                    let { clientX, clientY } = event;
+                    cl(`clientX, clientY `, clientX, clientY);
+
+                    let left = clientX - Math.round(rect.x) - target.clientLeft;
+                    cl(`clientX-Math.round(rect.x)-target.clientLeft `, left);
+
+                    let top = clientY - Math.round(rect.y) - target.clientTop;
+                    cl(`clientY-Math.round(rect.y)-target.clientTop `, top);
+
+                    // let oldResLeft = clientX - ball1.clientWidth / 2 + scrollLeft;
+                    // let oldResTop = clientY - ball1.clientHeight / 2 + scrollTop;
+
+                    let resultLeft = Math.round(left - ball1.clientWidth / 2);
+                    let resultTop = Math.round(top - ball1.clientHeight / 2);
+
+                    cl(`resultLeft, resultTop`, resultLeft, resultTop);
+                    if (resultLeft < 0) {
+                      resultLeft = 0;
+                    }
+                    if (resultTop < 0) {
+                      resultTop = 0;
+                    }
+                    let bottomCoordinate = Math.round(
+                      target.clientHeight - ball1.clientHeight
+                    );
+                    cl(`bottomCoordinate `, bottomCoordinate);
+                    if (resultTop > bottomCoordinate) {
+                      resultTop = bottomCoordinate;
+                    }
+                    let rightCoordinate = Math.round(
+                      target.clientWidth - ball1.clientWidth
+                    );
+                    cl(`rightCoordinate `, rightCoordinate);
+                    if (resultLeft > rightCoordinate) {
+                      resultLeft = rightCoordinate;
+                    }
+
+                    cl(`updated resultLeft, resultTop`, resultLeft, resultTop);
+
+                    ball1.style.left = `${Math.round(resultLeft)}px`;
+                    ball1.style.top = `${Math.round(resultTop)}px`;
+                  }
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addEventListenerOpenCloseMenue()"
+                class="m-3 btn btn-primary"
+              >
+                addEventListenerOpenCloseMenue
+              </button>
+              <style>
+                .styledBorder {
+                  border-top: 3px solid #91ccb2;
+                  border-radius: 3px;
+                }
+                .flex-container {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                }
+                .pointer {
+                  cursor: pointer;
+                }
+                .hide {
+                  display: none;
+                }
+                .target3 > ul {
+                  transition: all 1s;
+                }
+                .h0 {
+                  height: 0;
+                }
+                .divAnimated {
+                  transition: all 1s;
+                }
+              </style>
+              <div class="target3">
+                <div class="pointer">
+                  <span class="closed-menue-items hide">▶</span>
+                  <span class="opened-menue-items">▼</span>
+                  <span class="toggler-menue"> Сладости (нажми меня)! </span>
+                </div>
+                <ul>
+                  <li>Пирожное</li>
+                  <li>Пончик</li>
+                  <li>Мёд</li>
+                </ul>
+              </div>
+
+              <script>
+                // function addEventListenerOpenCloseMenue() {
+                let menueToggler = document.querySelector(".toggler-menue");
+                menueToggler.addEventListener("click", showHideList);
+                let list = document.querySelector(".target3>ul");
+                // cl(list);
+                list.style.height = list.clientHeight;
+                function showHideList(event) {
+                  if (list) {
+                    list.querySelectorAll("li").forEach((li) => {
+                      li.classList.toggle("hide");
+                    });
+
+                    document
+                      .querySelector(".closed-menue-items")
+                      .classList.toggle("hide");
+                    document
+                      .querySelector(".opened-menue-items")
+                      .classList.toggle("hide");
+                  }
+                }
+                // }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="CreateMessages.createAndGetDivMsg()"
+                class="m-3 btn btn-primary"
+              >
+                CreateMessages
+              </button>
+
+              <script>
+                function CreateMessages() {}
+
+                CreateMessages.divsMsg = [];
+
+                CreateMessages.GetTotalHeightOfDivs = () => {
+                  let arrDivs = Array.from(CreateMessages.divsMsg);
+                  let sumTop = 0;
+                  if (arrDivs.length > 0) {
+                    for (let el of arrDivs) {
+                      // cl('el', el);
+                      sumTop += el.offsetHeight;
+                    }
+                    cl("sumTop ", sumTop);
+                  }
+                  return sumTop;
+                };
+
+                CreateMessages.reCalculateTop = () => {
+                  let arrDivs = Array.from(CreateMessages.divsMsg);
+                  for (let i = 0; i < arrDivs.length; i++) {
+                    //count divs before current div
+                    let sum = 0;
+                    for (let j = 0; j < i; j++) {
+                      sum += arrDivs[j].offsetHeight;
+                    }
+                    arrDivs[i].style.top = `${sum}px`;
+                  }
+                };
+
+                CreateMessages.createAndGetDivMsg = () => {
+                  const div = document.createElement("div");
+                  const currentWidth = document.documentElement.clientWidth;
+                  const sumTop = CreateMessages.GetTotalHeightOfDivs();
+
+                  const contentElem = div.cloneNode(false);
+                  contentElem.classList.add("flex-container");
+
+                  const deleteElem = div.cloneNode(false);
+                  deleteElem.innerHTML = `[x]`;
+                  deleteElem.style.cssText = `
+                    color:#a03531;
+                    cursor: pointer;
+                  `;
+                  deleteElem.addEventListener("click", () => {
+                    div.remove();
+                    CreateMessages.reCalculateTop();
+                  });
+                  const titleElem = div.cloneNode(false);
+                  titleElem.innerHTML = `title ${Date.now()}`;
+                  titleElem.style.cssText = `
+                  font-weight:bold;
+                  `;
+
+                  contentElem.append(titleElem);
+                  contentElem.append(deleteElem);
+
+                  const textElem = div.cloneNode(false);
+                  textElem.innerHTML =
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium sed consequatur reiciendis, autem beatae quia recusandae quaerat neque, debitis eaque velit. Id voluptatibus enim aliquam deleniti asperiores at error optio.";
+
+                  div.append(contentElem);
+                  div.append(textElem);
+
+                  div.style.cssText = `
+                    position:fixed;
+                    left: 70%;
+                    transform: translate(-70%, 0);
+                    background:#d1e7dd;
+                    z-index:1100;
+                    top:${sumTop};
+                    padding:0.3em;
+                    width: ${currentWidth / 2}px;
+                  `;
+                  div.classList.add("styledBorder", "divAnimated");
+                  div.id = Date.now();
+
+                  document.body.append(div);
+
+                  Array.prototype.push.call(CreateMessages.divsMsg, div);
+                  cl(`CreateMessages.divsMsg `, CreateMessages.divsMsg);
+                  return div;
+                };
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <style>
+                .carousel {
+                  position: relative;
+                  background-color: #dff7ed;
+                  border-radius: 0.4em;
+                  display: flex;
+                  /* align-items: center; */
+                  /* justify-content: center; */
+                }
+                .carousel ul {
+                  margin-top: auto;
+                  margin-bottom: auto;
+                  padding-top: 1.2em;
+                  padding-bottom: 1.2em;
+                  position: relative;
+                  display: flex;
+                  gap: 10px;
+                  transition: all 1s;
+                }
+                .carousel ul li {
+                  list-style-type: none;
+                  /* width: max-content; */
+                  /* display: inline-block; */
+                  border-radius: 0.3em;
+                  background-color: rgba(233, 150, 122, 0.762);
+                }
+                .carousel .arrow {
+                  position: absolute;
+                  border-radius: 0.4em;
+                }
+                .carousel .arrow {
+                  top: 50%;
+                  z-index: 2;
+                }
+                .carousel .arrow:nth-child(2) {
+                  top: 50%;
+                  right: 0;
+                }
+                .gallery {
+                  /* width: 390px; */
+                  overflow: hidden;
+                }
+              </style>
+              <!-- onclick="createCarousel.clickHandler()" -->
+              <button class="m-3 btn btn-primary">createCarousel</button>
+              <div class="carousel">
+                <button class="arrow prev">⇦</button>
+                <button class="arrow next">⇨</button>
+
+                <div class="gallery">
+                  <ul>
+                    <li><img src="https://ru.js.cx/carousel/1.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/2.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/3.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/4.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/5.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/6.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/7.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/8.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/9.png" /></li>
+                    <li><img src="https://ru.js.cx/carousel/10.png" /></li>
+                  </ul>
+                </div>
+              </div>
+
+              <script async>
+                function createCarousel() {}
+                createCarousel.NumberOfViewedItems = 3;
+                createCarousel.gapWidth = 10;
+
+                const getSumWidth = (a, c) => {
+                  return a + c.offsetWidth;
+                };
+
+                createCarousel.ulel = document.querySelector(".carousel ul");
+
+                createCarousel.liels = Array.from(
+                  createCarousel.ulel.getElementsByTagName("li")
+                );
+
+                //https://stackoverflow.com/questions/11071314/javascript-execute-after-all-images-have-loaded
+                createCarousel.getWidthOfAllItems = () => {
+                  let imgArr = Array.from(
+                    createCarousel.ulel.querySelectorAll("img")
+                  );
+                  Promise.all(
+                    imgArr
+                      .filter((img) => !img.complete)
+                      .map(
+                        (img) =>
+                          new Promise((resolve) => {
+                            img.onload = img.onerror = resolve;
+                          })
+                      )
+                  ).then((_) => {
+                    cl("createCarousel.liels", createCarousel.liels);
+                    createCarousel.sumWidth = createCarousel.liels.reduce(
+                      getSumWidth,
+                      (createCarousel.liels.length - 1) *
+                        createCarousel.gapWidth
+                    );
+                    cl("createCarousel.sumWidth ", createCarousel.sumWidth);
+
+                    if (
+                      createCarousel.liels.length <=
+                      createCarousel.NumberOfViewedItems
+                    )
+                      return;
+
+                    document
+                      .querySelector(".arrow.prev")
+                      .addEventListener("click", () => {
+                        let scrollingWidth = createCarousel.getScrollingWidth();
+
+                        let currentMarginLeft = Number.parseInt(
+                          createCarousel.ulel.style.marginLeft
+                        );
+                        cl("currentMarginLeft ", currentMarginLeft);
+                        if (
+                          !currentMarginLeft ||
+                          currentMarginLeft == 0 ||
+                          currentMarginLeft > 0
+                        ) {
+                          createCarousel.ulel.style.cssText = `
+                          margin-left:-${createCarousel.sumWidth}px;
+                        `;
+                        } else {
+                          createCarousel.ulel.style.cssText = `
+                          margin-left:${currentMarginLeft + scrollingWidth}px
+                        `;
+                        }
+                      });
+                    document
+                      .querySelector(".arrow.next")
+                      .addEventListener("click", () => {
+                        let scrollingWidth = createCarousel.getScrollingWidth();
+
+                        let mL = Math.abs(
+                          Number.parseInt(createCarousel.ulel.style.marginLeft)
+                        );
+                        cl("createCarousel.ulel.style.marginLeft ", mL);
+
+                        let marginSum =
+                          (Number.isNaN(mL) ? 0 : mL) + scrollingWidth;
+
+                        cl("marginSum ", marginSum);
+                        if (
+                          marginSum > createCarousel.sumWidth ||
+                          marginSum < 0
+                        )
+                          marginSum = 0;
+
+                        createCarousel.ulel.style.cssText = `
+                          margin-left:-${marginSum}px;
+                        `;
+                      });
+                  });
+                };
+                createCarousel.getScrollingWidth = () => {
+                  let viewedLis = createCarousel.liels.slice(
+                    0,
+                    createCarousel.NumberOfViewedItems
+                  );
+                  cl("3 lis ", viewedLis);
+                  let sumWidth3Lis = viewedLis.reduce(getSumWidth, 0);
+                  cl(" sumWidth3Lis ", sumWidth3Lis);
+
+                  let gapSumWidth =
+                    (createCarousel.NumberOfViewedItems - 1) *
+                    createCarousel.gapWidth;
+                  cl(" gapSumWidth ", gapSumWidth);
+
+                  let scrollingWidth = sumWidth3Lis + gapSumWidth;
+                  return scrollingWidth;
+                };
+
+                createCarousel.getWidthOfAllItems();
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName1()" class="m-3 btn btn-primary">
+                funcName1
+              </button>
+
+              <script>
+                function funcName1() {}
+              </script>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "fetch_processing",
+  "version": "1.0.0",
+  "description": "fetch data from server",
+  "main": "custom_poppers.js",
+  "scripts": {
+    "start":"lite-server baseDir=.",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "serhii kuzmych",
+  "license": "MIT"
+}

@@ -1,0 +1,198 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="activateClickJacking1()"
+                class="m-3 btn btn-primary"
+              >
+                activateClickJacking1
+              </button>
+              <style>
+                .cont1 {
+                  position: relative;
+                }
+                .custom-btn-1 {
+                  width: 200px;
+                }
+                .fb_iframe_1 {
+                  width: 400px;
+                  position: absolute;
+                  top: 5px;
+                  left: -14px;
+                  opacity: 0.5;
+                  z-index: 1;
+                }
+              </style>
+
+              <div class="cont1">
+                <div>Нажми, чтобы разбогатеть:</div>
+
+                <!-- Url с сайта-жертвы -->
+                <iframe
+                  id="fbFrame"
+                  class="fb_iframe_1"
+                  src="http://localhost:3000/fake_facebook.html"
+                ></iframe>
+
+                <button class="custom-btn-1">Нажмите сюда!</button>
+
+                <div>...И всё будет супер (у меня, хакера)!</div>
+              </div>
+
+              <script>
+                function activateClickJacking1() {
+                  let frameDoc = window.frames.fbFrame.contentDocument;
+                  // cl("frameDoc ", frameDoc);
+                  if (frameDoc) {
+                    let inputBtn = frameDoc.body.querySelector(".clickInputFb");
+                    // cl('inputBtn', inputBtn);
+                    if (inputBtn) {
+                      inputBtn.style.opacity = "0";
+                    }
+                  }
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="activateBeforeUnload()"
+                class="m-3 btn btn-primary"
+              >
+							activateBeforeUnload
+              </button>
+
+              <script>
+                function activateBeforeUnload() {
+                  window.onbeforeunload = function () {
+                    return false;
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="getDomain()" class="m-3 btn btn-primary">
+                getDomain
+              </button>
+							<div>
+								<iframe 
+									sandbox="allow-scripts allow-forms" 
+									src="http://localhost:3000/fake_facebook.html"></iframe>
+							</div>
+              <script>
+                function getDomain() {
+									cl('document.domain ',document.domain)
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="insertTargetIFrame()" class="m-3 btn btn-primary">
+                insertTargetIFrame
+              </button>
+							<div class="target-div-for-disabledIFrame">
+
+							</div>
+              <script>
+                function insertTargetIFrame() {
+									document.querySelector('.target-div-for-disabledIFrame')
+									.insertAdjacentHTML(
+										'afterbegin',
+										`
+											<iframe 
+												src="http://localhost:3000/disabled_display_frame.html"
+												>
+											</iframe>`
+										)
+								}
+								
+
+              </script>
+            </div>
+						
+            <div class="border rounded p-3 m-3">
+              <button onclick="getDocLocationHref()" class="m-3 btn btn-primary">
+                getDocLocationHref
+              </button>
+
+              <script>
+                function getDocLocationHref() {
+									cl('document.location.href ', document.location.href);
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+
+          <div class="col-sm-6 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

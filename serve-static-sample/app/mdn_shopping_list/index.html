@@ -1,0 +1,192 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+	<title>shopping list</title>
+</head>
+<body>
+	<div class="container-fluid">
+			<div class="row">
+				<h1>Shopping list</h1>
+			</div>
+		<div class="row mt-2">
+			<label for="item_input" class="col-sm-2 col-form-label">Enter the name of item</label>
+			<div class="col-sm-4">
+				<input onchange="getInputValue(event)" 
+					type="text" class="form-control" name="item_input">
+			</div>
+			<div class="col-sm-2">
+			<button
+				onclick="handleButtonClick(event)"
+				class="btn rounded shadow border">Save</button>
+			</div>
+
+			<div class="col-sm-2">
+				<button
+				onclick="sendAllElement()"
+				class="btn rounded shadow border">Send All Element</button>
+			</div>
+			
+		</div>
+
+		</div>
+
+		<div class="container">
+			<div class="row mt-3">
+				<div class="col-sm-5">
+					<ul class="list-group items_list">
+	
+					</ul>
+				</div>
+				
+			</div>
+		</div>
+
+
+
+	</div>
+	
+
+	
+	<script>
+		//https://www.w3schools.com/jsref/dom_obj_event.asp
+
+		'use strict'
+
+		function createElement({name,classNamesString,attributes={}}){
+			const element = document.createElement(name);
+			if(classNamesString){
+				const classNames = classNamesString.split(' ');
+				element.classList.add(...classNames);
+			}
+			Object.keys(attributes).forEach((key)=>{
+				element.setAttribute(key,attributes[key]);
+			})
+			return element;
+		}
+
+
+			const itemsList = document.querySelector('.items_list');
+			const inputElement = document.querySelector('input[name="item_input"]');
+
+			let inputValue = '';
+			let allElements = [];
+			let currentElement = null;
+			let currentSpanElement = null;
+
+			function createListItem(item){
+				const listItem = createElement(
+					{
+						name:'li',
+						classNamesString:'list-group-item',
+						attributes:{
+							key:`${item.id}`
+						}
+					});
+
+				const listSpanItem = createElement(
+					{
+						name:'span',
+						classNamesString:'mx-2'
+					});
+				listSpanItem.textContent  = item.data.toString();
+
+				const buttonEdit = createElement(
+					{
+						name:'button',
+						classNamesString:'btn btn-primary mx-2'
+					});
+					buttonEdit.onclick = (event)=>editListItem(item.id,listSpanItem);
+					buttonEdit.innerText = 'Edit';
+
+				const buttonDelete = createElement(
+					{
+						name:'button',
+						classNamesString:'btn btn-primary mx-2',
+					});
+					buttonDelete.onclick = (event)=>deleteListItem(item.id,listItem);
+					buttonDelete.innerText = 'Delete';
+				
+				listItem.appendChild(listSpanItem);
+				listItem.appendChild(buttonEdit);
+				listItem.appendChild(buttonDelete);
+
+				return listItem;
+			}
+
+			function handleButtonClick(event){
+
+				if(inputValue==""){
+					inputElement.style.borderColor = "red";
+					return;
+				}
+				
+				if(!currentElement){
+					const item ={
+						id:Date.now(),
+						data:inputValue
+					}
+					const listItem = createListItem(item);
+					itemsList.appendChild(listItem);
+					allElements.push(item);
+				}else{
+					currentElement.data = inputValue;
+					let editItem = allElements.find(elem=>elem.id===currentElement.id);
+
+					if(editItem){
+						editItem.data = currentElement.data;
+						currentSpanElement.textContent = currentElement.data;
+					}
+					
+				}
+
+				inputElement.value = '';
+				inputValue = '';
+				currentElement = null;
+				currentSpanElement = null;
+				inputElement.style.borderColor = "black";
+
+			}
+
+			function getInputValue(event){
+
+				inputValue = event.target.value;
+				console.log('input value',inputValue);
+			}
+
+			function editListItem(id,spanItem){
+				console.log('edit event');
+				let editItem = allElements.find(elem=>elem.id===id);
+				currentElement = editItem;
+				inputValue = editItem.data;
+				inputElement.value = inputValue;
+				currentSpanElement = spanItem;
+
+			}
+
+			function deleteListItem(id,listItem){
+				allElements = allElements.filter(el=>el.id!=id);
+				console.log('deletes event');
+				itemsList.removeChild(listItem);
+			}
+
+			function sendAllElement(){
+				console.log(JSON.stringify(allElements));
+				allElements = [];
+				let childrenItems = itemsList.children;
+				Array.from(childrenItems).forEach(child=>{
+					itemsList.removeChild(child);
+				})
+			}
+
+
+
+
+		
+	</script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+</body>
+</html>

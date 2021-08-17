@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+	
+	
+	<title>Document</title>
+</head>
+<body>
+	<!-- https://docs.emmet.io/cheat-sheet/ -->
+
+	<!-- 
+		products api
+		https://shopify.dev/docs/admin-api/rest/reference/products
+	 -->
+	<h1>Ajax starter</h1>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<form action="">
+					<label for="verse-select">Choose a verse</label>
+					<select name="" id="verse-select">
+						<option >Verse 1</option>
+						<option >Verse 2</option>
+						<option >Verse 3</option>
+						<option >Verse 4</option>
+						<option >Verse 5</option>
+					</select>
+				</form>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-5">
+				<h2>The Conqueror Worm, <em>Edgar Allen Poe, 1843</em></h2>
+
+				<pre>
+		
+				</pre>
+
+			</div>
+		</div>
+	
+	</div>
+
+	<script>
+		'use strict';
+
+		(function(){
+			const verseChooseElement = document.querySelector('select');
+			const versesElement = document.querySelector('pre');
+			
+		
+			verseChooseElement.onchange = function(event){
+				console.log(event.target);
+				let verse = verseChooseElement.value;
+				verse = verse.replace(" ","")
+					.toLowerCase().concat(".txt").split("").reverse().join("")
+					.concat(
+						('./verses/').split("").reverse().join("")
+						)
+					.split("").reverse().join("");
+				console.log('verse',verse);
+				if(verse){
+					updateVerse(verse,versesElement);
+				}
+			}
+
+			const updateVerse = (verseURL,updateElement)=>{
+
+				function xhrRequest(){
+					const request = new XMLHttpRequest();
+					request.open('GET',verseURL,true);
+					request.responseType = 'text';
+
+					request.onload = ()=>{
+						let resp = request.response;
+							if(request.status===200){
+								updateElement.textContent = resp; 
+							}
+					}
+
+					request.onreadystatechange = function() { // Call a function when the state changes.
+						if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+							// Request finished. Do processing here.
+							console.log('request finished');
+						}
+						if(this.status==404){
+							updateElement.textContent = 'Cannot find this verse'; 
+						}
+					}
+					request.send();
+
+				}
+				//xhrRequest(verseURL,updateElement);
+
+				function fetchRequest(verseURL,updateElement){
+
+					fetch(verseURL)
+						.then((response)=>{
+							console.log(response.status);
+							if(response.ok){
+								return response.text();
+							}else{
+								updateElement.textContent = 'Cannot find this verse'; 
+							}
+						})
+						.then((text)=>{
+							updateElement.textContent = text;
+						})
+				}
+				fetchRequest(verseURL,updateElement);
+
+
+
+
+		}
+		
+		verseChooseElement.value = 'Verse 1';
+		updateVerse('./verses/verse1.txt',versesElement);
+			
+
+		})()
+
+
+
+		
+		
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+</body>
+</html>

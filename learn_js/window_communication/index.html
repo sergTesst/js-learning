@@ -1,0 +1,562 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="window_open()" class="m-3 btn btn-primary">
+                window_open
+              </button>
+
+              <script>
+                //popup is blocked by default
+                function window_open() {
+                  window.open("https://javascript.info/");
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="setTimeoutForPopUpFor3Seconds()"
+                class="m-3 btn btn-primary"
+              >
+                setTimeoutForPopUpFor3Seconds
+              </button>
+
+              <script>
+                function setTimeoutForPopUpFor3Seconds() {
+                  setTimeout(() => window.open("http://google.com"), 3000);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="openPopupWithParams()"
+                class="m-3 btn btn-primary"
+              >
+                openPopupWithParams
+              </button>
+
+              <script>
+                function openPopupWithParams() {
+                  var windowObjectReference;
+                  var windowFeatures =
+                    "menubar=no,location=no,resizable=no,scrollbars=yes,status=yes";
+                  windowObjectReference = window.open(
+                    "http://www.cnn.com/",
+                    "CNN_WindowName",
+                    windowFeatures
+                  );
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="openPopupWithParams2()"
+                class="m-3 btn btn-primary"
+              >
+                openPopupWithParams2
+              </button>
+
+              <script>
+                function openPopupWithParams2() {
+                  let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=600,height=300,left=100,top=100`;
+
+                  let newWindow = window.open("/", "test", params);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="accessToNewWindow()" class="m-3 btn btn-primary">
+                accessToNewWindow
+              </button>
+
+              <script>
+                function accessToNewWindow() {
+                  let newWin = window.open(
+                    "about:blank",
+                    "hello",
+                    "width=200,height=200"
+                  );
+
+                  newWin.document.write("Hello, world!");
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="modifyContentOfNewWindow()"
+                class="m-3 btn btn-primary"
+              >
+                modifyContentOfNewWindow
+              </button>
+
+              <script>
+                function modifyContentOfNewWindow() {
+                  let newWindow = open("/", "example", "width=300,height=300");
+                  newWindow.focus();
+
+                  cl(newWindow.location.href); // (*) about:blank, загрузка ещё не началась
+
+                  newWindow.onload = function () {
+                    let html = `<div style="font-size:30px">Добро пожаловать!</div>`;
+                    newWindow.document.body.insertAdjacentHTML(
+                      "afterbegin",
+                      html
+                    );
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="accessToNewWindow2_changeCurrentWindow()"
+                class="m-3 btn btn-primary"
+              >
+                accessToNewWindow2_changeCurrentWindow
+              </button>
+
+              <script>
+                function accessToNewWindow2_changeCurrentWindow() {
+                  let newWin2 = window.open(
+                    "about:blank",
+                    "hello",
+                    "width=200,height=200"
+                  );
+                  newWin2.onload = function () {
+                    newWin2.document.write(
+                      "<script>window.opener.document.body.innerHTML = 'Тест'<\/script>"
+                    );
+                    document.body.insertAdjacentHTML(
+                      "afterbegin",
+                      `<div>Custom html text</div>`
+                    );
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="window_close_not_executing()"
+                class="m-3 btn btn-primary"
+              >
+                window_close_not_executing
+              </button>
+
+              <script>
+                function window_close_not_executing() {
+                  window.close();
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="open_new_window_and_close_it()"
+                class="m-3 btn btn-primary"
+              >
+                open_new_window_and_close_it
+              </button>
+
+              <script>
+                function open_new_window_and_close_it() {
+                  let newWindow = open("/", "example", "width=300,height=300");
+
+                  newWindow.onload = function () {
+                    newWindow.close();
+                    cl("newWindow.closed ", newWindow.closed); // true
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="openNewWindowAndResizeIt()"
+                class="m-3 btn btn-primary"
+              >
+                openNewWindowAndResizeIt
+              </button>
+
+              <script>
+                function openNewWindowAndResizeIt() {
+                  let newWindow = open(
+                    "about:blank",
+                    "example",
+                    "width=300,height=300"
+                  );
+                  newWindow.onload = () => {
+                    newWindow.document.body.insertAdjacentHTML(
+                      "afterbegin",
+                      `<div>Custom html text</div>`
+                    );
+                    newWindow.moveBy(400, 200);
+
+                    newWindow.moveTo(100, 400);
+
+                    Promise.resolve("starting").then(async (r) => {
+                      cl("resolved value", r);
+                      return await new Promise((resolve) => {
+                        setTimeout(() => {
+                          cl("first");
+                          newWindow.resizeBy(500, 500);
+                          resolve("resolved first");
+                        }, 1000);
+                      }).then(async (r) => {
+                        cl("resolved value", r);
+                        return await new Promise((resolve) => {
+                          setTimeout(() => {
+                            cl("second");
+                            newWindow.resizeBy(200, 200);
+                            resolve("resolved second");
+                          }, 1000);
+                        }).then(async (r) => {
+                          cl("resolved value", r);
+                          return await new Promise((resolve) => {
+                            setTimeout(() => {
+                              cl("third");
+                              newWindow.moveBy(-400, 200);
+                              resolve("resolved third");
+                            }, 1000);
+                          }).then((r) => {
+                            cl("finished ", r);
+                          });
+                        });
+                      });
+                    });
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="windowCommunication1()"
+                class="m-3 btn btn-primary"
+              >
+                windowCommunication1
+              </button>
+
+              <script>
+                function windowCommunication1() {
+                  let newWindow = open(
+                    "about:blank",
+                    "example",
+                    "width=300,height=300"
+                  );
+                  newWindow.onload = function () {
+                    newWindow.document.body.insertAdjacentHTML(
+                      "afterbegin",
+                      `<div>Custom html text</div>`
+                    );
+                    newWindow.focus();
+                    this.console.log("popup console msg");
+                    this.console.log("second popup console msg");
+                    this.console.log("window.opener", window.opener);
+                    // window.opener.document.console.log('message from popup');
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="loadGoogleFrame()" class="m-3 btn btn-primary">
+                loadGoogleFrame
+              </button>
+              <div class="display-5">
+                GOOGLE
+              </div>
+               <div>
+                <!-- <iframe
+                  id="iframeGoogle"
+                  src="https://babeljs.io/docs/en/"
+                  frameborder="0"
+                  allowfullscreen="true"
+                  allowpaymentrequest="true"
+                  loading="lazy"
+                  referrerpolicy="unsafe-url"
+                  sandbox="
+                    allow-same-origin 
+                    "
+                > -->
+                <!-- 
+                    allow-forms 
+                    allow-modals 
+                    allow-top-navigation 
+                    allow-pointer-lock 
+                    allow-popups 
+                    allow-popups-to-escape-sandbox 
+                    allow-same-origin 
+                    allow-scripts 
+                  -->
+                </iframe>
+
+              </div>
+              <!--
+              <img
+                class="mt-5 img img-fluid"
+                src="https://imgproxy.natucate.com/PAd5WVIh-tjEKQM4Z6tm6W1J4Yc2JIYWrKEroD1c7mM/rs:fill/g:ce/w:3840/h:2160/aHR0cHM6Ly93d3cubmF0dWNhdGUuY29tL21lZGlhL3BhZ2VzL3JlaXNlYXJ0ZW4vNmMwODZlYmEtNzk3Yi00ZDVjLTk2YTItODhhNGM4OWUyODdlLzM3NjYwMTQ2NjMtMTU2NzQzMzYxMi8xMl9kYW5pZWxfY2FuX2JjLTIwNy5qcGc"
+                alt="nature"
+                loading="lazy"
+              /> -->
+
+              <script>
+                function loadGoogleFrame() {}
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="communicateToFrameExampleDotCome()"
+                class="m-3 btn btn-primary"
+              >
+                communicateToFrameExampleDotCome
+              </button>
+              <div>
+                <!-- <iframe src="https://example.com" id="iframe"></iframe> -->
+              </div>
+              <script>
+                function communicateToFrameExampleDotCome() {
+                  iframe.onload = function () {
+                    let iframeWindow = iframe.contentWindow;
+                    try {
+                      let doc = iframe.contentDocument; // frame's document
+                    } catch (e) {
+                      cl(e); // Security Error
+                    }
+
+                    try {
+                      let href = iframe.contentWindow.location.href;
+                    } catch (e) {
+                      alert(e); // Security Error
+                    }
+
+                    iframe.contentWindow.location = "/"; // OK
+
+                    iframe.onload = null; //kill handler for not executing on location change
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="doAnythingToFrame()" class="m-3 btn btn-primary">
+                doAnythingToFrame
+              </button>
+              <div>
+                <!-- <iframe
+                  src="/"
+                  id="sameOriginFrame"
+                  frameborder="1"
+                ></iframe> -->
+              </div>
+              <script>
+                function doAnythingToFrame() {
+                  sameOriginFrame.onload = () => {
+                    // sameOriginFrame.contentDocument.write('new info');
+                    sameOriginFrame.contentDocument.body.prepend(
+                      "Added content"
+                    );
+                    cl(sameOriginFrame.location);
+                    document.domain = "site.com";
+                  };
+                  document.domain = "site.com";
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="compareLocalDocumentAndFrame()"
+                class="m-3 btn btn-primary"
+              >
+                compareLocalDocumentAndFrame
+              </button>
+              <!-- <iframe src="/" id="sameOriginFrame2"></iframe> -->
+              <script>
+                function compareLocalDocumentAndFrame() {
+                  let oldDoc = sameOriginFrame2.contentDocument;
+                  let timer = setInterval(() => {
+                    let newDoc = iframe.contentDocument;
+                    if (newDoc == oldDoc) return;
+
+                    cl("New document is here!");
+
+                    clearInterval(timer); // отключим setInterval, он нам больше не нужен
+                  }, 100);
+                  sameOriginFrame2.onload = function () {
+                    let newDoc = sameOriginFrame2.contentDocument;
+                    alert(oldDoc == newDoc);
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="compareFrames()" class="m-3 btn btn-primary">
+                compareFrames
+              </button>
+              <div>
+                <!-- <iframe src="/" style="height:80px" name="win" id="iframe4"></iframe> -->
+
+              </div>
+
+              <script>
+                function compareFrames() {
+                  cl(`iframe4.contentDocument == frames[0] `,
+                    iframe4.contentDocument == frames[0])
+                  cl(`iframe4.contentDocument == frames.iframe4 `, 
+                    iframe4.contentDocument == frames.iframe4)
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="sendMessageToExampleFrame()" class="m-3 btn btn-primary">
+                sendMessageToExampleFrame
+              </button>
+              <button onclick="definedFunction()" class="m-3 btn btn-primary">
+                definedFunction
+              </button>
+              <iframe title="example frame" src="https://example.com" id="exampleA1"></iframe>
+
+              <script>
+                function sendMessageToExampleFrame() {
+                  let win = window.frames.exampleA1;
+                  cl('win ', win);
+                  if(win.postMessage){
+                    win.postMessage("message", "*");
+
+                  }else{
+                    console.error('win.postMessage is not defined.')
+                  }
+                }
+                function definedFunction(){
+                  cl('I am defined');
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="sendMessageToFrameFromForm()" class="m-3 btn btn-primary">
+                sendMessageToFrameFromForm
+              </button>
+
+              <iframe 
+                src="http://localhost:3000/additionalFrame.html" 
+                id="additionalFrame" 
+                style="display:block;height:60px"
+                frameborder="1"
+                ></iframe>
+
+              <form id="sendMessageToFrameForm">
+                <div class="mb-3">
+                  <label 
+                    for="emailInput" 
+                    class="form-label">Email address</label>
+                  <input type="text" class="form-control" 
+                    id="emailInput" placeholder="name">
+                </div>
+                <div class="mb-3">
+                  <label for="messageArea" 
+                    class="form-label">Example textarea</label>
+                  <textarea 
+                    class="form-control" 
+                    id="messageArea" rows="3"></textarea>
+                </div>
+                <input type="submit" class="m-3 btn btn-primary" value="Submit" ></input>
+              </form>
+
+
+              <script>
+                sendMessageToFrameForm.onsubmit = function() {
+                  cl('submitiing')
+                  additionalFrame.contentWindow
+                    .postMessage(
+                      `${this.emailInput.value} ${this.messageArea.value}`, '*');
+
+                  this.emailInput.value = '';
+                  this.messageArea.value = '';
+                  return false;
+                };
+                function sendMessageToFrameFromForm() {
+
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="insertPageWithFrame()" class="m-3 btn btn-primary">
+                insertPageWithFrame
+              </button>
+              <div>
+                <iframe
+                  style="width: 100%;" 
+                  src="http://localhost:3000/clickjacking.html" 
+                  frameborder="0"></iframe>
+              </div>
+              <script>
+                function insertPageWithFrame() {}
+              </script>
+            </div>
+          </div>
+
+          <div class="col-sm-6 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

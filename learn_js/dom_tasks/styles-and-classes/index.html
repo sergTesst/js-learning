@@ -1,0 +1,143 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="logComputedStyles()" class="m-3 btn btn-primary">
+                logComputedStyles
+              </button>
+
+              <style>
+                .targetDiv1 {
+                  color: red;
+                  margin: 5px;
+                }
+              </style>
+              <div class="targetDiv1">this is div</div>
+
+              <script>
+                function logComputedStyles() {
+                  let computedStyle = getComputedStyle(
+                    document.querySelector(".targetDiv1")
+                  );
+
+                  // сейчас мы можем прочитать отступ и цвет
+
+                  cl(`computedStyle.marginTop `, computedStyle.marginTop); // 5px
+                  cl(`computedStyle.color `, computedStyle.color); // rgb(255, 0, 0)
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+
+          <div class="col-sm-6 border">
+            <h1>Tasks</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="ToggleShowNotification()" class="m-3 btn btn-primary">
+                ToggleShowNotification
+              </button>
+
+              <script>
+                function ToggleShowNotification() {
+                  // показывает элемент с текстом "Hello" 
+									//рядом с правой верхней частью окна.
+                  showNotification({
+										color:'white',
+										background:'purple',
+                    top: 10, // 10px от верхней границы окна (по умолчанию 0px)
+                    right: 10, // 10px от правого края окна (по умолчанию 0px)
+                    html: "Hello!", // HTML-уведомление
+                    className: "welcome", // дополнительный класс для 
+										//div (необязательно)
+										time:1500
+                  });
+									function showNotification(notificationData){
+										const div = document.createElement('div');
+										const {
+											top, right, html, 
+											className, time, background,
+											color} = notificationData;
+										div.style.position = 'fixed';
+										div.style.zIndex = 100000;
+										div.style.top = top;
+										div.style.width = '100%';
+										div.style.right = right;
+										div.innerHTML = html;
+										div.style.background = background;
+										div.style.color = color;
+										div.classList.add(className);
+										document.body.append(div);
+										const timeOutId = setTimeout(()=>{
+											div.remove();
+											clearTimeout(timeOutId)
+										},time)
+
+									}
+
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

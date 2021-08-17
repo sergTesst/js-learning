@@ -260,9 +260,26 @@ function ErrorInheritance(){
 
 }
 
+const compareObjects = ()=>{
+	const a = {
+		a:'a'
+
+	}
+	const b = {a:'a'}
+	console.log('a == b', a==b);
+	console.log('a == b', a===b);
+	console.log(`Object.is(a,b) `,Object.is(a,b));
+	console.log('JSON.stringify(a) == JSON.stringify(b)', 
+		JSON.stringify(a) == JSON.stringify(b));
+		
+	console.log('JSON.stringify(a) === JSON.stringify(b)', 
+		JSON.stringify(a) === JSON.stringify(b));
+	console.log(`0 == [] `, 0 == []);
+}
 
 (function main(){
 
-	ErrorInheritance();
+	compareObjects();
+	// ErrorInheritance();
 	//ObjectOfError();
 })();

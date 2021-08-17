@@ -86,12 +86,11 @@ async function exampleDataProcessing (){
 	const reduceSumEveryQuantity = async () => {
 
 		const sum = await arrNames.reduce( async (promisedSum, fruit)=>{
-			
 			const num = await getNumFruit(fruit);
 			const sum  = await promisedSum;
 			console.log('got num from promise', num);
 			return sum + num;
-		},0);
+		}, Promise.resolve(0));
 
 		console.log('final sum ', sum);
 	}

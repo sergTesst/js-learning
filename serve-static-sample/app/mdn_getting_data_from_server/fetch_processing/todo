@@ -1,0 +1,11 @@
+fix position for search box and filters
+add details page
+
+use material slider and design components
+	https://material.io/components/sliders/web#sliders
+
+use webpack
+	https://webpack.js.org/
+
+node js webcrawler
+	https://blog.logrocket.com/how-to-build-a-web-crawler-with-node/
