@@ -134,7 +134,7 @@
                     event.currentTarget.tagName
                   );
 
-                  const element = event.target;
+                  const element = event.currentTarget;
                   cl(
                     "event.target === event.currentTarget",
                     event.target === event.currentTarget
@@ -305,6 +305,24 @@
                   <tr>
                     <td class="nw">
                       <strong>Северо-Запад</strong> <br />Металл <br />Серебро
+                      <div>
+                        <div>
+                          <div>
+                            <p>
+                              <strong>
+                                <code
+                                  style="
+                                    background-color: #ffffff;
+                                    padding: 2px;
+                                  "
+                                >
+                                  text here
+                                </code>
+                              </strong>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                       <br />Старейшины
                     </td>
                     <td class="n">
@@ -361,10 +379,15 @@
                   highlightSelected_td.selectedTd.classList.add("table-active");
                 };
 
-                //TODO: add handler if click was on inner elements inside td element
                 window["bagua-table"].onclick = (event) => {
                   let element = event.target;
-                  if (element.tagName !== "TD") return;
+                  while (element.tagName !== "TD") {
+                    cl("element", element);
+                    element = element.parentElement;
+                    if (!element) {
+                      break;
+                    }
+                  }
                   highlightSelected_td.highlightTd(element);
                 };
               </script>
@@ -428,33 +451,50 @@
             </div>
 
             <div class="border rounded p-3 m-3">
-              <button onclick="addListenerForButtons()" class="m-3 btn btn-primary">
+              <button
+                onclick="addListenerForButtons()"
+                class="m-3 btn btn-primary"
+              >
                 addListenerForButtons
               </button>
 
               <div class="targetDiv6">
                 <h1>
-                  Всегда используйте метод addEventListener для обработчиков на уровне документа
+                  Всегда используйте метод addEventListener для обработчиков на
+                  уровне документа
                 </h1>
-                <input type="button" value="1"  class="m-3 btn btn-primary" data-counter/>
-                <input type="button" value="2"  class="m-3 btn btn-primary" data-counter/>
+                <input
+                  type="button"
+                  value="1"
+                  class="m-3 btn btn-primary"
+                  data-counter
+                />
+                <input
+                  type="button"
+                  value="2"
+                  class="m-3 btn btn-primary"
+                  data-counter
+                />
               </div>
 
               <script>
                 function addListenerForButtons() {
-
-                  document.querySelector('.targetDiv6').addEventListener('click' , (event)=>{
-                    if(event.target.dataset.counter!==undefined){
-                      event.target.value++;
-                    }
-                  })
-
+                  document
+                    .querySelector(".targetDiv6")
+                    .addEventListener("click", (event) => {
+                      if (event.target.dataset.counter !== undefined) {
+                        event.target.value++;
+                      }
+                    });
                 }
               </script>
             </div>
 
             <div class="border rounded p-3 m-3">
-              <button onclick="addEventListenerForButtonToggleId()" class="m-3 btn btn-primary">
+              <button
+                onclick="addEventListenerForButtonToggleId()"
+                class="m-3 btn btn-primary"
+              >
                 addEventListenerForButtonToggleId
               </button>
 
@@ -464,24 +504,125 @@
                 </button>
 
                 <form id="email-form" hidden>
-                  your email: <input  type="email">
+                  your email: <input type="email" />
                 </form>
               </div>
 
-
               <script>
                 function addEventListenerForButtonToggleId() {
-                  const targetDiv7 = document.querySelector('.targetDir7');
-                  targetDiv7.addEventListener('click', (event)=>{
+                  const targetDiv7 = document.querySelector(".targetDir7");
+                  targetDiv7.addEventListener("click", (event) => {
                     cl(event);
 
                     let id = event.target.dataset.toggleId;
-                    if(!id) return;
+                    if (!id) return;
                     const showHideElem = targetDiv7.querySelector(`#${id}`);
-                    if(showHideElem){
+                    if (showHideElem) {
                       showHideElem.hidden = !showHideElem.hidden;
                     }
-                  })
+                  });
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="applyCloseButtonFunction()"
+                class="m-3 btn btn-primary"
+              >
+                applyCloseButtonFunction
+              </button>
+
+              <style>
+                .messageAlert {
+                  margin-top: 0.3em;
+                  border-top: 3px solid #91ccb2;
+                  border-radius: 3px;
+                  background: #d1e7dd;
+                  padding: 20px 0.3em 0.3em 0.3em;
+                  width: 400px;
+                  transition: all 1s;
+                  position: relative;
+                }
+                .closeButton {
+                  position: absolute;
+                  display: block;
+                  background: transparent;
+                  top: 0;
+                  right: 10px;
+                  color: darkred;
+                  font-size: 110%;
+                  transition: all 0.1s;
+                }
+                .closeButton:hover {
+                  cursor: pointer;
+                  transform: scale(1.1);
+                }
+              </style>
+
+              <div class="targetDivForMessage">
+                <div>
+                  <h3>insert messages after me</h3>
+                </div>
+                <div class="messageAlert">
+                  <div class="closeButton">[x]</div>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quia dicta reiciendis sit neque libero modi ut aut corporis
+                    quaerat, blanditiis eveniet cupiditate ipsa laboriosam eaque
+                    distinctio natus suscipit, laudantium ea!
+                  </p>
+                </div>
+                <div class="messageAlert">
+                  <div class="closeButton">[x]</div>
+                  <p>
+                    Scaling/zooming animations are problematic for
+                    accessibility, as they are a common trigger for certain
+                    types of migraine. If you need to include such animations on
+                    your website, you should provide a control to allow users to
+                    turn off animations, preferably site-wide.
+                  </p>
+                </div>
+                <div class="messageAlert">
+                  <div class="closeButton">[x]</div>
+                  <p>
+                    JavaScript (JS) is a lightweight, interpreted, or
+                    just-in-time compiled programming language with first-class
+                    functions. While it is most well-known as the scripting
+                    language for Web pages, many non-browser environments also
+                    use it, such as Node.js, Apache CouchDB and Adobe Acrobat.
+                    JavaScript is a prototype-based, multi-paradigm,
+                    single-threaded, dynamic language, supporting
+                    object-oriented, imperative, and declarative (e.g.
+                    functional programming) styles. Read more about JavaScript.
+                  </p>
+                </div>
+                <div class="messageAlert">
+                  <div class="closeButton">[x]</div>
+                  The standards for JavaScript are the ECMAScript Language
+                  Specification (ECMA-262) and the ECMAScript
+                  Internationalization API specification (ECMA-402). The
+                  JavaScript documentation throughout MDN is based on the latest
+                  draft versions of ECMA-262 and ECMA-402. And in cases where
+                  some proposals for new ECMAScript features have already been
+                  implemented in browsers, documentation and examples in MDN
+                  articles may use some of those new features.
+                </div>
+              </div>
+
+              <script>
+                function applyCloseButtonFunction() {
+                  Array.from(
+                    document
+                      .querySelector(".targetDivForMessage")
+                      .querySelectorAll(".messageAlert")
+                  ).forEach((msgPane) => {
+                    msgPane
+                      .querySelector(".closeButton")
+                      .addEventListener("click", (event) => {
+                        msgPane.remove();
+                      });
+                  });
                 }
               </script>
             </div>
@@ -491,34 +632,10 @@
                 funcName
               </button>
 
-              <style>
-                
-              </style>
-
-              <div class="targetDivForMessage">
-                <div>
-                  <h3>insert messages after me</h3>
-                </div>
-              </div>
-
-
               <script>
                 function funcName() {}
               </script>
             </div>
-
-            <div class="border rounded p-3 m-3">
-              <button onclick="funcName()" class="m-3 btn btn-primary">
-                funcName
-              </button>
-
-              <script>
-                function funcName() {}
-              </script>
-            </div>
-
-
-
           </div>
         </div>
 
@@ -526,6 +643,410 @@
           <div class="col-sm-12 border">
             <h1>Tasks</h1>
             <h2>add message with close button above document</h2>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="enableClosingFunctionForMessageAlerts()"
+                class="m-3 btn btn-primary"
+              >
+                enableClosingFunctionForMessageAlerts
+              </button>
+
+              <center>
+                <div class="targetDivForMessage">
+                  <div>
+                    <h3>insert messages after me</h3>
+                  </div>
+
+                  <div class="messageAlert">
+                    <div class="closeButton">[x]</div>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quia dicta reiciendis sit neque libero modi ut aut
+                      corporis quaerat, blanditiis eveniet cupiditate ipsa
+                      laboriosam eaque distinctio natus suscipit, laudantium ea!
+                    </p>
+                  </div>
+
+                  <div class="messageAlert">
+                    <div class="closeButton">[x]</div>
+                    <p>
+                      Scaling/zooming animations are problematic for
+                      accessibility, as they are a common trigger for certain
+                      types of migraine. If you need to include such animations
+                      on your website, you should provide a control to allow
+                      users to turn off animations, preferably site-wide.
+                    </p>
+                  </div>
+                  <div class="messageAlert">
+                    <div class="closeButton">[x]</div>
+                    <p>
+                      JavaScript (JS) is a lightweight, interpreted, or
+                      just-in-time compiled programming language with
+                      first-class functions. While it is most well-known as the
+                      scripting language for Web pages, many non-browser
+                      environments also use it, such as Node.js, Apache CouchDB
+                      and Adobe Acrobat. JavaScript is a prototype-based,
+                      multi-paradigm, single-threaded, dynamic language,
+                      supporting object-oriented, imperative, and declarative
+                      (e.g. functional programming) styles. Read more about
+                      JavaScript.
+                    </p>
+                  </div>
+                  <div class="messageAlert">
+                    <div class="closeButton">[x]</div>
+                    The standards for JavaScript are the ECMAScript Language
+                    Specification (ECMA-262) and the ECMAScript
+                    Internationalization API specification (ECMA-402). The
+                    JavaScript documentation throughout MDN is based on the
+                    latest draft versions of ECMA-262 and ECMA-402. And in cases
+                    where some proposals for new ECMAScript features have
+                    already been implemented in browsers, documentation and
+                    examples in MDN articles may use some of those new features.
+                  </div>
+                </div>
+              </center>
+
+              <script>
+                function enableClosingFunctionForMessageAlerts() {
+                  Array.from(
+                    document.querySelectorAll(".targetDivForMessage")
+                  ).forEach((container) => {
+                    container.addEventListener("click", (event) => {
+                      // cl(
+                      //   `event.currentTarget, event.target`,
+                      //   event.currentTarget,
+                      //   event.target
+                      // );
+                      if (
+                        event.target.classList.contains("closeButton") &&
+                        event.target.tagName === "DIV"
+                      ) {
+                        // cl('this is close button', event.target);
+                        const messageelem = event.target.parentElement;
+                        if (
+                          messageelem.classList.contains("messageAlert") &&
+                          messageelem.tagName === "DIV"
+                        ) {
+                          messageelem.remove();
+                        }
+                      }
+                    });
+                  });
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="enableTargetDivShowHideChildren()"
+                class="m-3 btn btn-primary"
+              >
+                enableTargetDivShowHideChildren
+              </button>
+              <style>
+                .targetDivShowHideChildren {
+                  width: fit-content;
+                  /* margin: 0 auto; */
+                  padding: 10px;
+                }
+                .targetDivShowHideChildren .target-ul {
+                  padding-right: 1rem;
+                }
+                .targetDivShowHideChildren span {
+                  width: fit-content;
+                  cursor: pointer;
+                  display: block;
+                  transition: 0.1s all;
+                  position: relative;
+                }
+                .targetDivShowHideChildren span:hover {
+                  transform: scale(1.1);
+                  font-weight: bold;
+                }
+              </style>
+
+              <div class="targetDivShowHideChildren">
+                <ul class="target-ul">
+                  <span>Животные</span>
+                  <li>
+                    <span>Наземные</span>
+                    <ul>
+                      <li>
+                        <span>Млекопитающие</span>
+                        <ul>
+                          <li><span>Коровы</span></li>
+                          <li><span>Ослы</span></li>
+                          <li><span>Собаки</span></li>
+                          <li><span>Тигры</span></li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>Другие</span>
+                        <ul>
+                          <li><span>Змеи</span></li>
+                          <li><span>Птицы</span></li>
+                          <li><span>Ящерицы</span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span>Рыбы</span>
+
+                    <ul>
+                      <li>
+                        <span>Аквариумные</span>
+                        <ul>
+                          <li>
+                            <span>Гуппи</span>
+                          </li>
+                          <li>
+                            <span>Рыба-ангел</span>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <span>Морские</span>
+                        <ul>
+                          <li>
+                            <span>Морская форель</span>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <script>
+                const goUpToParentElement = (element, elemTagName) => {
+                  while (element.tagName !== elemTagName) {
+                    // cl("element", element);
+                    element = element.parentElement;
+                    if (!element) {
+                      break;
+                    }
+                    return element;
+                  }
+                };
+                function enableTargetDivShowHideChildren() {
+                  document
+                    .querySelector(".targetDivShowHideChildren")
+                    .querySelector(".target-ul")
+                    .addEventListener("click", (event) => {
+                      // cl(`event.target `, event.target);
+                      const spanelem = event.target;
+                      const lielem = goUpToParentElement(spanelem, "LI");
+                      if (lielem.querySelectorAll("li")?.length > 0) {
+                        const ulelelm = lielem.querySelector("ul");
+                        ulelelm.hidden = !ulelelm.hidden;
+                        spanelem.style.cssText = `text-decoration: ${
+                          ulelelm.hidden ? "underline" : "none"
+                        };`;
+                      }
+                    });
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="enableTableSort()" class="m-3 btn btn-primary">
+                enableTableSort
+              </button>
+
+              <style>
+                .targetDivSortTable table tr th {
+                  cursor: pointer;
+                }
+                .targetDivSortTable table tr th:hover {
+                  background-color: lightgray;
+                }
+              </style>
+              <div class="targetDivSortTable col-4">
+                <table class="table table-striped" id="grid">
+                  <thead>
+                    <tr>
+                      <th data-type="number">Возраст</th>
+                      <th data-type="string">Имя</th>
+                      <th data-type="string">SurName</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>5</td>
+                      <td>Вася</td>
+                      <td>Frame</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Женя</td>
+                      <td>Rossi</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>Петя</td>
+                      <td>Salinas</td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>Маша</td>
+                      <td>Ayala</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Вячеслав</td>
+                      <td>Mcdermott</td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>Петя</td>
+                      <td>Hendrix</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <script>
+                function enableTableSort() {
+                  grid?.addEventListener("click", (event) => {
+                    if (event.target.tagName === "TH" && event.target.dataset) {
+                      const indexOfTh = Array.from(grid.rows[0].cells).indexOf(
+                        event.target
+                      );
+                      // cl(`event.target indexOfTh`,event.target,indexOfTh);
+                      const sortType = event.target.dataset.type;
+                      let sortedRows;
+                      let sortFunction;
+                      switch (sortType) {
+                        case "number":
+                          // cl('grid.rows grid.rows[0].cells',grid.rows,grid.rows[0].cells)
+                          sortFunction = (rowA, rowB) => {
+                            const first = Number.parseInt(
+                              rowA.cells[indexOfTh].innerText
+                            );
+                            const second = Number.parseInt(
+                              rowB.cells[indexOfTh].innerText
+                            );
+                            return first - second;
+                          };
+
+                          break;
+                        case "string":
+                          sortFunction = (rowA, rowB) => {
+                            const first = rowA.cells[indexOfTh].innerText;
+                            const second = rowB.cells[indexOfTh].innerText;
+                            return first.localeCompare(second);
+                          };
+                          break;
+
+                        default:
+                          break;
+                      }
+                      sortedRows = Array.from(grid.rows)
+                        .slice(1)
+                        .sort(sortFunction);
+                      grid.tBodies[0].append(...sortedRows);
+                    }
+                  });
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="enableDataToolTip()" class="m-3 btn btn-primary">
+                enableDataToolTip
+              </button>
+              <style>
+                .targetDivDataToolTip {
+                  overflow-y: scroll;
+                  height: 300px;
+                  width: fit-content;
+                }
+                button[data-tooltip] {
+                  background-color: purple !important;
+                  border: none;
+                  position: relative;
+                }
+                button[data-tooltip]:hover {
+                  background-color: rgb(99, 1, 99) !important;
+                }
+                .custom-tooltip {
+                  background-color: #ffffff;
+                  z-index: 1;
+                  transition: all 1s linear;
+                  color: darkslategrey;
+                  padding: 10px;
+                  border-radius: 0.3em;
+                  position: fixed;
+                  -webkit-box-shadow: 0px 12px 8px -8px rgba(34, 60, 80, 0.2);
+                  -moz-box-shadow: 0px 12px 8px -8px rgba(34, 60, 80, 0.2);
+                  box-shadow: 0px 12px 8px -8px rgba(34, 60, 80, 0.2);
+                }
+              </style>
+              <div class="targetDivDataToolTip">
+                <div style="height: 100px"></div>
+                <button
+                  class="m-3 btn btn-primary"
+                  data-tooltip="эта подсказка длиннее, чем элемент"
+                >
+                  short button
+                </button>
+                <button
+                  class="m-3 btn btn-primary"
+                  data-tooltip="HTML<br>подсказка"
+                >
+                  another button
+                </button>
+                <div style="height: 200px"></div>
+                <div style="height: 200px"></div>
+              </div>
+              <script>
+                function enableDataToolTip() {
+                  const IsToolTip = (event) => {
+                    if (event.target.dataset && event.target.dataset.tooltip) {
+                      return true;
+                    }
+                    return false;
+                  };
+                  document.addEventListener("mouseover", (event) => {
+                    if (IsToolTip(event)) {
+                      const button = event.target;
+                      const htmlData = button.dataset.tooltip;
+
+                      const rect = button.getBoundingClientRect();
+
+                      const toolipelem = document.createElement("div");
+                      toolipelem.innerHTML = htmlData;
+                      toolipelem.classList.add("custom-tooltip");
+                      document.body.append(toolipelem);
+
+                      let left = rect.left +  (button.offsetWidth - toolipelem.offsetWidth)/2;
+                      if(left<0){
+                        left = 0;
+                      }
+                      let top = rect.top - 5 - toolipelem.offsetHeight;
+                      if(top<0){
+                        top = rect.top + 5 + button.offsetHeight;
+                      }
+                      toolipelem.style.cssText = `
+                        top: ${top};
+                        left: ${left };
+                      `;                      
+                    }
+                  });
+
+                  document.addEventListener("mouseout", (event) => {
+                    if (IsToolTip(event)) {
+                      const htmlData = event.target.dataset.tooltip;
+
+                      const button = event.target;
+                      document.querySelector(".custom-tooltip").remove();
+                    }
+                  });
+                }
+              </script>
+            </div>
+
             <div class="border rounded p-3 m-3">
               <button onclick="funcName()" class="m-3 btn btn-primary">
                 funcName

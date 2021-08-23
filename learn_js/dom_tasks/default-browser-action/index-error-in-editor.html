@@ -1,0 +1,196 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addLinksWithPreventDefault()"
+                class="m-3 btn btn-primary"
+              >
+                addLinksWithPreventDefault
+              </button>
+              <div class="targetDiv1"></div>
+              <script>
+                const checkIfElemHasChildren = (elem) => {
+                  return new Promise(
+                    (resolve) => {
+                      resolve(elem.children.length > 0);
+                    },
+                    (reject) => {
+                      return false;
+                    }
+                  );
+                };
+                const insertAdjacentHTMLPromise = (
+                  elem,
+                  position,
+                  htmlText
+                ) => {
+                  return new Promise(
+                    (resolve) => {
+                      elem.insertAdjacentHTML(position, htmlText);
+                      resolve(checkIfElemHasChildren(elem));
+                    },
+                    (reject) => {
+                      throw new Error("cannot insert htmlText");
+                    }
+                  );
+                };
+                async function addLinksWithPreventDefault() {
+                  const divTarget = document.querySelector(".targetDiv1");
+
+                  // divTarget.insertAdjacentHTML('afterbegin',`
+                  // 	<a href="about:blank" onclick="return false">Нажми здесь</a>
+                  // 	или
+                  // 	<a href="/" onclick="event.preventDefault()">здесь</a>
+                  // `);
+                  let isInserted = await insertAdjacentHTMLPromise(
+                    divTarget,
+                    "afterbegin",
+                    `
+									 	<a href="about:blank" onclick="return false">Нажми здесь</a>
+									 	или
+									 	<a href="/" onclick="event.preventDefault()">здесь</a>
+									`
+                  );
+                  if (!isInserted) {
+                    cl("elements have not been inserted ");
+                    return;
+                  }
+                  const aelem = divTarget.querySelector("a");
+                  aelem.onclick = (event) => {
+                    cl(
+                      "on click custom event prevent default event with false return ",
+                      event
+                    );
+                    return false;
+                  };
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="enableMenuClickEvent()"
+                class="m-3 btn btn-primary"
+              >
+                enableMenuClickEvent
+              </button>
+              <style>
+                .targetDiv2 .menu li {
+                  display: inline-block;
+                  margin: 0;
+                }
+
+                .targetDiv2 .menu > li a {
+                  display: inline-block;
+                  margin: 0 2px;
+                  outline: none;
+                  text-align: center;
+                  text-decoration: none;
+                  font: 14px/100% sans-serif;
+                  padding: 0.5em 2em 0.55em;
+                  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+                  border-radius: 0.5em;
+                  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                  color: #d9eef7;
+                  border: solid 1px #0076a3;
+                  background: #0095cd;
+                }
+
+                .targetDiv2 .menu > li:hover a {
+                  text-decoration: none;
+                  background: #007ead;
+                }
+              </style>
+              
+              <div class="targetDiv2">
+                <ul id="menu" class="menu">
+                  <li><a href="/html" >HTML the same page</a></li>
+                  <li><a href="/javascript" target="_blank">JavaScript new tab</a></li>
+                  <li><a href="/css" target="_blank">CSS new tab</a></li>
+                </ul>
+              </div>
+              <script>
+                function enableMenuClickEvent() {
+									const menu = document.querySelector('.targetDiv2 #menu');
+                  menu.onclick = (event) => {
+                    if (event.target.nodeName != "A") return;
+
+                    const href = event.target.getAttribute("href");
+                    cl(`href `, href);
+
+                    return false; // prevent url change
+                  };
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

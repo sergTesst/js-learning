@@ -1,0 +1,498 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="enableFocus()" class="m-3 btn btn-primary">
+                enableFocus
+              </button>
+              <div class="targetDiv1">
+                <p style="word-wrap: break-word">
+                  the first focus is working, but second is not because
+                  onmousedown event returns false. Focus can be done by TAB
+                  button. ----------------
+                </p>
+                <input value="Фокус работает" onfocus="this.value=''" />
+                <input
+                  onmousedown="return false"
+                  onfocus="this.value=''"
+                  value="Кликни меня"
+                />
+              </div>
+              <script>
+                function enableFocus() {}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName1()" class="m-3 btn btn-primary">
+                funcName1
+              </button>
+              <div class="targetDiv2">
+                <p>Shows own context menu on right mouse click</p>
+                <button>Правый клик вызывает контекстное меню браузера</button>
+
+                <button oncontextmenu="alert('Рисуем наше меню'); return false">
+                  Правый клик вызывает наше контекстное меню
+                </button>
+              </div>
+              <script>
+                function funcNam1() {}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="enableShowOwnContextMenu()"
+                class="m-3 btn btn-primary"
+              >
+                enableShowOwnContextMenu
+              </button>
+              <div class="targetDiv3">
+                <p style="width: 500px">
+                  event.stopPropagation(); is used in the button handler to stop
+                  event bubbling or if (event.defaultPrevented) return; and
+                  showing document context menu
+                </p>
+                <p>Правый клик здесь вызывает контекстное меню документа</p>
+                <button id="elem">
+                  Правый клик здесь вызывает контекстное меню кнопки
+                </button>
+              </div>
+              <script>
+                function enableShowOwnContextMenu() {
+                  const elem = document.querySelector(".targetDiv3 #elem");
+                  elem.oncontextmenu = (event) => {
+                    event.preventDefault();
+                    // event.stopPropagation();
+                    alert("context menu of the button");
+                  };
+                  document.oncontextmenu = (event) => {
+                    if (event.defaultPrevented) return;
+
+                    event.preventDefault();
+                    alert("context menu of the document");
+                  };
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="enableClickHandler()"
+                class="m-3 btn btn-primary"
+              >
+                enableClickHandler
+              </button>
+              <div class="targetDiv4">
+                <p>
+                  when browser reads attribute starting with on it creates
+                  function - handler with value of this attribute as the body of
+                  the created function
+                </p>
+                <a href="http://w3.org" onclick="handler(event)"
+                  >браузер откроет w3.org
+                </a>
+                <a href="http://w3.org" onclick="return handler2(event)"
+                  >браузер откроет w3.org 2
+                </a>
+              </div>
+              <script>
+                function enableClickHandler() {}
+                function handler(event) {
+                  event.preventDefault();
+                  alert("...");
+                  return false;
+                }
+                function handler2(event) {
+                  alert("...");
+                  return false;
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="enableAHrefClickInterceptRedirection()"
+                class="m-3 btn btn-primary"
+              >
+                enableAHrefClickInterceptRedirection
+              </button>
+              <button onclick="addHtmlWithLink()" class="m-3 btn btn-primary">
+                addHtmlWithLink
+              </button>
+              <style>
+                .targetDiv6 .contents {
+                  padding: 5px;
+                  border: 1px solid green;
+                }
+              </style>
+              <div class="targetDiv6">
+                <p>Intercept redirection from a</p>
+                <fieldset id="contents" class="contents">
+                  <legend>#contents</legend>
+                  <p>
+                    Как насчёт того, чтобы прочитать
+                    <a href="http://wikipedia.org">Википедию</a> или посетить
+                    <a href="http://w3.org"><i>W3.org</i></a> и узнать о
+                    современных стандартах?
+                  </p>
+                </fieldset>
+              </div>
+              <script>
+                const sleep = (ms) => {
+                  cl("sleeping");
+                  return new Promise((resolve) => setTimeout(resolve, ms));
+                };
+
+                const targetDivContents = document.querySelector(
+                  ".targetDiv6 .contents"
+                );
+                const askToLeavePage = (href) => {
+                  const isLeaving = confirm(`redirect for ${href}`);
+                  if (!isLeaving) return false;
+                };
+                const innerEventHandler = (event) => {
+                  let elem = event.target;
+                  while (elem.tagName !== "A") {
+                    elem = elem.parentElement;
+                    if (!elem) return;
+                  }
+                  return askToLeavePage(elem.getAttribute("href"));
+                };
+                // targetDivContents.onclick = (event) => {
+                //   cl(`onclick event handler`);
+                // 	return innerEventHandler(event);
+                // };
+
+                targetDivContents.addEventListener("click", (event) => {
+                  cl(`addEventListener event handler`);
+                  let elem = event.target;
+                  while (elem.tagName !== "A") {
+                    elem = elem.parentElement;
+                    if (!elem) return;
+                  }
+                  const isLeaving = confirm(
+                    `redirect for ${elem.getAttribute("href")}`
+                  );
+                  if (!isLeaving) return event.preventDefault();
+                });
+
+                function addHtmlWithLink() {
+                  targetDivContents.insertAdjacentHTML(
+                    "beforeend",
+                    `
+										<p>
+											<a href="www.google.com">google</a>
+										</p>
+									`
+                  );
+                }
+                function enableAHrefClickInterceptRedirection() {
+                  // cl('targetDivContents ', targetDivContents)
+                  // targetDivContents.addEventListener("beforeunload", async (event) => {
+                  // 	event.preventDefault();
+                  // 	event.returnValue = "";
+                  // });
+                }
+              </script>
+            </div>
+            
+            <div class="border rounded p-3 m-3">
+              <button onclick="thumbsChange()" class="m-3 btn btn-primary">
+                thumbsChange
+              </button>
+              <style>
+                .targetDiv7{
+                  width: max-content;
+                  /* margin:0 auto; */
+                }
+                .targetDiv7 p{
+                  display: flex;
+                  justify-content: center;
+                }
+
+                .targetDiv7 ul li {
+                  list-style: none;
+                  float: left;
+                }
+                .targetDiv7 ul {
+                  padding: 0;
+                  width: fit-content;
+                  margin: 0;
+                }
+                .targetDiv7 ul li {
+                  margin-right: 2px;
+                }
+								.targetDiv7 ul li img {
+									width: 100px;
+									height: 100px;
+								}
+                .targetDiv7 ul li:last-child {
+                  margin-right: 0;
+                }
+                .targetDiv7 img {
+                  border: 1px solid #cccccc;
+                  padding: 5px;
+                  transition: all 0.1s linear;
+                }
+                .targetDiv7 ul img:hover {
+                  border: 1px solid #ffbe5d;
+                  transform: scale(1.1);
+                  cursor: pointer;
+                }
+                .targetDiv7 ul:after {
+                  display: table;
+                  content: "";
+                  clear: both;
+                }
+								.targetDiv7 #largeImg{
+									width:550px;
+									height: 400px;
+								}
+              </style>
+
+              <div class="targetDiv7">
+                <p>
+                  <img
+                    id="largeImg"
+                    src="https://en.js.cx/gallery/img1-lg.jpg"
+                    alt="Large image"
+                  />
+                </p>
+
+                <ul id="thumbs">
+                  <!-- браузер показывает небольшую встроенную подсказку из атрибута 
+										"title" при наведении курсора на текст -->
+                  <li>
+                    <a
+                      href="https://en.js.cx/gallery/img1-lg.jpg"
+                      title="Image 1"
+                    >
+                      <img src="https://en.js.cx/gallery/img1-lg.jpg" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://en.js.cx/gallery/img2-lg.jpg"
+                      title="Image 2"
+                    >
+                      <img src="https://en.js.cx/gallery/img2-thumb.jpg" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://en.js.cx/gallery/img3-lg.jpg"
+                      title="Image 3"
+                    >
+                      <img src="https://en.js.cx/gallery/img3-thumb.jpg"
+                    /></a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://en.js.cx/gallery/img4-lg.jpg"
+                      title="Image 4"
+                    >
+                      <img src="https://en.js.cx/gallery/img4-thumb.jpg"
+                    /></a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://en.js.cx/gallery/img5-lg.jpg"
+                      title="Image 5"
+                    >
+                      <img src="https://en.js.cx/gallery/img5-thumb.jpg"
+                    /></a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://en.js.cx/gallery/img6-lg.jpg"
+                      title="Image 6"
+                    >
+                      <img src="https://en.js.cx/gallery/img6-thumb.jpg"
+                    /></a>
+                  </li>
+                </ul>
+              </div>
+              <script>
+								//TODO: finish this task
+                function thumbsChange() {}
+
+                function randomInt(min,max){
+                  min = Math.floor(min);
+                  max = Math.ceil(max);
+                  return Math.floor(Math.random()*(max-min + 1)+min);
+                }
+
+                const galleryelem = document.querySelector(".targetDiv7");
+                const largeImgElem = galleryelem.querySelector("#largeImg");
+
+                galleryelem.querySelector("#thumbs")
+                  .addEventListener("click", authorDefault_changeElements);
+
+                function changeHrefAndSrcAttributes(event){
+                  // stop redirection
+                  event.preventDefault();
+                  // cl('event target', event.target);
+                  
+                  let parent = event.target.parentElement;
+                  let nextSrc = parent.getAttribute('href');
+                  let currentSrc = largeImgElem.getAttribute('src');
+
+                  // cl('current src', currentSrc);
+                  event.target.setAttribute('src', currentSrc);
+                  
+                  parent.setAttribute('href',currentSrc );
+                  largeImgElem.setAttribute('src',nextSrc);
+								}
+
+                function changeElements(event){
+                  event.preventDefault();
+                  let nextScr = event.target.parentElement.getAttribute('href');
+                  let currentSrc = largeImgElem.getAttribute('src');
+                  if(nextScr === currentSrc )return;
+
+                  largeImgElem.setAttribute('src', nextScr);
+                  largeImgElem.setAttribute('alt', event.target.parentElement.getAttribute('title'));
+
+                }
+
+                let intervalId;
+
+                function authorDefault_changeElements(event){
+
+                  if(event.isTrusted)
+                    clearInterval(intervalId);
+
+                  let thumbnail = event.target.closest('a');
+                  // cl('thumbnail ',thumbnail );
+                  if(!thumbnail) return;
+                  largeImgElem.src = thumbnail.href;
+                  largeImgElem.alt = thumbnail.title;
+                  
+                  event.preventDefault();
+                }
+
+
+                let imgArr = Array.from(
+                  galleryelem.querySelectorAll("img")
+                );
+                Promise.all(
+                  imgArr
+                    .filter((img) => !img.complete)
+                    .map(
+                      (img) =>
+                        new Promise((resolve) => {
+                          img.onload = img.onerror = resolve;
+                        })
+                    )
+                ).then(_=>{
+                  let imgElems = galleryelem.querySelector("#thumbs")
+                  .querySelectorAll('img');
+                  let imgArr = Array.from(imgElems);
+                  let counter = 0;
+
+                  intervalId = setInterval(()=>{
+                    // let randomImg = imgArr[randomInt(0,imgArr.length-1)];
+                    let randomImg = imgArr[counter++];
+
+                    let mouseOverEvent = new MouseEvent('mouseover',{bubbles:true,cancelable:true});
+                    mouseOverEvent.img = randomImg;
+                    randomImg.dispatchEvent( mouseOverEvent );
+
+                    if(counter===imgArr.length){
+                      counter = 0;
+                    }
+                  },1500)
+
+                });
+
+                galleryelem.querySelector("#thumbs").addEventListener('mouseover',(event)=>{
+                  // event.preventDefault();
+
+                  const {img} = event;
+                  // cl('img ', img, img.clientHeight);
+                  
+                  if(img){
+                    let computedDimension = img.clientHeight + img.clientHeight*0.1;
+                    img.style.width = `${computedDimension}px`;
+                    img.style.height = `${computedDimension}px`;
+                    img.style.border = `1px solid #ffbe5d`;
+                  }
+
+                  setTimeout(()=>{
+                    if(img){
+                      img.style = '';
+                      img.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}));
+                    }
+                  },1000)
+                });
+
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
