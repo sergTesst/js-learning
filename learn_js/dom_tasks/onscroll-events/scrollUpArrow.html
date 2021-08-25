@@ -1,0 +1,125 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <!-- <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div> -->
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+						<style>
+							.content{
+								word-wrap: break-word;
+								/* width:50%; */
+							}
+							.goToTop{
+								color: green;
+								position:fixed;
+								font-size: 1.5rem;
+								left:30px;
+								top:30px;
+								transition: all 0.1s linear;
+							}
+							.goToTop:hover{
+								cursor: pointer;
+								color: rgb(0, 181, 0);
+								transform: scale(1.5);
+							}
+						</style>
+						<div class="content">
+
+						</div>
+						<div class="goToTop" hidden>&#9650</div>
+
+						<script>
+
+							function addText(){
+								let arr = [];
+								for(let i = 0;i<2000;i++){
+									arr[i] = i;
+								}
+								// cl('arr', arr);
+								document.querySelector('.col-sm-12 .content').innerHTML = `${arr.join(' ')}`;
+							}
+							addText();
+
+							function addScrollListener(){
+								const arrowToTop = document.querySelector('.goToTop');
+								arrowToTop.addEventListener('click',(event)=>{
+									// cl('window.pageYOffset ', window.pageYOffset);
+									// cl('document.body.scrollTop ', document.body.scrollTop);
+									document.body.scrollTop = 0;
+								})
+
+								document.addEventListener('scroll',documentScrollHandler);
+
+								function documentScrollHandler(event){
+									const docRect = document.documentElement.getBoundingClientRect();
+									// console.clear();
+									// cl('docRect ', docRect);
+									// console.table(docRect);
+									// cl('document.documentElement.clientHeight', 
+									// 	document.documentElement.clientHeight);
+									// cl('document.body.clientHeight', 
+									// 	document.body.clientHeight);
+									
+									if(Math.abs(docRect.top) >= document.body.clientHeight){
+										arrowToTop.hidden = false;
+									}else{
+										arrowToTop.hidden = true;
+									}
+
+								}	
+							}
+							addScrollListener();
+
+
+						</script>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

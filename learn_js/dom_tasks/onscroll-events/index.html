@@ -1,0 +1,225 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="showCurrentScroll()" class="m-3 btn btn-primary">
+                showCurrentScroll
+              </button>
+              <button
+                onclick="removeCurrentScroll()"
+                class="m-3 btn btn-primary"
+              >
+                removeCurrentScroll
+              </button>
+              <div class="targetDiv1">
+                <h3>pageYOffset</h3>
+                <div class="scrollData">0 px</div>
+                <div
+                  style="position: fixed; top: 200; right: 0"
+                  class="scrollDataWindow"
+                ></div>
+              </div>
+              <script>
+                function removeCurrentScroll() {
+                  console.clear();
+                  document.removeEventListener("scroll", scrollHandler);
+                  document.querySelector(".scrollDataWindow").hidden = true;
+                }
+                function showCurrentScroll() {
+                  document.querySelector(".scrollDataWindow").hidden = false;
+                  document.addEventListener("scroll", scrollHandler);
+                }
+                function scrollHandler(event) {
+                  document.querySelector(
+                    ".scrollData"
+                  ).innerHTML = `${pageYOffset} px`;
+                  console.clear();
+                  cl("pageYOffset", pageYOffset);
+
+                  const dataScrollElem =
+                    document.querySelector(".scrollDataWindow");
+                  if (!dataScrollElem) return;
+                  dataScrollElem.innerHTML = `
+									'pageYOffset', ${pageYOffset}<br\>
+
+									'window.innerHeight', ${window.innerHeight}<br\>
+									'window.offsetHeight', ${window.offsetHeight}<br\>
+									
+									'window.document.documentElement.clientHeight', ${window.document.documentElement.clientHeight}<br\>
+									'window.document.documentElement.offsetHeight', ${window.document.documentElement.offsetHeight}<br\>
+									'window.document.documentElement.scrollHeight', ${window.document.documentElement.scrollHeight}<br\>
+
+									'window.document.body.clientHeight', ${window.document.body.clientHeight}<br\>
+									'window.document.body.offsetHeight', ${window.document.body.offsetHeight}<br\>
+									'window.document.body.scrollHeight', ${window.document.body.scrollHeight}<br\>
+									`;
+
+                  cl(
+                    "window.document.documentElement.clientHeight",
+                    window.document.documentElement.clientHeight
+                  );
+                  cl(
+                    "window.document.documentElement.offsetHeight",
+                    window.document.documentElement.offsetHeight
+                  );
+                  cl(
+                    "window.document.documentElement.scrollHeight",
+                    window.document.documentElement.scrollHeight
+                  );
+
+                  cl(
+                    "window.document.body.clientHeight",
+                    window.document.body.clientHeight
+                  );
+                  cl(
+                    "window.document.body.offsetHeight",
+                    window.document.body.offsetHeight
+                  );
+                  cl(
+                    "window.document.body.scrollHeight",
+                    window.document.body.scrollHeight
+                  );
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="appendMoreDateTime()"
+                class="m-3 btn btn-primary"
+              >
+                appendMoreDateTime
+              </button>
+              <style>
+                .targetDiv2 {
+                  overflow-y: scroll;
+                  width: 300px;
+                  height: 300px;
+                }
+                .blockElem {
+                  height: 400px;
+                  background-color: indigo;
+                }
+                .insertedDiv {
+                  font-size: 0.7rem;
+                }
+              </style>
+              <div class="targetDiv2">
+                <div class="blockElem"></div>
+                <!-- <div class="blockElem"></div> -->
+                <!-- <div class="blockElem"></div> -->
+              </div>
+              <script>
+                function appendMoreDateTime() {
+                  const targetDivElem = document.querySelector(".targetDiv2");
+
+                  targetDivElem.addEventListener("scroll", scrollDownHandler);
+
+                  function scrollDownHandler(event) {
+                    // cl('scrollEvent event, targetDivElem.scrollTop' ,event, targetDivElem.scrollTop);
+                    console.clear();
+
+                    cl(
+                      "targetDivElem.offsetHeight",
+                      targetDivElem.offsetHeight
+                    );
+                    cl(
+                      "targetDivElem.clientHeight",
+                      targetDivElem.clientHeight
+                    );
+                    cl("targetDivElem.scrollTop", targetDivElem.scrollTop);
+                    cl(
+                      "targetDivElem.scrollHeight",
+                      targetDivElem.scrollHeight
+                    );
+
+                    // const scrollBarHeight = targetDivElem.clientHeight
+                    // cl("targetDivElem.scrollTop", targetDivElem.scrollTop);
+
+                    if (
+                      targetDivElem.scrollTop >=
+                      targetDivElem.scrollHeight -
+                        targetDivElem.clientHeight -
+                        10
+                    ) {
+                      const date = new Date();
+                      targetDivElem.insertAdjacentHTML(
+                        "beforeend",
+                        `<div class="insertedDiv">${date}</div>`
+                      );
+                    }
+                  }
+
+                  
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -247,17 +247,17 @@
                 }
               </script>
             </div>
-            
+
             <div class="border rounded p-3 m-3">
               <button onclick="thumbsChange()" class="m-3 btn btn-primary">
                 thumbsChange
               </button>
               <style>
-                .targetDiv7{
+                .targetDiv7 {
                   width: max-content;
                   /* margin:0 auto; */
                 }
-                .targetDiv7 p{
+                .targetDiv7 p {
                   display: flex;
                   justify-content: center;
                 }
@@ -274,10 +274,10 @@
                 .targetDiv7 ul li {
                   margin-right: 2px;
                 }
-								.targetDiv7 ul li img {
-									width: 100px;
-									height: 100px;
-								}
+                .targetDiv7 ul li img {
+                  width: 100px;
+                  height: 100px;
+                }
                 .targetDiv7 ul li:last-child {
                   margin-right: 0;
                 }
@@ -296,10 +296,10 @@
                   content: "";
                   clear: both;
                 }
-								.targetDiv7 #largeImg{
-									width:550px;
-									height: 400px;
-								}
+                .targetDiv7 #largeImg {
+                  width: 550px;
+                  height: 400px;
+                }
               </style>
 
               <div class="targetDiv7">
@@ -365,68 +365,66 @@
                 </ul>
               </div>
               <script>
-								//TODO: finish this task
+                //TODO: finish this task
                 function thumbsChange() {}
 
-                function randomInt(min,max){
+                function randomInt(min, max) {
                   min = Math.floor(min);
                   max = Math.ceil(max);
-                  return Math.floor(Math.random()*(max-min + 1)+min);
+                  return Math.floor(Math.random() * (max - min + 1) + min);
                 }
 
                 const galleryelem = document.querySelector(".targetDiv7");
                 const largeImgElem = galleryelem.querySelector("#largeImg");
 
-                galleryelem.querySelector("#thumbs")
+                galleryelem
+                  .querySelector("#thumbs")
                   .addEventListener("click", authorDefault_changeElements);
 
-                function changeHrefAndSrcAttributes(event){
+                function changeHrefAndSrcAttributes(event) {
                   // stop redirection
                   event.preventDefault();
                   // cl('event target', event.target);
-                  
+
                   let parent = event.target.parentElement;
-                  let nextSrc = parent.getAttribute('href');
-                  let currentSrc = largeImgElem.getAttribute('src');
+                  let nextSrc = parent.getAttribute("href");
+                  let currentSrc = largeImgElem.getAttribute("src");
 
                   // cl('current src', currentSrc);
-                  event.target.setAttribute('src', currentSrc);
-                  
-                  parent.setAttribute('href',currentSrc );
-                  largeImgElem.setAttribute('src',nextSrc);
-								}
+                  event.target.setAttribute("src", currentSrc);
 
-                function changeElements(event){
+                  parent.setAttribute("href", currentSrc);
+                  largeImgElem.setAttribute("src", nextSrc);
+                }
+
+                function changeElements(event) {
                   event.preventDefault();
-                  let nextScr = event.target.parentElement.getAttribute('href');
-                  let currentSrc = largeImgElem.getAttribute('src');
-                  if(nextScr === currentSrc )return;
+                  let nextScr = event.target.parentElement.getAttribute("href");
+                  let currentSrc = largeImgElem.getAttribute("src");
+                  if (nextScr === currentSrc) return;
 
-                  largeImgElem.setAttribute('src', nextScr);
-                  largeImgElem.setAttribute('alt', event.target.parentElement.getAttribute('title'));
-
+                  largeImgElem.setAttribute("src", nextScr);
+                  largeImgElem.setAttribute(
+                    "alt",
+                    event.target.parentElement.getAttribute("title")
+                  );
                 }
 
                 let intervalId;
 
-                function authorDefault_changeElements(event){
+                function authorDefault_changeElements(event) {
+                  if (event.isTrusted) clearInterval(intervalId);
 
-                  if(event.isTrusted)
-                    clearInterval(intervalId);
-
-                  let thumbnail = event.target.closest('a');
+                  let thumbnail = event.target.closest("a");
                   // cl('thumbnail ',thumbnail );
-                  if(!thumbnail) return;
+                  if (!thumbnail) return;
                   largeImgElem.src = thumbnail.href;
                   largeImgElem.alt = thumbnail.title;
-                  
+
                   event.preventDefault();
                 }
 
-
-                let imgArr = Array.from(
-                  galleryelem.querySelectorAll("img")
-                );
+                let imgArr = Array.from(galleryelem.querySelectorAll("img"));
                 Promise.all(
                   imgArr
                     .filter((img) => !img.complete)
@@ -436,48 +434,58 @@
                           img.onload = img.onerror = resolve;
                         })
                     )
-                ).then(_=>{
-                  let imgElems = galleryelem.querySelector("#thumbs")
-                  .querySelectorAll('img');
+                ).then((_) => {
+                  let imgElems = galleryelem
+                    .querySelector("#thumbs")
+                    .querySelectorAll("img");
                   let imgArr = Array.from(imgElems);
                   let counter = 0;
 
-                  intervalId = setInterval(()=>{
+                  intervalId = setInterval(() => {
                     // let randomImg = imgArr[randomInt(0,imgArr.length-1)];
                     let randomImg = imgArr[counter++];
 
-                    let mouseOverEvent = new MouseEvent('mouseover',{bubbles:true,cancelable:true});
+                    let mouseOverEvent = new MouseEvent("mouseover", {
+                      bubbles: true,
+                      cancelable: true,
+                    });
                     mouseOverEvent.img = randomImg;
-                    randomImg.dispatchEvent( mouseOverEvent );
+                    randomImg.dispatchEvent(mouseOverEvent);
 
-                    if(counter===imgArr.length){
+                    if (counter === imgArr.length) {
                       counter = 0;
                     }
-                  },1500)
-
+                  }, 1500);
                 });
 
-                galleryelem.querySelector("#thumbs").addEventListener('mouseover',(event)=>{
-                  // event.preventDefault();
+                galleryelem
+                  .querySelector("#thumbs")
+                  .addEventListener("mouseover", (event) => {
+                    // event.preventDefault();
 
-                  const {img} = event;
-                  // cl('img ', img, img.clientHeight);
-                  
-                  if(img){
-                    let computedDimension = img.clientHeight + img.clientHeight*0.1;
-                    img.style.width = `${computedDimension}px`;
-                    img.style.height = `${computedDimension}px`;
-                    img.style.border = `1px solid #ffbe5d`;
-                  }
+                    const { img } = event;
+                    // cl('img ', img, img.clientHeight);
 
-                  setTimeout(()=>{
-                    if(img){
-                      img.style = '';
-                      img.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}));
+                    if (img) {
+                      let computedDimension =
+                        img.clientHeight + img.clientHeight * 0.1;
+                      img.style.width = `${computedDimension}px`;
+                      img.style.height = `${computedDimension}px`;
+                      img.style.border = `1px solid #ffbe5d`;
                     }
-                  },1000)
-                });
 
+                    setTimeout(() => {
+                      if (img) {
+                        img.style = "";
+                        img.dispatchEvent(
+                          new MouseEvent("click", {
+                            bubbles: true,
+                            cancelable: true,
+                          })
+                        );
+                      }
+                    }, 1000);
+                  });
               </script>
             </div>
 
