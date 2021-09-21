@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      #mouse {
+        display: inline-block;
+        cursor: pointer;
+        margin: 0;
+      }
+
+      #mouse:focus {
+        outline: 1px dashed black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <p>
+        Кликните по "изображению" мыши и перемещайте её с помощью клавиш со
+        стрелками.
+      </p>
+      <button onclick="mouse.style = null; console.clear(); ">reset</button>
+      <button onclick="setFocusOnMouse()">focus</button>
+    </div>
+
+    <pre id="mouse">
+ _   _
+(q\_/p)
+ /. .\
+=\_t_/=   __
+ /   \   (
+((   ))   )
+/\) (/\  /
+\  Y  /-'
+ nn^nn
+</pre
+    >
+
+    <script>
+      const mouse = document.getElementById("mouse");
+      let clickEvent = new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      });
+
+      function setFocusOnMouse(event){
+        mouse.dispatchEvent(clickEvent);
+      }
+      
+      document.addEventListener("DOMContentLoaded", (e) => {
+        // console.log("dispatching event");
+        mouse.dispatchEvent(clickEvent);
+      });
+
+      const increment = 45;
+
+      mouse.addEventListener("click", (e) => {
+        // console.log('clickedMouse ', clickedMouse);
+        mouse.setAttribute("tabindex", "0");
+        mouse.focus();
+      });
+
+      mouse.addEventListener("focusin", function (e) {
+        // console.log("focusin, e, e.target ",e , e.target);
+        mouse.style.position = "fixed";
+        mouse.style.display = "block";
+
+        mouse.onkeydown = keydownHandler;
+      });
+
+      function keydownHandler(e) {
+        e.preventDefault();
+        // console.log(`keydownHandler `, e.key.toLowerCase());
+        console.clear();
+
+        switch (e.key.toLowerCase()) {
+          case "arrowup":
+            mouse.style.top = getNum(mouse.style.top) - increment + "px";
+            break;
+          case "arrowright":
+            mouse.style.left = getNum(mouse.style.left) + increment + "px";
+            break;
+          case "arrowdown":
+            mouse.style.top = getNum(mouse.style.top) + increment + "px";
+            break;
+          case "arrowleft":
+            mouse.style.left = getNum(mouse.style.left) - increment + "px";
+            break;
+        }
+        // console.log(`mouse `, mouse);
+
+        const mouseRect = mouse.getBoundingClientRect();
+        const { right, left, top, bottom } = mouseRect;
+        console.log(
+          `right : ${right}, left: ${left}, top: ${top}, bottom: ${bottom} `
+        );
+
+        if (
+          mouseRect.right + increment >=
+          document.documentElement.clientWidth
+        ) {
+          mouse.style.left =
+            document.documentElement.clientWidth - mouseRect.width + "px";
+        }
+        if (mouseRect.left <= 0) {
+          mouse.style.left = 0 + "px";
+        }
+        if (mouseRect.top <= 0) {
+          mouse.style.top = 0 + "px";
+        }
+        if (
+          mouseRect.bottom + increment >
+          document.documentElement.clientHeight
+        ) {
+          mouse.style.top =
+            document.documentElement.clientHeight - mouseRect.height + "px";
+        }
+
+        const { clientWidth, clientHeight } = document.documentElement;
+        console.log(
+          `clientWidth: ${clientWidth}, clientHeight: ${clientHeight}`
+        );
+
+        function getNum(str) {
+          const arrMatches = str.match(/^\-*\d+/g);
+          const num = Number(arrMatches ? arrMatches[0] : 0);
+          return num;
+        }
+      }
+
+      mouse.addEventListener("focusout", (e) => {
+        // console.log('focusout e.target', e.target)
+        mouse.removeAttribute("tabindex");
+        // console.log('mouse ', mouse);
+        mouse.onkeydown = null;
+        // mouse.style = null;
+      });
+    </script>
+  </body>
+</html>

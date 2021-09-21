@@ -414,7 +414,7 @@ function DecoratorTest(){
 		function task4(){
 
 			function f(a) {
-				console.log(a,arguments)
+				console.log(`a, arguments `, a,arguments)
 			}
 			
 			function throttle(func,time){
@@ -426,7 +426,7 @@ function DecoratorTest(){
 					if(!allowedToCall){
 						wrapper.savedArgs = arguments;
 						wrapper.savedThis = this;
-						console.log(func,args)
+						console.log(`func, args `,func,args)
 						return;
 					}
 
@@ -1731,7 +1731,7 @@ function PrototypeMethods(){
 
 
 
-	PrototypeMethods();
+	//PrototypeMethods();
 
 	//NativePrototypes();
 
@@ -1745,7 +1745,7 @@ function PrototypeMethods(){
 	//lambdaFuncs();
 
 
-	//DecoratorTest();
+	DecoratorTest();
 
 	//testClosure()
 	//RecursionTest();

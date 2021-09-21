@@ -1,0 +1,22 @@
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1030;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.572);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: 0.2s;
+	color:#FFF;
+}
+
+.warning{
+	border-color: red !important;
+}
+.focusedMessage{
+	outline: none !important;
+	border-color: none !important;
+	box-shadow: none !important;
+}

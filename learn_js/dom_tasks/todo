@@ -1,0 +1,67 @@
+
+I don't do this tasks now cause they are not appearing 
+for mobile
+
+
+{
+	main link: https://learn.javascript.ru/mousemove-mouseover-mouseout-mouseenter-mouseleave
+
+directory path:
+	C:\Users\sergi\source\repos\js_tech\jsTest\learn_js\dom_tasks\interface-events\mouse-moving
+	
+
+[] undone
+	Напишите JavaScript код, который показывает подсказку над элементом 
+	с атрибутом data-tooltip. Значение атрибута должно становиться текстом подсказки.
+
+	enhanced tooltip for mousemove-mouseover-mouseout-mouseenter-mouseleave 
+		source file 
+		path: /interface-events/mouse-moving/index.html
+
+		information
+		link: https://learn.javascript.ru/mousemove-mouseover-mouseout-mouseenter-mouseleave#uluchshennaya-podskazka
+
+	part of solved task is there 
+		path: /bubbling-and-capturing (tooltip task)
+
+[] undone
+	smart tooltip
+	Напишите функцию, которая показывает подсказку над элементом только в случае, 
+	когда пользователь передвигает мышь на него, но не через него.
+
+	source file 
+		path: /interface-events/mouse-moving/index.html
+
+	information url 
+		path: https://learn.javascript.ru/mousemove-mouseover-mouseout-mouseenter-mouseleave#umnaya-podskazka
+
+}
+
+
+{
+
+[] undone
+	main link: 
+		https://learn.javascript.ru/mouse-drag-and-drop#rasstavit-supergeroev-po-polyu
+	
+	folder path:
+		C:\Users\sergi\source\repos\js_tech\jsTest\learn_js\dom_tasks\interface-events\mouse-moving
+	
+	place heroues on the field with mouse
+
+	Расставить супергероев по полю
+	важность: 5
+
+	В этой задаче вы можете проверить своё понимание сразу нескольких аспектов Drag’n’Drop и DOM.
+
+
+}
+
+{
+	[] undone 
+	События указателя
+	https://learn.javascript.ru/pointer-events
+	
+}
+
+

@@ -1,0 +1,145 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="formOnChange()" class="m-3 btn btn-primary">
+                formOnChange
+              </button>
+              <div class="targetDiv1">
+								<div>
+									<h4>
+										change event fires every time in the end of changing the element
+									</h4>
+								</div>
+                <input type="text" onchange="formOnChange(this.value)" />
+                <input type="button" value="Button" />
+
+                <select onchange="selectOnChangeHandler(this.value)">
+                  <option value="">Выберите что-нибудь</option>
+                  <option value="1">Вариант 1</option>
+                  <option value="2">Вариант 2</option>
+                  <option value="3">Вариант 3</option>
+                </select>
+              </div>
+              <script>
+                function formOnChange(value) {
+                  console.log("onchange value ", value);
+                }
+                function selectOnChangeHandler(value) {
+                  console.log("selectOnChangeHandler ", value);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+							<div>
+								<h4>
+									<p>input event fires every time on element is being changed.</p>
+									<p>Any change of the element dispatches change event (paste, speech recognition)</p>
+								</h4>
+							</div>
+
+              <div>tracking text paste</div>
+              <input type="text" id="input" /> oninput:
+              <span id="result"></span>
+              <script>
+                input.oninput = function () {
+                  result.innerText = input.value;
+                };
+              </script>
+              <div>not tracking text paste</div>
+              <input type="text" id="inputKeyDown" /> onkeydown:
+              <span id="resultKeyDown"></span>
+              <script>
+                inputKeyDown.onkeydown = function () {
+                  resultKeyDown.innerText = inputKeyDown.value;
+                };
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <input type="text" id="inputChangedDefaultBehaviour" />
+              <script>
+                inputChangedDefaultBehaviour.oncut =
+                  inputChangedDefaultBehaviour.oncopy =
+                  inputChangedDefaultBehaviour.onpaste =
+                    function (event) {
+
+                      console.log(event.type + " - " + event.clipboardData.getData("text/plain"));
+
+                      return false;
+                    };
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

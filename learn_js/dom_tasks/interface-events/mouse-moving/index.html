@@ -1,0 +1,150 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <img
+                src="./Screenshot 2021-09-15 174433.jpg"
+                alt=""
+                class="img img-fluid"
+              />
+              <div>
+                <p>
+                  for this type of events we have prop: relatedTarget that
+                  complements target prop
+                </p>
+                <h4>for mouseover</h4>
+                <p>event.target is the element that the cursor go in</p>
+                <p>event.relatedTarget is the element that the cursor go out</p>
+                <h4>for mouseout</h4>
+                <p>event.target is the element that the cursor go out</p>
+                <p>event.relatedTarget is the element that the cursor go in</p>
+              </div>
+
+              <div>
+                <iframe
+                  width="400"
+                  height="400"
+                  src="./add1/mouseOver_mouseOut_demonstration.html"
+                  frameborder="0"
+                ></iframe>
+              </div>
+              <div>
+                <iframe
+                  width="400"
+                  height="400"
+                  src="./add2/index.html"
+                  frameborder="0"
+                ></iframe>
+              </div>
+
+              <div>
+                <h2>
+                  difference between (mouseenter & mouseleave) and (mouseleave &
+                  mouseover)
+                </h2>
+                <ul>
+                  <li>
+                    transitions inside elements, into its children and from them
+                    are not counted
+                  </li>
+                  <li>mouseenter & mouseleave are not bubbling</li>
+                </ul>
+
+                <div>
+                  <iframe
+                    width="400"
+                    height="400"
+                    src="/mouseEnterMouseLeaveDem/index.html"
+                    frameborder="0"
+                  ></iframe>
+                </div>
+                <div>
+                  <iframe
+                    width="500"
+                    height="500"
+                    src="/tableCellsMouseMove/index.html"
+                    frameborder="0"
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

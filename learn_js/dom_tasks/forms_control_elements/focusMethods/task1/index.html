@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="my.css" />
+    <meta charset="utf-8" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <ul>
+        <li>Кликните на div ниже, чтобы отредактировать текст.</li>
+        <li>Нажатие на Enter или потеря фокуса с ввода сохранят содержимое.</li>
+      </ul>
+
+      HTML-код разрешён.
+
+      <div id="view" class="view">Текст</div>
+
+      <script>
+				let view = document.getElementById('view');
+				
+				view.onclick = function(){
+					
+					// console.log(`this `, this)
+					let textArea = document.createElement('TEXTAREA');
+					textArea.classList.add('edit');
+					// textArea.setAttribute('autofocus', true);
+					let text = view.innerHTML;
+					let replacedText = text.replaceAll('<br>','\n');
+					console.log('replacedText', replacedText);
+					textArea.value = replacedText;
+
+					textArea.addEventListener('focusout',(e)=>{
+						const text = textArea.value.slice();
+						const replaced = text.replace(/\r\n|\r|\n/g,"<br>");
+						console.log('html', replaced);
+
+						view.innerHTML = replaced;
+
+						textArea.replaceWith(view);
+					})
+
+					view.replaceWith(textArea);
+					textArea.focus();
+				}
+
+				
+      </script>
+    </div>
+  </body>
+</html>

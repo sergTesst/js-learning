@@ -1,0 +1,335 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="getAllFormsAndElements()"
+                class="m-3 btn btn-primary"
+              >
+                getAllFormsAndElements
+              </button>
+              <div class="targetDiv1">
+                <form name="my">
+                  <input name="one" value="1" />
+                  <input name="two" value="2" />
+                </form>
+              </div>
+              <script>
+                function getAllFormsAndElements() {
+                  let form = document.forms.my; // <form name="my"> element
+
+                  let elem = form.elements.one; // <input name="one"> element
+
+                  cl(`elem.value `, elem.value); // 1
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="getFormCollection()" class="m-3 btn btn-primary">
+                getFormCollection
+              </button>
+              <div class="targetDiv2">
+                <form>
+                  <input type="radio" name="age" value="10" />
+                  <input type="radio" name="age" value="20" />
+                </form>
+              </div>
+              <script>
+                function getFormCollection() {
+                  const div = document.querySelector(".targetDiv2");
+
+                  let form = document.forms[1];
+
+                  let ageElems = form.elements.age;
+
+                  cl(ageElems[0]); // [object HTMLInputElement]
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="getFormFieldset()" class="m-3 btn btn-primary">
+                getFormFieldset
+              </button>
+              <div class="targetDiv3">
+                <form id="form3">
+                  <fieldset name="userFields">
+                    <legend>info</legend>
+                    <input name="login" type="text" />
+                  </fieldset>
+                </form>
+              </div>
+              <script>
+                function getFormFieldset() {
+                  cl(`form3.elements.login `, form3.elements.login); // <input name="login">
+
+                  let fieldset = form3.elements.userFields;
+                  cl(`fieldset `, fieldset); // HTMLFieldSetElement
+
+                  cl(
+                    `fieldset.elements.login == form3.elements.login `,
+                    fieldset.elements.login == form3.elements.login
+                  ); // true
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="changeFormProps()" class="m-3 btn btn-primary">
+                changeFormProps
+              </button>
+              <div class="targetDiv4">
+                <form id="form4">
+                  <input name="login" />
+                </form>
+              </div>
+              <script>
+                function changeFormProps() {
+                  const form = form4;
+                  cl(
+                    `form.elements.login == form.login `,
+                    form.elements.login == form.login
+                  );
+
+                  form.login.name = "username";
+
+                  cl(`form.elements.login `, form.elements.login);
+                  cl(`form.elements.username `, form.elements.username);
+
+                  cl(
+                    `form.username == form.login `,
+                    form.username == form.login
+                  );
+
+                  const { username } = form.elements;
+                  cl(`username.form `, username.form);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="selectValueInSelectElem()"
+                class="m-3 btn btn-primary"
+              >
+                selectValueInSelectElem
+              </button>
+              <div class="targetDiv5">
+                <div>
+                  <code>
+                    select.options – коллекция из подэлементов option ,<br />
+                    select.value – значение выбранного в данный момент option<br />
+                    select.selectedIndex – номер выбранного option<br />
+                  </code>
+                </div>
+                <select name="" id="select">
+                  <option value="apple">apple</option>
+                  <option value="pear">pear</option>
+                  <option value="banana">banana</option>
+                </select>
+              </div>
+              <script>
+                function selectValueInSelectElem() {
+                  select.options[2].selected = true;
+                  cl("select.value ", select.value);
+                  select.selectedIndex = 2;
+                  cl("select.value ", select.value);
+                  select.value = "banana";
+                  cl("select.value ", select.value);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="getAllMultipleSelected()"
+                class="m-3 btn btn-primary"
+              >
+                getAllMultipleSelected
+              </button>
+              <div class="targetDiv6">
+                <select
+                  id="select6"
+                  multiple
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option value="blues" selected>Блюз</option>
+                  <option value="rock" selected>Рок</option>
+                  <option value="classic">Классика</option>
+                </select>
+              </div>
+
+              <div>
+                <p>
+                  <code
+                    >option = new Option(text, value, defaultSelected,
+                    selected);</code
+                  >
+                </p>
+                <p>
+                  sample
+                  <code
+                    >let option = new Option("Текст", "value", true,
+                    true);</code
+                  >
+                </p>
+                <div>
+                  <ul>
+                    <li>text - text inside option</li>
+                    <li>value</li>
+                    <li>
+                      defaultSelected - if true, it becomes html-attribute
+                      selected
+                    </li>
+                    <li>
+                      selected - if true, then element option will be selected
+                    </li>
+                  </ul>
+                  <p>option props</p>
+                  <ul>
+                    <li>option.selected (true/false)</li>
+                    <li>option.index</li>
+                    <li>option.text</li>
+                  </ul>
+                </div>
+              </div>
+              <script>
+                function getAllMultipleSelected() {
+                  const selected = Array.from(select6.options)
+                    .filter((opt) => opt.selected)
+                    .map((opt) => opt.value);
+                  cl("selected ", selected);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <div class="col-sm-7">
+                <div class="row g-3 justify-content-start align-items-center">
+                  <div class="col-auto">
+                    <input id="optionInput" type="text" class="form-control" />
+                  </div>
+                  <div class="col-auto">
+                    <button onclick="addOption()" class="m-3 btn btn-primary">
+                      addOption
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="targetDiv7">
+                <select
+                  id="genres"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option value="rock">Рок</option>
+                  <option value="blues" selected>Блюз</option>
+                </select>
+              </div>
+              <script>
+                function addOption() {
+                  if (!optionInput.value) {
+                    optionInput.insertAdjacentHTML(
+                      "afterend",
+                      `
+											<div id="validationFeedBack" class="invalid-feedback">
+												Empty field is not valid.
+											</div>
+										`
+                    );
+                    if (
+                      !Array.from(optionInput.classList).includes("is-invalid")
+                    ) {
+                      optionInput.classList.add("is-invalid");
+                    }
+                    
+                    return;
+                  }
+                  if (
+                    Array.from(optionInput.classList).includes("is-invalid")
+                  ) {
+                    optionInput.classList.remove("is-invalid");
+										validationFeedBack.remove();
+                  }
+                  let option = new Option(
+                    `${optionInput.value.trim()}`,
+                    `${optionInput.value.trim()}`,
+                    true,
+                    true
+                  );
+									cl('option ', option);
+									genres.add(option)
+
+									optionInput.value = '';
+
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

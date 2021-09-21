@@ -277,9 +277,17 @@ const compareObjects = ()=>{
 	console.log(`0 == [] `, 0 == []);
 }
 
-(function main(){
+const matchNum = () =>{
+	const str = '12px';
+	const arrMatches = str.match(/\d+/g);
+	console.log('searched num ', Number(arrMatches[0]));
+}
 
-	compareObjects();
+(function main(){
+	
+	matchNum();
+
+	// compareObjects();
 	// ErrorInheritance();
 	//ObjectOfError();
 })();

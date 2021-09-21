@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      td select,
+      td input {
+        width: 150px;
+      }
+
+      #diagram td {
+        vertical-align: bottom;
+        text-align: center;
+        padding: 10px;
+      }
+
+      #diagram div {
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    Депозитный калькулятор.
+
+    <form name="calculator">
+      <table>
+        <tr>
+          <td>Первоначальный депозит</td>
+          <td>
+            <input
+              name="money"
+              type="number"
+              value="10000"
+              data-type="number"
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Срок вклада?</td>
+          <td>
+            <select name="months">
+              <option value="3">3 (минимум)</option>
+              <option value="6">6 (полгода)</option>
+              <option value="12" selected>12 (год)</option>
+              <option value="18">18 (1.5 года)</option>
+              <option value="24">24 (2 года)</option>
+              <option value="30">30 (2.5 года)</option>
+              <option value="36">36 (3 года)</option>
+              <option value="60">60 (5 лет)</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Годовая процентная ставка?</td>
+          <td>
+            <input
+              name="interest"
+              type="number"
+              value="5"
+              data-type="number"
+              required
+            />
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <table id="diagram">
+      <tr>
+        <th>Было:</th>
+        <th>Станет:</th>
+      </tr>
+      <tr>
+        <th id="money-before"></th>
+        <th id="money-after"></th>
+      </tr>
+      <td>
+        <div style="background: rgb(177, 177, 177); width: 40px; height: 100px"></div>
+      </td>
+      <td>
+        <div
+          style="background: rgb(0, 128, 26); width: 40px; height: 0"
+          id="height-after"
+        ></div>
+      </td>
+    </table>
+
+    <script>
+      function initFormMoneyCalculator() {
+        let form = document.forms.calculator;
+
+        let initial = moneyChangeHandler();
+
+        function moneyChangeHandler() {
+          let initial = Number(form.elements.money.value);
+          if (Number.isNaN(initial)) return;
+          window["money-before"].innerText = initial;
+          return initial;
+        }
+
+        let interest = interestChangeHandler();
+
+        function interestChangeHandler() {
+          // console.log('form.elements.interest', form.elements.interest)
+          let interest = Number(form.elements.interest.value) / 100;
+          if (Number.isNaN(interest)) return;
+          return interest;
+        }
+
+        let years = yearsChangeHandler();
+
+        function yearsChangeHandler() {
+          let years = Number(form.elements.months.value) / 12;
+          if (Number.isNaN(years)) return;
+          return years;
+        }
+        
+        if (initial && interest && years) calculateAndSetResult(initial, interest, years);
+
+        function calculateAndSetResult(initial, interest, years) {
+					
+					console.log("initial, interest, years", initial, interest, years);
+
+          let result = calculateResult(initial, interest, years);
+					
+					console.log("result ", result);
+
+          if (Number.isNaN(result)) return;
+
+          window["money-after"].innerText = result;
+
+          window["height-after"].style.height = (result * 100) / initial + "px";
+        }
+
+        function calculateResult(initial, interest, years) {
+          return Math.round(initial * (1 + interest * years));
+        }
+
+        form.addEventListener("input", (e) => {
+          const { name } = e.target;
+					if(!name) return;
+					
+          console.log(`input event name`, name);
+
+          switch (name) {
+            case "money":
+              console.log("money change handler");
+              initial = moneyChangeHandler();
+              break;
+            case "months":
+              console.log("months change handler");
+							years = yearsChangeHandler();
+              break;
+            case "interest":
+              console.log("interest change handler");
+							interest = interestChangeHandler();
+              break;
+          }
+
+					if (initial && interest && years) calculateAndSetResult(initial, interest, years);
+
+        });
+      }
+      initFormMoneyCalculator();
+
+      // const numberFields = Array.from(form.elements).filter((el) => {
+      //   return el.dataset.type === "number";
+      // });
+      // console.log('numberFields ', numberFields);
+      // numberFields.forEach((numField) => {
+      //   numField.onkeydown = numField.onkeyup = (e) => numMatcherHandler(e);
+      // });
+      // function numMatcherHandler(e) {
+      //   console.log(`numMatcherHandler e `, e);
+      //   const { key } = e;
+      //   const valIsNum = (v) => /^\d{1,10}/.test(v);
+      //   let notStartsFrom0 = true;
+      //   const textValue = e.target.value;
+      //   if (textValue.length === 0) {
+      //     notStartsFrom0 = Number(key) !== 0;
+      //   }
+      // 	const currentNum = Number(textValue);
+      //   console.log(`currentNum `, currentNum);
+
+      //   let numIsValid = valIsNum(currentNum);
+      //   const isNum = valIsNum(key) && numIsValid && notStartsFrom0;
+      //   console.log("isNum", isNum);
+      //   return (
+      //     isNum ||
+      //     key == "ArrowLeft" ||
+      //     key == "ArrowRight" ||
+      //     key == "Delete" ||
+      //     key == "Backspace"
+      //   );
+      // }
+    </script>
+  </body>
+</html>

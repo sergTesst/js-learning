@@ -25,3 +25,15 @@ readLineInstance.on('close',(e)=>{
 		console.log("you disagreed");
 	}
 });
+
+const askQuestion = (questionString) =>{
+	return new Promise((resolve, reject)=>{
+		readLineInstance.question('data? ', (answer) => {
+			console.log(`your data ${answer}`);
+			readLineInstance.close();
+			resolve(answer);
+		});
+	})
+}
+
+exports.askQuestion = askQuestion;

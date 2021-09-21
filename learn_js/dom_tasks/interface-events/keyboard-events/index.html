@@ -1,0 +1,225 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="cleanInput()" class="m-3 btn btn-primary">
+                cleanInput
+              </button>
+              <button onclick="cleanArr()" class="m-3 btn btn-primary">
+                cleanArr
+              </button>
+              <div class="targetDiv1">
+                <input
+                  type="text"
+                  autofocus="true"
+                  class="form-control input-keys"
+                />
+
+                <div class="currentEventType"></div>
+                <div class="currentKeys"></div>
+              </div>
+              <script>
+                const ipt = document.querySelector(".input-keys");
+                const eventTypeDiv =
+                  document.querySelector(".currentEventType");
+                const currentKeysDiv = document.querySelector(".currentKeys");
+                let keysArr = [];
+
+                const cleanInput = () => (ipt.value = "");
+                const cleanArr = () => (keysArr = []);
+
+                ipt.onkeydown = ipt.onkeyup = ipt.onkeypress = handler;
+
+                function handler(e) {
+                  console.log(
+                    "e.code, e.type, e.repeat",
+                    e.code,
+                    e.type,
+                    e.repeat,
+                    keysArr
+                  );
+
+                  switch (e.type) {
+                    case "keypress":
+                      eventTypeDiv.innerText = "keypress";
+                      break;
+
+                    case "keydown":
+                      eventTypeDiv.innerText = "keydown";
+
+                      if (e.repeat) {
+                        currentKeysDiv.innerText = `repeat ${e.code}`;
+                        return;
+                      } else {
+                        currentKeysDiv.innerText = `${keysArr}`;
+                      }
+
+                      keysArr.push(e.code);
+                      break;
+                    case "keyup":
+                      eventTypeDiv.innerText = "keyup";
+                      keysArr.pop();
+                      break;
+                  }
+
+                  if (
+                    keysArr.includes("ControlLeft") &&
+                    keysArr.includes("ShiftLeft") &&
+                    keysArr.includes("KeyC")
+                  ) {
+                    let res = window.confirm("open dev tools?");
+                    console.log("res", res);
+                    if (res) {
+                      e.preventDefault();
+                    }
+                  }
+                }
+              </script>
+            </div>
+
+            <div>
+              <div>
+                <input
+                  onkeydown="return checkPhoneKey(event.key)"
+                  placeholder="Enter phone number"
+                  type="tel"
+                  class="form-control m-2"
+                />
+
+                <script>
+                  function checkPhoneKey(key) {
+                    return (
+                      (key >= "0" && key <= "9") ||
+                      key == "+" ||
+                      key == "(" ||
+                      key == ")" ||
+                      key == "-" ||
+                      key == "ArrowLeft" ||
+                      key == "ArrowRight" ||
+                      key == "Delete" ||
+                      key == "Backspace"
+                    );
+                  }
+                </script>
+              </div>
+            </div>
+
+            <div>
+              <iframe
+                width="600px"
+                height="500px"
+                src="./keyboardEx1/index.html"
+                frameborder="0"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+              <div class="TargetDiv2">
+                <input type="text" class="form-control" />
+              </div>
+              <script>
+                function funcName() {}
+
+                runOnKeys(
+                  (...args) => alert(`Привет! ${args}`),
+                  "KeyQ",
+                  "KeyW"
+                );
+
+                function runOnKeys(callBack, ...args) {
+                  const ipt = document.querySelector(
+                    ".TargetDiv2>input[type=text]"
+                  );
+                  ipt.onkeydown = ipt.onkeyup = ipt.onkeypress = handler;
+                  let keys = [];
+                  function handler(event) {
+                    switch (event.type) {
+                      case "keydown":
+                        if (!keys.includes(event.key)) {
+                          keys.push(event.code);
+                        }
+                        break;
+                      case "keyup":
+                        keys = [];
+                        break;
+                    }
+                    console.log("keys", keys);
+
+                    const everyIncludes = args.every((key) => {
+                      return keys.includes(key);
+                    });
+
+                    console.log("everyIncludes", everyIncludes);
+                    if (everyIncludes) {
+                      callBack.call(null, args);
+                      keys = [];
+                    }
+                  }
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

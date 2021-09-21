@@ -40,8 +40,8 @@
         clearConsole
       </button>
       <script>
-		'use strict';
-		
+        "use strict";
+
         const clearConsole = () => console.clear();
       </script>
     </div>
@@ -52,13 +52,64 @@
           <div class="col-sm-12 border">
             <h1>Theory</h1>
 
+            <div>
+              <h4>main methods to send a form</h4>
+              <ul>
+                <li>
+                  press a button
+                  <code> &lt;input type="submit"&gt; </code>
+                  or <code> &lt;type="image"&gt; </code>
+                </li>
+                <li>press enter on any field</li>
+              </ul>
+            </div>
             <div class="border rounded p-3 m-3">
-              <button onclick="funcName()" class="m-3 btn btn-primary">
-                funcName
-              </button>
+              <div>
+                <form onsubmit="cl('submit!');return false">
+                  First sample: press <kbd>Enter</kbd>
+                  <input type="text" value="Текст" /><br />
+                  Second sample press on the button <kbd>Send</kbd>
+                  <input type="submit" value="Send" />
+                </form>
+              </div>
 
+              <div>
+								<div><h5>click event generation on keypress enter</h5></div>
+                <form onsubmit="cl('submit!');return false">
+                  <input
+                    type="text"
+                    size="30"
+                    value="focus here and press Enter"
+                  />
+                  <input
+                    type="submit"
+                    value="Send"
+                    onclick="cl('click')"
+                  />
+                </form>
+              </div>
+
+
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="sendFormManually()" class="m-3 btn btn-primary">
+                sendFormManually
+              </button>
+								<div><h6>Send form manually</h6></div>
+								<div id="targetDivq">
+
+								</div>
               <script>
-                function funcName() {}
+                function sendFormManually() {
+									const form  = document.createElement('form');
+									form.action = 'https://google.com/search';
+									form.innerHTML = '<input name=`q` value=`test` >';
+									
+									targetDivq.append(form);
+
+									form.submit();
+
+								}
               </script>
             </div>
           </div>
@@ -71,7 +122,9 @@
               <button onclick="funcName()" class="m-3 btn btn-primary">
                 funcName
               </button>
-
+							<div>
+								<iframe src="./modal-form/index.html" width="600px" height="600px" frameborder="0"></iframe>
+							</div>
               <script>
                 function funcName() {}
               </script>
