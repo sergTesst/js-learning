@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<div>
+		page to send statistics with navigator
+	</div>
+	<script>
+		let analyticsData = {
+			data:'my data prop info'
+		};
+
+		window.addEventListener("unload", function() {
+			console.log('navigator.sendBeacon');
+			
+			navigator.sendBeacon("/analytics", JSON.stringify(analyticsData));
+		});
+	</script>
+</body>
+</html>

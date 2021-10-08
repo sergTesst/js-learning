@@ -1,0 +1,121 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://unpkg.com/prismjs@1.25.0/themes/prism.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <pre class="language-javascript"><code>
+							let hello = "world";
+							function count(){
+								let val = 0;
+								return function(){
+									return ++val;
+								}
+							}
+						</code></pre>
+          </div>
+
+          <div class="col-sm-12 border">
+            <div id="highlight-demo"></div>
+
+            <button onclick="dynamicallyInsertJS()" class="m-3 btn btn-primary">
+              dynamicallyInsertJS
+            </button>
+
+            <button onclick="disconnectObserve()" class="m-3 btn btn-primary">
+              disconnectObserve
+            </button>
+
+            <script>
+              const observer = new MutationObserver((mutations) => {
+                for (let mutation of mutations) {
+                  for (let node of mutation.addedNodes) {
+                    let nodeIsTextNode = !(node instanceof HTMLElement);
+                    if (nodeIsTextNode) continue;
+
+                    let insertedElemIsCodeSample = node.matches(
+                      'pre[class*="language-"]'
+                    );
+                    if (insertedElemIsCodeSample) {
+                      Prism.highlightElement(node);
+                    }
+
+                    for (let elem of node.querySelectorAll(
+                      'pre[class*="language-"]'
+                    )) {
+                      Prism.highlightElement(node);
+                    }
+                  }
+                }
+              });
+
+              const domElem = document.getElementById("highlight-demo");
+              observer.observe(domElem, { childList: true, subtree: true });
+
+							function disconnectObserve(){
+								observer.disconnect();
+
+								const mutationRecords = observer.takeRecords();
+
+								console.log('mutationRecords ', mutationRecords);
+								
+							}
+
+              function dynamicallyInsertJS() {
+                console.log("Prism", Prism);
+
+                const domElem = document.getElementById("highlight-demo");
+                domElem.innerHTML = `code fragment below:
+									<pre class="language-javascript"><code> let hello = "world!"; </code></pre>
+									<div>another one:</div>
+									<div>
+										<pre class="language-css"><code>.class { margin: 5px; } </code></pre>
+									</div>
+								`;
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://unpkg.com/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://unpkg.com/prismjs@1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

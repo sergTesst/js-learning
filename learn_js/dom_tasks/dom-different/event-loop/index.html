@@ -1,0 +1,338 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <h4>macrotask queue</h4>
+              <img src="./imgs/Screenshot 2021-10-08 174748.jpg" alt="" />
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div class="row">
+                <div class="col">
+                  <button
+                    onclick="startHeavyTask()"
+                    class="m-3 btn btn-primary"
+                  >
+                    startHeavyTask
+                  </button>
+                  <div>can not press button when starts</div>
+                </div>
+                <div class="col">
+                  <button
+                    onclick="otherButtonConsoleLog()"
+                    class="m-3 btn btn-primary"
+                  >
+                    otherButtonConsoleLog
+                  </button>
+                  <div>logging button</div>
+                </div>
+                <div class="col">
+                  <button
+                    onclick="splitHeavyTask()"
+                    class="m-3 btn btn-primary"
+                  >
+                    splitHeavyTask
+                  </button>
+                  <div>
+                    with if condition
+                    <p>if (i == 1e9) { ... } else { setTimeout(count); }</p>
+                    <p>took 7650ms</p>
+                  </div>
+                </div>
+                <div class="col">
+                  <button
+                    onclick="splitHeavyTaskEnhanced()"
+                    class="m-3 btn btn-primary"
+                  >
+                    splitHeavyTaskEnhanced
+                  </button>
+                  <div>
+                    <p>
+                      if (i < 1e9 - 1e6) setTimeout(count) and
+                      splitHeavyTaskEnhanced realization
+                    </p>
+                    <p>
+                      in browser we have minimal timeout 4 miliseconds with many
+                      inner setTimeout calls
+                    </p>
+                    <p>
+                      even if we set setTimeout with 0 ms it will be 4ms or
+                      higher
+                    </p>
+                    <p>
+                      <b>The earlier we plan setTimeout the faster code runs</b>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <script>
+                function startHeavyTask() {
+                  let i = 0;
+                  let start = Date.now();
+                  let j = 0;
+                  function count() {
+                    for (j; j < 1e9; j++) {
+                      i++;
+                    }
+
+                    alert(
+                      "Done in" +
+                        (Date.now() - start) +
+                        "ms" +
+                        `j = ${j}, i= ${i}`
+                    );
+                  }
+
+                  count();
+                }
+
+                function splitHeavyTask() {
+                  let i = 0;
+
+                  let start = Date.now();
+
+                  function count() {
+                    do {
+                      i++;
+                    } while (i % 1e6 != 0);
+
+                    if (i == 1e9) {
+                      alert(
+                        "Done in" + (Date.now() - start) + "ms" + ` i= ${i}`
+                      );
+                    } else {
+                      setTimeout(count);
+                    }
+                  }
+
+                  count();
+                }
+
+                function splitHeavyTaskEnhanced() {
+                  let i = 0;
+
+                  let start = Date.now();
+
+                  function count() {
+                    if (i < 1e9 - 1e6) setTimeout(count); //place new call
+                    do i++;
+                    while (i % 1e6 != 0);
+                    if (i == 1e9) {
+                      alert(
+                        "Done in" + (Date.now() - start) + "ms" + ` i= ${i}`
+                      );
+                    } else {
+                      setTimeout(count);
+                    }
+                  }
+
+                  count();
+                }
+
+                function otherButtonConsoleLog() {
+                  console.log("I can log to console.");
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div class="row">
+                <div class="col">
+                  <button onclick="runProgress()" class="m-3 btn btn-primary">
+                    runProgress
+                  </button>
+                  <div id="progressFirst"></div>
+                </div>
+                <div class="col">
+                  <button
+                    onclick="runProgressSecond()"
+                    class="m-3 btn btn-primary"
+                  >
+                    runProgressSecond
+                  </button>
+                  <div>
+                    <p>
+                      setTimeout(()=>{ document.dispatchEvent(customEvent) });
+                    </p>
+                    <p>we dispatch custom events async</p>
+                  </div>
+                  <div id="progressSecond"></div>
+                </div>
+              </div>
+
+              <script>
+                function runProgress() {
+                  for (let index = 0; index < 1e6; index++) {
+                    index++;
+                    progressFirst.innerHTML = index;
+                  }
+                }
+
+                function runProgressSecond() {
+                  let customEvent = new CustomEvent("iDone", {
+                    bubbles: true,
+                  });
+                  let i = 0;
+                  function count() {
+                    //let i = 0; if i here we can not se it changing
+                    do {
+                      i++;
+                      progressSecond.innerHTML = i;
+                    } while (i % 1e3 != 0);
+                    console.log(
+                      "i outside of do while" +
+                        `i = ${i}` +
+                        ` i === 1e3 ${i === 1e3}`
+                    );
+                    if (i < 1e5) {
+                      setTimeout(count);
+                    } else {
+                      console.log("i >= 1e5");
+                      setTimeout(() => {
+                        document.dispatchEvent(customEvent);
+                      });
+                    }
+                  }
+                  count();
+
+                  document.addEventListener("iDone", (e) => {
+                    console.log("iDone listener", e);
+                  });
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div class="fs-4">
+                <p>microtasks are .then/catch/finally</p>
+                <p>microtasks are used under the hood of await</p>
+                <p>queueMicrotask(func) place func in queue</p>
+                <p>
+                  <b
+                    >after every macrotask engine executes all tasks from
+                    microtask queue
+                  </b>
+                </p>
+                <p>
+                  <b
+                    >before execute next macrotask or display changes on the
+                    page or
+                  </b>
+                </p>
+                <p><b>do something else</b></p>
+              </div>
+
+              <div>
+                <img
+                  src="./imgs/Screenshot 2021-10-08 201458.jpg"
+                  alt="eventloop"
+                />
+              </div>
+              <button onclick="macroTasksEx()" class="m-3 btn btn-primary">
+                macroTasksEx
+              </button>
+
+              <script>
+                function macroTasksEx() {
+                  setTimeout(() => alert("timeout"));
+
+                  Promise.resolve().then(() => alert("promise"));
+
+                  alert("code");
+
+                  //code -> promise -> timeout
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+							<h4>Web Workers are commonly used for heavy tasks in parallel stream.</h4>
+							<h4>Web Workers can use several cores of processor simultaneously</h4>
+
+              <button class="m-3 btn btn-primary" onclick="insertFrameWithMicroTask()">insertFrameWithMicroTask </button>
+              <div class="targetdiv7"></div>
+
+              <script>
+                function insertFrameWithMicroTask() {
+                  document.querySelector(".targetdiv7").insertAdjacentHTML(
+                    "afterbegin",
+                    `
+										<iframe src="./queueMicroTaskExample.html" frameborder="0" width="400" height="400"></iframe>
+									`
+                  );
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

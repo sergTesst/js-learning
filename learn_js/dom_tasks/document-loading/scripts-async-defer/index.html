@@ -1,0 +1,195 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+			defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+
+        function addHTML(selector, position, html) {
+          document.querySelector(selector).insertAdjacentHTML(position, html);
+        }
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+						<div>
+							<p> Scripts with <kbd>defer</kbd> never blocks the page</p>
+							<p> Scripts with <kbd>defer</kbd> always executing, when DOM is ready, but before DOMContentLoaded</p>
+							<p>Scripts with <kbd>defer</kbd> intended only for external script only (ignored if script with src)</p>
+							<p>dynamically added scripts behave like async scripts</p>
+
+
+							<p><kbd>defer</kbd> is used for scripts, that require access to the entire DOM and/or order of execution is important</p>
+							<p><kbd>async</kbd>is good for independent script, for example counters or ads, the relevant orders of execution is irrelevant</p>
+						</div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                class="m-3 btn btn-success"
+                onclick="addFrameDisplayAfterScriptLoad()"
+              >
+							addFrameDisplayAfterScriptLoad
+              </button>
+
+              <div class="targetDiv1"></div>
+              <script>
+                function addFrameDisplayAfterScriptLoad() {
+                  addHTML(
+                    ".targetDiv1",
+                    "afterbegin",
+                    `<iframe
+                    id="sendDataFrame"
+                    src="./displayAfterScriptLoad.html"
+                    width="400px"
+                    height="400px"
+                    frameborder="0"
+                  ></iframe>`
+                  );
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+
+              <button class="m-3 btn btn-success" onclick="addFrameWithAsyncScripts()">addFrameWithAsyncScripts</button>
+
+							<div class="targetDiv2"></div>
+
+							<div>
+								
+								<ul>
+									<li>content of the page displays immediately</li>
+									<li><kbd>DOMContentLoaded</kbd> can appear before or after async script</li>
+									<li>scripts are executed in order the are loaded </li>
+									<li>async scripts are useful for adding to the page external scripts</li>
+								</ul>
+							</div>
+              <script>
+								function addFrameWithAsyncScripts(){
+                  addHTML(
+                    ".targetDiv2",
+                    "afterbegin",
+                    `<iframe
+                    id="sendDataFrame"
+                    src="./frameWithAsyncScripts.html"
+                    width="400px"
+                    height="400px"
+                    frameborder="0"
+                  ></iframe>`
+                  );
+								}
+                
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button class="m-3 btn btn-success" onclick="addDynamicallyAddedScriptsFrame()">addDynamicallyAddedScriptsFrame</button>
+
+							<div class="targetDiv3"></div>
+              <script>
+								function addDynamicallyAddedScriptsFrame(){
+                  addHTML(
+                    ".targetDiv3",
+                    "afterbegin",
+                    `<iframe
+                    id="sendDataFrame"
+                    src="./dynamicalyAddedScripts.html"
+                    width="400px"
+                    height="400px"
+                    frameborder="0"
+                  ></iframe>`
+                  );
+								}
+              </script>
+            </div>
+            <!-- <div class="border rounded p-3 m-3">
+              <button class="m-3 btn btn-success" onclick="addFrame1()">addFrame</button>
+
+              <button onclick="funcName()" id="funcActivator1" class="m-3 btn btn-success" disabled > funcName </button>
+
+							<div class="targetDiv8"></div>
+              <script>
+								function addFrame1(){
+                  addHTML(
+                    ".targetDiv1",
+                    "afterbegin",
+                    `<iframe
+                    id="sendDataFrame"
+                    src="./displayAfterScriptLoad.html"
+                    width="400px"
+                    height="400px"
+                    frameborder="0"
+                  ></iframe>`
+                  );
+								}
+                function funcName() {
+
+								}
+              </script>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

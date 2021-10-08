@@ -1,0 +1,211 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+			async
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+            <div>
+              <p>
+                In order to catch errors in a script, we need to use global
+                handler window.onerror
+              </p>
+            </div>
+
+            <div>
+              <p>
+                Чтобы разрешить кросс-доменный доступ, нам нужно поставить тегу
+                &lt;script&gt; атрибут crossorigin, и, кроме того, удалённый
+                сервер должен поставить специальные заголовки.
+              </p>
+              <p>Существует три уровня кросс-доменного доступа:</p>
+              <ul>
+                <li>Атрибут crossorigin отсутствует – доступ запрещён.</li>
+                <li>
+                  crossorigin="anonymous" – доступ разрешён, если сервер
+                  отвечает с заголовком Access-Control-Allow-Origin со
+                  значениями * или наш домен. Браузер не отправляет
+                  авторизационную информацию и куки на удалённый сервер.
+                </li>
+                <li>
+                  crossorigin="use-credentials" – доступ разрешён, если сервер
+                  отвечает с заголовками Access-Control-Allow-Origin со
+                  значением наш домен и Access-Control-Allow-Credentials: true.
+                  Браузер отправляет авторизационную информацию и куки на
+                  удалённый сервер.
+                </li>
+              </ul>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="addLodashScript()" class="m-3 btn btn-primary">
+                addLodashScript
+              </button>
+
+              <script>
+                function addLodashScript() {
+                  const script = document.createElement("script");
+                  script.src =
+                    "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js";
+                  document.head.append(script);
+                  script.onload = function () {
+                    console.log("helper function _ ", _);
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="addOnErrorScript()" class="m-3 btn btn-primary">
+                addOnErrorScript
+              </button>
+
+              <script>
+                function addOnErrorScript() {
+                  const script = document.createElement("script");
+                  script.src = "https://example.com/404.js";
+                  document.head.append(script);
+                  script.onerror = function () {
+                    console.log(`Error loading ${this.src}`);
+                  };
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addImageHandleLoad()"
+                class="m-3 btn btn-primary"
+              >
+                addImageHandleLoad
+              </button>
+              <div class="targetDiv3"></div>
+              <script>
+                function addImageHandleLoad() {
+                  const img = document.createElement("img");
+                  img.src = "https://js.cx/clipart/train.gif?speed=1&cache=0";
+                  // document.querySelector('.targetDiv3').append(img);
+                  img.onload = function () {
+                    console.log(
+                      `Image was loaded. Sizes ${img.width}x${img.height}`
+                    );
+                    document.querySelector(".targetDiv3").append(img);
+                  };
+
+                  img.onerror = function () {
+                    console.log(`Error loading ${this.src}`);
+                  };
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addScriptWithError()"
+                class="m-3 btn btn-primary"
+              >
+                addScriptWithError
+              </button>
+
+              <script>
+                function addScriptWithError() {
+                  window.onerror = function (
+                    message,
+                    url,
+                    line,
+                    col,
+                    errorObj
+                  ) {
+                    alert(`${message}\n${url}, ${line}:${col}`);
+                  };
+
+                  const script = document.createElement("script");
+									script.setAttribute('crossorigin', 'anonymous');
+                  script.src =
+                    "https://learn.javascript.ru/article/onload-onerror/crossorigin/error.js";
+                  document.head.append(script);
+                }
+              </script>
+            </div>
+
+            <!-- <div class="border rounded p-3 m-3">
+              <button onclick="addOnErrorScript()" class="m-3 btn btn-primary">
+                addOnErrorScript
+              </button>
+
+              <script>
+                function addOnErrorScript() {
+									const script = document.createElement('script');
+									script.src = 'https://example.com/404.js';
+									document.head.append(script);
+									script.onerror = function(){
+										console.log(`Error loading ${this.src}`);
+									}
+								}
+              </script>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

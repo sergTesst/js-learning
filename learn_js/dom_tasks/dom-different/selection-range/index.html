@@ -1,0 +1,631 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <div class="targetDiv1">
+                <p id="p">Example: <i>italic</i> and <b>bold</b></p>
+                <span>from</span>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="start"
+                  value="1"
+                />
+                <span>to</span>
+                <input class="form-control" type="number" id="end" value="4" />
+              </div>
+
+              <button onclick="selectWithRange()" class="m-3 btn btn-primary">
+                selectWithRange
+              </button>
+              <button
+                onclick="partialSelectRange()"
+                class="m-3 btn btn-primary"
+              >
+                partialSelectRange
+              </button>
+
+              <div class="fs-5">
+                <p>range methods</p>
+                <ul style="text-decoration: none; list-style: none">
+                  <li class="m-2">for start</li>
+                  <li>setStart(node, offset)</li>
+                  <li>setStartBefore(node)</li>
+                  <li>setStartAfter(node)</li>
+
+                  <li class="m-2">for end</li>
+                  <li>setEnd(node, offset)</li>
+                  <li>setEndBefore(node)</li>
+                  <li>setEndAfter(node)</li>
+
+                  <li class="m-2">other</li>
+                  <li>selectNode(node)</li>
+                  <li>selectNodeContents(node)</li>
+                  <li>collapse(toStart)</li>
+                  <li>cloneRange()</li>
+
+                  <li class="m-2">for manipulation</li>
+                  <li>deleteContents()</li>
+                  <li>extractContents()</li>
+                  <li>cloneContents()</li>
+                  <li>insertNode()</li>
+                  <li>surroundContentsNode()</li>
+                </ul>
+              </div>
+
+              <script>
+                function selectWithRange() {
+                  let range = new Range();
+                  const p = document.querySelector(".targetDiv1>#p");
+                  // console.log(' p.children.length', p.children.length);
+                  // console.log(' p.childNodes', p.childNodes);
+
+                  const start = document.querySelector(".targetDiv1>#start");
+                  const end = document.querySelector(".targetDiv1>#end");
+
+                  let startValue = start.value;
+                  let endValue = end.value;
+
+                  if (
+                    Number(startValue) < 0 ||
+                    Number(endValue) > p.childNodes.length
+                  )
+                    return;
+
+                  range.setStart(p, startValue);
+                  range.setEnd(p, end.value);
+                  cl("range.toString()", range.toString());
+
+                  applyrange(range);
+                }
+
+                function partialSelectRange() {
+                  let range = new Range();
+                  const p = document.querySelector(".targetDiv1>#p");
+                  range.setStart(p.firstChild, 2);
+                  range.setEnd(p.querySelector("b").firstChild, 3);
+                  cl("range.toString()", range.toString());
+
+                  applyrange(range);
+                }
+
+                function applyrange(range) {
+                  document.getSelection().removeAllRanges();
+                  document.getSelection().addRange(range);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="insertHTMLWithRangeMethodsDemo()"
+                class="m-3 btn btn-primary"
+              >
+                insertHTMLWithRangeMethodsDemo
+              </button>
+
+              <div class="targetDiv2">
+                <p id="p1">Example: <i>italic</i> and <b>bold</b></p>
+
+                <p id="result1"></p>
+              </div>
+
+              <div class="RangeMethods"></div>
+
+              <script>
+                const result = document.getElementById("result1");
+                const p = document.getElementById("p1");
+
+                let range = new Range();
+
+                let methods = {
+                  deleteContents() {
+                    range.deleteContents();
+                  },
+                  extractContents() {
+                    let content = range.extractContents();
+                    result.innerHTML = "";
+                    result.append("extracted: ", content);
+                  },
+                  cloneContents() {
+                    let content = range.cloneContents();
+                    result.innerHTML = "";
+                    result.append("cloned: ", content);
+                  },
+                  insertNode() {
+                    let newNode = document.createElement("u");
+                    newNode.innerHTML = "new node";
+                    range.insertNode(newNode);
+                  },
+                  surroundContents() {
+                    let newNode = document.createElement("u");
+                    try {
+                      range.surroundContents(newNode);
+                    } catch (e) {
+                      cl("e", e);
+                    }
+                  },
+                  resetExample() {
+                    p.innerHTML = `Example: <i>italic</i> and <b>bold</b>`;
+                    result.innerHTML = "";
+
+                    range.setStart(p.firstChild, 2);
+                    range.setEnd(p.querySelector("b").firstChild, 3);
+
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                  },
+                };
+
+                function insertHTMLWithRangeMethodsDemo() {
+                  const rangeMethodsContainer =
+                    document.querySelector(".RangeMethods");
+
+                  for (let method in methods) {
+                    rangeMethodsContainer.insertAdjacentHTML(
+                      "afterbegin",
+                      `<div><button class='btn rounded border-success mt-1' onclick="methods.${method}()">${method}</button></div>`
+                    );
+                  }
+
+                  methods.resetExample();
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div class="fs-4">
+                <ul style="text-decoration: none; list-style: none">
+                  <li class="m2"></li>
+                    document.getSelection() for getting selected content
+                  </li>
+
+                  <li class="m-2">selection main props</li>
+
+                  <li>anchorNode - node from which selection starts</li>
+                  <li>anchorOffset - offset of anchorNode</li>
+                  <li>focusNode - node on which selection ends</li>
+                  <li>focusOffset - offset in focusNode</li>
+                  <li>
+                    isCollapsed - true if selection range is empty or not exists
+                  </li>
+                  <li>rangeCount</li>
+                </ul>
+
+                <ul style="text-decoration: none; list-style: none">
+                  <li class="m-2">selection events</li>
+                  <li>
+                    elem.onselectstart - when user starts to select with mouse
+                    button pressed
+                  </li>
+                  <ul>
+                    <li>preventDefault() rejects start of selection</li>
+                  </ul>
+                  <li>
+                    document.onselectionchange - when selection is changed
+                  </li>
+                  <ul>
+                    <li>this event handler can only be set for document</li>
+                  </ul>
+                </ul>
+              </div>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="setOnSelectionChange()"
+                class="m-3 btn btn-primary"
+              >
+                setOnSelectionChange
+              </button>
+
+              <div>
+                <h4>track selection</h4>
+              </div>
+              <div class="targetDiv4">
+                <p id="p2">select me: <i>italic</i> и <b>bold</b></p>
+
+                From <input id="from2" disabled /> – To
+                <input id="to2" disabled />
+              </div>
+
+              <script>
+                function setOnSelectionChange() {
+                  const p = document.querySelector(".targetDiv4>#p2");
+                  const from = document.querySelector(".targetDiv4>#from2");
+                  const to = document.querySelector(".targetDiv4>#to2");
+
+                  document.onselectionchange = function () {
+                    let { anchorNode, anchorOffset, focusNode, focusOffset } =
+                      document.getSelection();
+
+                    from.value = `${
+                      anchorNode && anchorNode.data
+                    }:${anchorOffset}`;
+
+                    to.value = `${focusNode && focusNode.data}:${focusOffset}`;
+                  };
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="addOnSelectionChangeEvent()"
+                class="m-3 btn btn-primary"
+              >
+                addOnSelectionChangeEvent
+              </button>
+
+              <div>
+                <h4>selection methods</h4>
+                <ul>
+                  <li>getSelection() for getting selection</li>
+                  <li>getRangeAt(i) get i range starting from 0</li>
+                  <li>addRange(range) add range into selection</li>
+                  <li>removeRange(range)</li>
+                  <li>removeAllRanges()</li>
+                  <li>empty()</li>
+                  <li class="m-2">
+                    the are methods for range manipulation without appeal to
+                    Range
+                  </li>
+                  <li>
+                    collapse(node, offset) change selected range, which starts
+                    with node with offset
+                  </li>
+                  <li>setPosition(node, offset) the same as collapse</li>
+                  <li>collapseToStart()</li>
+                  <li>collapseToEnd()</li>
+                  <li>extend(node, offset)</li>
+                  <li>extend(node, offset) change focus</li>
+                  <li>
+                    setBaseAndExtend(anchorNode, anchorOffset, focusNode,
+                    focusOffset)
+                  </li>
+                  <li>selectAllChildren(node)</li>
+                  <li>
+                    deleteFromDocument() delete content of selection from
+                    document
+                  </li>
+                  <li>
+                    containsNode(node, allowPartialContainment = false) checks
+                    whether selected node contains node
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4>demo for getting selection</h4>
+              </div>
+
+              <div class="targetDiv5">
+                <p id="p3">select me: <i>italic</i> and <b>bold</b></p>
+
+                cloned: <span id="cloned3"></span>
+                <br />
+                as text: <span id="astext3"></span>
+              </div>
+
+              <script>
+                function addOnSelectionChangeEvent() {
+                  const cloned = document.getElementById("cloned3");
+                  const astext = document.getElementById("astext3");
+
+                  document.onselectionchange = function () {
+                    const selection = document.getSelection();
+                    cloned.innerHTML = astext.innerHTML = "";
+
+                    for (let i = 0; i < selection.rangeCount; i++) {
+                      cloned.append(selection.getRangeAt(i).cloneContents());
+                    }
+                    astext.innerHTML += selection;
+                  };
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="selectParagraphWithOnlySelection()"
+                class="m-3 btn btn-primary"
+              >
+                selectParagraphWithOnlySelection
+              </button>
+              <div class="targetDiv6">
+                <p id="p4">select me: <i>italic</i> and <b>bold</b></p>
+              </div>
+              <script>
+                function selectParagraphWithOnlySelection() {
+                  const selection = document.getSelection();
+                  // selection.selectAllChildren(p4);//:void
+                  selection.setBaseAndExtent(p4, 0, p4, p4.childNodes.length);
+
+                  console.log("selection ", selection);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>selection of form element</h3>
+              <p>there is an external api for this #textFieldSelection</p>
+
+              <h4>props</h4>
+              <ul>
+                <li>input.selectionStart - {get;set;}</li>
+                <li>input.selectionEnd - {get;set;}</li>
+                <li>input.selectionDirection - {forward, backward, none}</li>
+              </ul>
+              <h4>events</h4>
+              <ul>
+                <li>input.onselect</li>
+              </ul>
+
+              <h4>methods</h4>
+              <h3>[paramName] is not required</h3>
+              <ul>
+                <li>
+                  input.select() - select all content of input or textarea
+                </li>
+                <li>input.setSelectionRange(start, end, [direction])</li>
+                <li>
+                  <p>
+                    input.setRangeText(replacement, [start], [end], [selectionMode])
+                  </p>
+                  <p>
+                    selectionMode = { <br />
+                    select | // inserted text will be selected <br />
+                    start | // range of selection collapse just before inserted
+                    text. cursor will be before it<br />
+                    end | // range of selection collapse just before inserted
+                    text. cursor will be after it<br />
+                    preserve // default value. Trying to save selection<br />
+                    }
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="enableonselectEvent()" class="m-3 btn btn-primary">
+                enableonselectEvent
+              </button>
+
+              <div class="targetDiv6">
+                <div>
+                  <textarea name="areaFirst" id="areaFirst" cols="30" rows="10">
+enter something in this text to update values below label
+                  </textarea>
+                </div>
+                <div>
+                  <label for="from6">from</label><input type="text" id='from6'  disabled>
+                  <label for="to6">to</label><input type="text" id='to6'  disabled>
+
+                </div>
+              </div>
+
+              <script>
+                function enableonselectEvent() {
+                  const area = document.getElementById('areaFirst');
+                  const from = document.getElementById('from6');
+                  const to = document.getElementById('to6');
+                  
+                  area.onselect = () =>{
+                    from.value = area.selectionStart;
+                    to.value = area.selectionEnd;
+
+                  }
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="enableAreaOnFocusCursorChange()" class="m-3 btn btn-primary">
+                enableAreaOnFocusCursorChange
+              </button>
+              <div class="targetDiv7">
+                <textarea name="area" id="areaChangeCursorPosition" cols="30" rows="10" >
+                  focus on me and cursor will appear on position 10
+                </textarea>
+              </div>
+              <script>
+                function enableAreaOnFocusCursorChange() {
+
+                  const area = document.getElementById('areaChangeCursorPosition');
+                  area.onfocus = () => {
+                    // 0 timeout for work after getting focus
+                    setTimeout(()=>{
+                      area.selectionStart = area.selectionEnd = 10;
+                    })
+                    
+                  };
+                  
+
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="wrapWithStartsSelectedText()" class="m-3 btn btn-primary">
+                wrapWithStartsSelectedText
+              </button>
+
+              <div class="targetDiv8">
+                <textarea name="area" id="areaWrapWithStarts" cols="30" rows="10" >
+                  wrap with starts 
+                </textarea>
+
+
+              </div>
+              <style>
+                  .targetDiv8{
+                    overflow-y: scroll;
+                  }
+              </style>
+              <script>
+                function wrapWithStartsSelectedText() {
+                  const area = document.getElementById('areaWrapWithStarts');
+                
+                  const nothingSelected = area.selectionStart === area.selectionEnd;
+                  if(nothingSelected) return;
+
+                  let selected = area.value.slice(area.selectionStart, area.selectionEnd);
+                  area.setRangeText(`*${selected}*`);
+
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="changeSelectedText()" class="m-3 btn btn-primary">
+                changeSelectedText
+              </button>
+
+              <div class="targetDiv9">
+                <textarea name="areaChangeSelectedText" id="areaChangeSelectedText" cols="30" rows="10" >
+                  change this text
+                </textarea>
+              </div>
+
+              <script>
+                function changeSelectedText() {
+
+                  const area = document.getElementById('areaChangeSelectedText');
+                  
+                  let pos = area.value.indexOf('this');
+
+                  if(pos<0)return;
+
+                  area.setRangeText(`*this*`, pos, pos + 'this'.length, 'select');
+                  area.focus();
+
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="setTextOnCursorPosition()" class="m-3 btn btn-primary">
+                setTextOnCursorPosition
+              </button>
+              <div class="targetDiv9">
+                <textarea name="areaTextOnCursorPosition" id="areaTextOnCursorPosition" cols="30" rows="10" >
+                  change this text
+                </textarea>
+              </div>
+              <script>
+                function setTextOnCursorPosition() {
+                  const area = document.getElementById('areaTextOnCursorPosition');
+
+                  area.setRangeText(`this text`, area.selectionStart, area.selectionEnd, 'end');
+                  area.focus();
+
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="emptySelection_Warning()" class="m-3 btn btn-primary">
+                emptySelection_Warning
+              </button>
+              <style>
+                #selectionDisabled{
+                  user-select:none;
+                  pointer-events: none;
+                }
+              </style>
+              <div class="selectionText" >can be selected <div id="selectionDisabled">can not be selected</div> can be selected</div>
+
+              <script>
+                function emptySelection_Warning() {
+                  
+                }
+                document.querySelector('.selectionText').onselectstart = () => {
+                  cl('selection start event');
+
+                  document.getSelection().empty();
+                  // return false;
+                }
+
+                selectionDisabled.onselectstart = _ =>{
+                  cl('starting selection this', this);
+                  return false;
+                };
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

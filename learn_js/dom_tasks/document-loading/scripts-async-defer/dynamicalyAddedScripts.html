@@ -1,0 +1,28 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>adding scripts dynamically</div>
+
+    <script>
+      // let script = document.createElement("script");
+      // script.src = "/article/script-async-defer/long.js";
+      // document.body.append(script); // (*)
+
+      function loadScript(src) {
+        let script = document.createElement("script");
+        script.src = `https://javascript.info${src}`;
+        script.async = false;
+        document.body.append(script);
+      }
+
+      // long.js starts first because async=false
+      loadScript("/article/script-async-defer/long.js");
+      loadScript("/article/script-async-defer/small.js");
+    </script>
+  </body>
+</html>

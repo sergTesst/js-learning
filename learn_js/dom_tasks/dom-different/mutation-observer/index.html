@@ -1,0 +1,185 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+            <div>
+              <h4>Mutation observer</h4>
+              <p>let observer = new MutationObserver(callback)</p>
+              <p>observer.observe(none, config)</p>
+              <p>config is an object with boolean values</p>
+              <ul>
+                <li><kbd>childList</kbd> changes in the children</li>
+                <li>subtree</li>
+                <li>attributes</li>
+                <li>
+                  attributeFilter array of attributes, in order to observe for
+                  chosen
+                </li>
+                <li>characterData observe only for node.data (text data)</li>
+                <li>
+                  characterDataOldValue if true old & new value into the
+                  callback, default false and pass new value
+                </li>
+                <li>
+                  attributeOldValue same as characterDataOldValue for attributes
+                </li>
+              </ul>
+              <p>
+                then after changes, <kbd>callback</kbd> is executed, in witch
+                changes are passed as a first arg <br />
+                as a list of obj with type MutationRecord, and observer as a
+                second arg
+              </p>
+              <div>
+                <p>Props of MutationRecord</p>
+                <ul>
+                  <li>
+                    <p>type - type of change</p>
+                    <ul>
+                      <li>"attributes" attr is changed</li>
+                      <li>
+                        "characterData" elem.data changed, is used for text node
+                      </li>
+                      <li>"childList" add/remove child nodes</li>
+                    </ul>
+                  </li>
+                  <li>
+                    target - where change has happened:<br />
+                    elem for "attributes"<br />
+                    text node for "characterData" <br />
+                    elem for "childList"
+                  </li>
+                  <li>addedNodes/removeNodes add/remove nodes</li>
+                  <li>
+                    previous/nextSibling previous or next same level element for
+                    add/remove elements
+                  </li>
+                  <li>
+                    attributeName/attributeNamespace - name of namespace (for
+                    XML) changed attribute
+                  </li>
+                  <li>
+                    oldValue - previous value, only for changed attribute or
+                    text, if corresponding option
+                    attributeOldValue/characterDataOldValue is turned on
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="initMutationObserver()"
+                class="m-3 btn btn-primary"
+              >
+                initMutationObserver
+              </button>
+              <div contenteditable id="elem1">Edit <b>me</b> please</div>
+              <script>
+                function initMutationObserver() {
+
+                  const observer = new MutationObserver((mutationRecords) => {
+                    console.log(mutationRecords);
+                  });
+
+                  const elem = document.getElementById("elem1");
+                  
+                  observer.observe(elem, {
+                    childList: true,
+                    subtree: true,
+                    characterDataOldValue: true,
+                  });
+
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <pre class="language-javascript">
+                let identifyer = 'value';
+              </pre>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 500px;"></div>
+
+      </div>
+    </div>
+  </body>
+</html>

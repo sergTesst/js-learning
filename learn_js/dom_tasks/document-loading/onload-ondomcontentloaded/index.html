@@ -1,0 +1,306 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+
+        function addHTML(selector, position, html) {
+          document.querySelector(selector).insertAdjacentHTML(position, html);
+        }
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+            <h4>Events</h4>
+            <div>
+              <p>
+                <kbd>DOMContentLoaded</kbd> browser finished loading HTML
+                completely, DOM-tree was build <br />
+                but external resources such as images,styles, frames might not
+                be loaded
+              </p>
+              <p>
+                <kbd>load</kbd> browser loaded HTML and external resources
+                (images, styles and so on)
+              </p>
+              <p><kbd>beforeunload/unload</kbd> user leaves the page</p>
+            </div>
+            <div>
+              <h4>Why do wee need these events</h4>
+              <p>
+                <kbd>DOMContentLoaded</kbd> - DOM is ready, handler can look for
+                DOM-nodes and init interface
+              </p>
+              <p>
+                <kbd>load</kbd> external resources was loaded, styles was
+                applied, sizes of images are known
+              </p>
+              <p>
+                <kbd>beforeunload</kbd> user leaves the page. We can check,
+                whether user saved changes and ask,whether he really wants to
+                leave
+              </p>
+              <p>
+                <kbd>unload</kbd> user is almost gone, but we can still start
+                some operations, for example send statistics
+              </p>
+            </div>
+
+            <div>
+              <p>async scripts not blocking dom</p>
+              <p>
+                dynamically generated script not blocking dom
+                document.createElement('script')
+              </p>
+              <p>script not executing before styles have been loaded</p>
+            </div>
+
+            <div>
+              <p>document.readyState shows us current state of page loading</p>
+              <p>there are three possible values</p>
+              <ul>
+                <li><kbd>loading</kbd> page is loading</li>
+                <li><kbd>interactive</kbd> page was completely read</li>
+                <li>
+                  <kbd>complete</kbd> page was completely read and all resources
+                  were loaded
+                </li>
+              </ul>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="addAndLoadFrame()" class="m-3 btn btn-primary">
+                addAndLoadFrame
+              </button>
+              <div class="targetDiv1"></div>
+              <script>
+                function addAndLoadFrame() {
+                  addHTML(
+                    ".targetDiv1",
+                    "afterbegin",
+                    `<iframe src="./loadImageExample/index.html" width="400px" height="400px" frameborder="0"></iframe>`
+                  );
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="loadPage_with_windowOnload()"
+                class="m-3 btn btn-primary"
+              >
+                loadPage_with_windowOnload
+              </button>
+              <div class="targetDiv3"></div>
+              <script>
+                function loadPage_with_windowOnload() {
+                  addHTML(
+                    ".targetDiv3",
+                    "afterbegin",
+                    `<iframe src="./window_onload.html" width="400px" height="400px" frameborder="0"></iframe>`
+                  );
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                class="m-3 btn btn-primary"
+                onclick="addFrameSendDataFrame()"
+              >
+                addFrame
+              </button>
+
+              <button
+                id="changeIframeButton"
+                onclick="changeIframeSrcToTriggerNavigatorToSendBeacon()"
+                class="m-3 btn btn-primary"
+                disabled
+              >
+                changeIframeSrcToTriggerNavigatorToSendBeacon
+              </button>
+
+              <div class="targetDiv4"></div>
+
+              <script>
+                function addFrameSendDataFrame() {
+                  addHTML(
+                    ".targetDiv4",
+                    "afterbegin",
+                    `<iframe
+                    id="sendDataFrame"
+                    src="./sendBeacon.html"
+                    width="400px"
+                    height="400px"
+                    frameborder="0"
+                  ></iframe>`
+                  );
+                  changeIframeButton.disabled = false;
+                }
+                function changeIframeSrcToTriggerNavigatorToSendBeacon() {
+                  console.log("sendDataFrame", sendDataFrame);
+                  sendDataFrame.src = "https://google.com";
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                class="m-3 btn btn-primary"
+                onclick="addFrameBeforeUnload()"
+              >
+                addFrame
+              </button>
+
+              <button
+                id="changeBtnToTriggerEvent"
+                onclick="changeIframeSrcToTriggerEvent()"
+                class="m-3 btn btn-primary"
+                disabled
+              >
+                changeIframeSrcToTriggerEvent
+              </button>
+
+              <div>
+                <div>trigger window on before unload</div>
+                <div class="targetDiv5"></div>
+              </div>
+              <script>
+                function addFrameBeforeUnload() {
+                  addHTML(
+                    ".targetDiv5",
+                    "afterbegin",
+                    `
+											<iframe
+												id="beforUnloadFrame"
+												src="./window_onbeforeunload.html"
+												width="400px"
+												height="400px"
+												frameborder="0"
+											></iframe>
+									`
+                  );
+                  changeBtnToTriggerEvent.disabled = false;
+                }
+
+                function changeIframeSrcToTriggerEvent() {
+                  beforUnloadFrame.src = "https://google.com";
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button class="m-3 btn btn-success" onclick="addFrameTrackReadyState()">addFrameTrackReadyState</button>
+
+              <button onclick="funcName()" id="funcActivator1" class="m-3 btn btn-success" disabled > funcName </button>
+
+							<div class="targetDiv8"></div>
+              <script>
+								function addFrameTrackReadyState(){
+                  addHTML(
+                    ".targetDiv8",
+                    "afterbegin",
+                    `
+											<iframe
+												id="beforUnloadFrame"
+												src="./trackDocumentReadyState.html"
+												width="400px"
+												height="400px"
+												frameborder="0"
+											></iframe>
+									`
+                  );
+                  funcActivator1.disabled = false;
+								}
+                
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button class="m-3 btn btn-success" onclick="addFrameTrackReadyStateChange()">addFrameTrackReadyStateChange</button>
+
+							<div class="targetDiv9"></div>
+              <script>
+								function addFrameTrackReadyStateChange(){
+                  addHTML(
+                    ".targetDiv9",
+                    "afterbegin",
+                    `
+											<iframe
+												id="beforUnloadFrame"
+												src="./readyStateChange/track_readystatechange.html"
+												width="400px"
+												height="400px"
+												frameborder="0"
+											></iframe>
+									`
+                  );
+								}
+
+              </script>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
