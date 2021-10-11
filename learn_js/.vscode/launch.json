@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}\\reducers.js"
+			"program": "${workspaceFolder}\\proxy-learn/proxy.js"
 		}
 	]
 }
