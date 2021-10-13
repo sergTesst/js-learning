@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}\\proxy-learn/proxy.js"
+			"program": "${workspaceFolder}\\js-different/bitwise-operators/bitwise.js"
 		}
 	]
 }
