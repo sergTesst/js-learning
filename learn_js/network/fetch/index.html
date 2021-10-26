@@ -1,0 +1,293 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+		'use strict';
+		
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+							<div>
+								<p><code>
+									let promise = fetch(url, [options])
+								</code></p>
+								<ul>
+									<li>url - URL for sending request</li>
+									<li>options - additional params, method, headers, etc</li>
+								</ul>
+								<b>To get the response body, we need to use additional method call</b>
+								<p><kbd>Response</kbd> provides multiple promise-based methods to access the body </p>
+								<ul>
+									<li>
+										<p>
+											<b>response.text()</b> - read the response and return it as a text
+										</p>
+										<p>
+											<b>response.json()</b> - parse the response as JSON
+										</p>
+										<p>
+											<b>response.formData()</b> - return the response as a FormData object
+										</p>
+										<p>
+											<b>response.blob()</b> - return the response as a blob
+										</p>
+										<p>
+											<b>response.arrayBuffer()</b> - return the response as an ArrayBuffer (low-level representation of binary data)
+											<p>response.body is A ReadableStream obj that allows you to read the body chunk-by-chunk</p>
+										</p>
+									</li>
+								</ul>
+
+
+							</div>
+
+              <button onclick="getLatestCommits()" class="m-3 btn btn-primary">
+                getLatestCommits
+              </button>
+
+              <button onclick="getLatestCommitsAsText()" class="m-3 btn btn-primary">
+                getLatestCommitsAsText
+              </button>
+              <button onclick="listResponseHeaders()" class="m-3 btn btn-primary">
+                listResponseHeaders
+              </button>
+
+              <script>
+                async function getLatestCommits() {
+									let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
+									const response = await fetch(url);
+									const commits = await response.json();
+									cl('commits', commits);
+									cl('commits[0].author.login ', commits[0].author.login)
+								}
+                async function getLatestCommitsAsText() {
+									let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
+									const response = await fetch(url);
+									const commits = await response.text();
+									cl('commits', commits);
+								}
+                async function listResponseHeaders() {
+									let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
+									const response = await fetch(url);
+									cl(`response.headers.get('Content-Type') `,response.headers.get('Content-Type'));
+									for(let [key, val] of response.headers){
+										cl(`key: ${key} = val: ${val}`);
+									}
+								}
+              </script>
+            </div>
+
+						<div class="border rounded p-3 m-3">
+              <button onclick="fetchBlobLogo()" class="m-3 btn btn-primary">
+                fetchBlobLogo
+              </button>
+
+              <script>
+                async function fetchBlobLogo() {
+									const url = `https://javascript.info/article/fetch/logo-fetch.svg`;
+									const response = await fetch(url);
+									const blob = await response.blob();
+
+									const img = document.createElement('img');
+									img.style = 'position:fixed;top:10px;left:10px;width:100px;z-index:1050;';
+									document.body.append(img);
+
+									img.src = URL.createObjectURL(blob);
+
+									setTimeout(()=>{
+										img.remove();
+										URL.revokeObjectURL(img.src);
+									},3000)
+								}
+              </script>
+            </div>
+						<div class="border rounded p-3 m-3">
+							<div>
+								<h2><b>Post requests</b></h2>
+								<p>fetch options</p>
+								<ul>
+									<li>
+										<b>method</b> - http method (post)
+									</li>
+									<li>
+										<b>body</b> - the request body, one of
+										<ul>
+											<li>a string</li>
+											<li>FormData object, to submit the data as form/multipart</li>
+											<li>Blob/BufferSource to send binary data</li>
+											<li>URLSearchParams, to submit the data in x-www-form-urlencoded</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+              <button onclick="submitAUserFetchPost()" class="m-3 btn btn-primary">
+                submitAUserFetchPost
+              </button>
+
+              <script>
+                async function submitAUserFetchPost() {
+									const rootUrl = `https://javascript.info`;
+									const user = {
+										name: 'Steve',
+										surname: 'Smith'
+									}
+									const response = await fetch(`${rootUrl}/article/fetch/post/user`,{
+										method: 'POST',
+										headers:{
+											'Content-Type':'application/json',
+										},
+										// mode:"no-cors",
+										body: JSON.stringify(user)
+									});
+									// cl('response', response);
+
+									const result = await response.json();
+									cl('result.message ', result.message);
+									
+								}
+              </script>
+            </div>
+						<div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+						<div class="border rounded p-3 m-3">
+              <button onclick="sendCanvasImageFetchPost()" class="m-3 btn btn-primary">
+                sendCanvasImageFetchPost
+              </button>
+							<div>
+								<canvas id="canvasElem" width='100' height="100" style='border: 1px solid'></canvas>
+							</div>
+
+              <script>
+								const canvasElem = document.getElementById('canvasElem');
+
+								var ctx1 = canvasElem.getContext("2d");
+								ctx1.moveTo(0,0);
+								ctx1.lineTo(200,100);
+								ctx1.stroke();
+
+								canvasElem.onmousemove = function(e){
+									let ctx = canvasElem.getContext('2d');
+									ctx.lineTo(e.clientX, e.clientY);
+									ctx.stroke();
+								};
+
+                async function sendCanvasImageFetchPost() {
+									const rootUrl = `https://javascript.info`;
+									const blob = await new Promise(resolve=> canvasElem.toBlob(resolve, 'image/png'));
+									cl('blob canvas', blob);
+
+									const response = await fetch(`${rootUrl}/article/fetch/post/image`,{
+										method: 'POST',
+										mode:"no-cors",
+										body: blob
+									});
+									// cl('response', response);
+
+									const result = await response.json();
+									cl('result.message ', result.message);
+									
+								}
+              </script>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="getUsersInfoFromGithub()" class="m-3 btn btn-primary">
+                getUsersInfoFromGithub
+              </button>
+
+              <script>
+                async function getUsersInfoFromGithub() {
+									const rootUrl = `https://api.github.com/users`;
+									async function getUsers(names) {
+										const promiseArr = Array.from(names).map((name)=>{
+											return fetch(`${rootUrl}/${name}`);
+										});
+										return Promise.allSettled(promiseArr)
+										.then(results=>{
+											let mappedResults = results.map(result=>{
+												return result.value.status === 200?result.value.json():null;
+											})
+											return Promise.all(mappedResults);
+										})
+										.then(resultArr=>{
+											return resultArr;
+										})
+									}
+									let users = await getUsers(['iliakan', 'remy', 'no.such.users']);
+									cl('users', users);
+								}
+              </script>
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

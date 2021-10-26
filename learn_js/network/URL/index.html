@@ -1,0 +1,223 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <h2>URL objects</h2>
+              <p>
+                <code> new URL(url, [base]) </code>
+              </p>
+
+              <div>
+                <ul>
+                  <li>url the full URL of only path</li>
+                  <li>
+                    base - an optional base URL. if set and url arg has only
+                    path, then the URL is gen relative to base
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="urlObjs()" class="m-3 btn btn-primary">
+                urlObjs
+              </button>
+
+              <script>
+                function urlObjs() {
+                  let url1 = new URL("https://javascript.info/profile/admin");
+                  let url2 = new URL(
+                    "/profile/admin",
+                    "https://javascript.info"
+                  );
+
+                  cl("url1", url1);
+                  cl("url2", url2);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="parseUrlComponents()"
+                class="m-3 btn btn-primary"
+              >
+                parseUrlComponents
+              </button>
+
+              <script>
+                function parseUrlComponents() {
+                  const url = new URL("https://javascript.info/url");
+
+                  cl("url", url);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h2>url cheatsheet</h2>
+              <div>
+                <img src="./imgs/Screenshot 2021-10-26 184241.jpg" alt="" />
+              </div>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="playWithUrlSearchParams()"
+                class="m-3 btn btn-primary"
+              >
+                playWithUrlSearchParams
+              </button>
+
+              <script>
+                function playWithUrlSearchParams() {
+                  let url = new URL("https://google.com/search");
+
+                  url.searchParams.set("q", "cats!");
+                  cl("url", url);
+
+                  url.searchParams.set("tbs", "qdr:y");
+
+                  cl("url", url);
+
+                  for (let [name, val] of url.searchParams) {
+                    cl(`${name} = ${val}`);
+                  }
+
+                  let urlRus = new URL("https://ru.wikipedia.org/wiki/Тест");
+
+                  urlRus.searchParams.set("key", "ъ");
+
+									cl('urlRus ', urlRus);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="encodeURIBTN()" class="m-3 btn btn-primary">
+                encodeURIBTN
+              </button>
+
+              <script>
+                function encodeURIBTN() {
+									let url = encodeURI('http://site.com/привет');
+
+									cl('encoded url', url);
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="encodeURIComponent_()" class="m-3 btn btn-primary">
+                encodeURIComponent_
+              </button>
+              <button onclick="encodeURI_ForComponent()" class="m-3 btn btn-primary">
+                encodeURI_ForComponent
+              </button>
+
+              <script>
+                function encodeURIComponent_() {
+									let music = encodeURIComponent('Rock&HouseMusic')
+
+									let url = `https://google.com/search?q=${music}`;
+									cl('url', url);
+								}
+
+								function encodeURI_ForComponent() {
+									let music = encodeURI('Rock&HouseMusic')
+
+									let url = `https://google.com/search?q=${music}`;
+									cl('url', url);
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="encodeURIBTN()" class="m-3 btn btn-primary">
+                encodeURIBTN
+              </button>
+
+              <script>
+                function encodeURIBTN() {
+									let url = encodeURI('http://site.com/привет');
+
+									cl('encoded url', url);
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

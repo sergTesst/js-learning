@@ -1,0 +1,287 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <h2>create XMLHttpRequest</h2>
+              <p>
+                <code>
+                  let xhr = new XMLHttpRequest();<br />
+                  xhr.open(method, URL, [async, user, password]);
+                </code>
+              </p>
+
+              <ul>
+                <li>method - http method. GET Post</li>
+                <li>URL - URL to request, string | URL obj</li>
+                <li>
+                  async if explicitly set to false, than the request is
+                  synchronous
+                </li>
+                <li>user, password - login & password for basic HTTP auth</li>
+              </ul>
+              <p>
+                open call only config the request, but the network activity only
+                starts with the call of send
+              </p>
+              <p>
+                send it out. <br />
+                <code> xhr.send([body]); </code>
+              </p>
+              <p>listen to xhr events for response</p>
+              <div>
+                <p>these three events are the most widely used:</p>
+                <ul>
+                  <li>
+                    load - when the request is complete (event if http status is
+                    like 400 or 500) the response is fully downloaded
+                  </li>
+                  <li>
+                    error - when the request couldn't be made (no network,
+                    invalid url)
+                  </li>
+                  <li>
+                    progress - triggers periodically while the response is being
+                    downloaded, reports how much has been downloaded
+                  </li>
+                </ul>
+                <code>
+                  xhr.onload = () => { <br />
+                  //xhr.status, xhr.response <br />
+                  } <br />
+
+                  xhr.onerror = () => { <br />
+
+                  }<br />
+
+                  xhr.onprogress = (e) => { <br />
+                  // e.loaded - how many bytes downloaded <br />
+                  // e.lengthComputable - true if the server sent Content-Length
+                  header <br />
+                  // e.total - total number of bytes <br />
+                  }<br />
+                </code>
+              </div>
+
+              <div>
+                <h2>Response Type</h2>
+                <p>
+                  We can use xhr.responseType prop to set the response format
+                </p>
+                <ul>
+                  <li>"" default get string</li>
+                  <li>text get as string</li>
+                  <li>arraybuffer</li>
+                  <li>blob</li>
+                  <li>
+                    document get as XML document (can use XPath and other XML
+                    methods)
+                  </li>
+                  <li>json get as JSON (parsed automatically)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="trackXMLHttpRequestProgress()"
+                class="m-3 btn btn-primary"
+              >
+                trackXMLHttpRequestProgress
+              </button>
+
+              <script>
+                function trackXMLHttpRequestProgress() {
+                  let xhr = new XMLHttpRequest();
+                  const url = `https://dev.to/api/articles?per_page=1000`;
+                  xhr.open("GET", url);
+
+                  xhr.responseType = "json";
+
+                  xhr.send();
+
+                  xhr.onload = () => {
+                    if (xhr.status !== 200) {
+                      cl(`Error ${xhr.status} ${xhr.statusText}`);
+                    } else {
+                      cl(`Done, got ${xhr.response.length} bytes`);
+                      let responseObj = xhr.response;
+                      cl("responseObj", responseObj);
+                    }
+                  };
+                  xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 3) {
+                      cl("loading xhr.readyState === 3");
+                    }
+                    if (xhr.readyState === 4) {
+                      cl("request is done xhr.readyState === 4");
+
+                      // const responseHeaders = xhr.getAllResponseHeaders();
+                      // cl('responseHeaders', responseHeaders);
+                    }
+                  };
+
+                  xhr.onprogress = (e) => {
+                    const responseHeaders = xhr
+                      .getAllResponseHeaders()
+                      .split("\r\n")
+                      .reduce((prev, curr) => {
+                        let [name, val] = curr.split(": ");
+                        prev[name] = val;
+                        return prev;
+                      }, {});
+                    if (
+                      e.lengthComputable ||
+                      responseHeaders["content-length"]
+                    ) {
+                      let total =
+                        e.total !== 0
+                          ? e.total
+                          : responseHeaders["content-length"];
+                      cl(`Received ${e.loaded} of ${total} bytes`);
+                    } else {
+                      // no Content-Length
+                      cl(`Received  ${e.total} bytes`);
+                    }
+                  };
+
+                  xhr.onerror = () => {
+                    cl("request failed");
+                  };
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <form name="person">
+                <div>
+                  <input
+                    type="text"
+                    name="title"
+                    value="test article sample"
+                    id=""
+                  />
+                </div>
+                <div>
+                  <textarea name="body_markdown" id="" cols="30" rows="10">
+										my first article post
+									</textarea>
+                </div>
+              </form>
+
+              <button
+                onclick="sendFormWithXMLHttpRequest()"
+                class="m-3 btn btn-primary"
+              >
+                sendFormWithXMLHttpRequest
+              </button>
+
+              <script>
+                function sendFormWithXMLHttpRequest() {
+                  const personForm = document.forms.person;
+                  // cl("personForm", personForm);
+
+                  let formData = new FormData(personForm);
+                  let formDataObject = {};
+                  formData.forEach((value, key) => {
+                    formDataObject[key] = value;
+                  });
+                  
+									formDataObject.published = false;
+									// cl("formDataObject", formDataObject);
+									// xhr.open("POST", `${ROOT_URL}/article/xmlhttprequest/post/user`);
+									const api_key = `BJT56ZrS4gpqaFT6HEkYqbbe`;
+
+                  const jsonFromData = JSON.stringify(formDataObject);
+                  let xhr = new XMLHttpRequest();
+                  xhr.open("POST", `https://dev.to/api/articles`);
+                  xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+                  xhr.setRequestHeader("api_key", `${api_key}`);
+                  xhr.send(jsonFromData);
+                  xhr.onload = () => cl(` xhr.response `, xhr.response);
+
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

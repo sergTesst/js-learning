@@ -1,0 +1,571 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+			const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+		'use strict';
+		
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+							<div>
+								<h2>Form data</h2>
+								<p>
+									<p>The constructor is </p>
+									<code>const formData = new FormData([form])</code>
+								</p>
+								<p>if the HTML form element is provided, it automatically captures its fields</p>
+								<p>fetch method can accept <b>FormData</b>  object as a body</p>
+								<p>The encoding is <b>Content-Type: multipart/form-data</b></p>
+
+								<div>
+									<h3>FormData Methods</h3>
+									<p>FormData can be modified using following methods</p>
+									<ul>
+										<li>
+											<b class="bg-light">formData.append(name, value)</b> 
+										</li>
+										<li>
+											<b class="bg-light">formData.append(name, blob, fileName)</b> 
+											<p>
+												add a field as if it were <code> input type='file'</code> 
+												the third argument fileName sets file name (not from field name) as it were a namesof the file in user's filesystem
+											</p>
+										</li>
+										<li>
+											<b class="bg-light">formData.delete(name)</b>
+										</li>
+										<li>
+											<b class="bg-light">formData.get(name)</b>
+										</li>
+										<li>
+											<b class="bg-light">formData.has(name)</b>
+										</li>
+									</ul>
+
+									<p>
+										the form is allowed to have many fields with the same name, so multiple calls to append add more
+										same-named fields 
+									</p>
+									<p>
+										<ul>
+											<li>formData.set(name, value)</li>
+											<li>formData.set(name,blob, fileName)</li>
+										</ul>
+									</p>
+									<p>set method removes all fields with the given name, and then appends a new field</p>
+									<p>It makes sure there's only one field with such name</p>
+								</div>
+							</div>
+							<div class="targetDiv1">
+								<form action="" id="formElem1">
+									<input type="text" name="name" value="Steve" id="">
+									<input type="text" name="surname" value="Smith" id="">
+									<input type="submit"  id="">
+								</form>
+							</div>
+
+              <script>
+									formElem1.onsubmit = async(e) => {
+										e.preventDefault();
+
+										const response = await fetch(`${ROOT_URL}/article/formdata/post/user`,{
+											method: 'POST',
+											// mode:"no-cors",
+											body: new FormData(formElem1)
+										});
+
+										const result = await response.json();
+										cl('result.message',result.message);
+									}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="iterateOverFormData()" class="m-3 btn btn-primary">
+                iterateOverFormData
+              </button>
+
+              <script>
+                function iterateOverFormData() {
+									const formData = new FormData();
+									formData.append('key1', 'value1')
+									formData.append('key2', 'value2')
+									for(let [name, val] of formData){
+										cl(`${name} = ${val}`);
+									}
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+							<div class="targetDiv2">
+								<form action="" id="formElem2">
+									<input type="text" name="name" value="Steve" id="">
+									<label for="filePicture">Picture</label>
+									<input type="file" name="filePicture" accept='image/*' id="">
+									<input type="submit"  id="">
+								</form>
+							</div>
+
+              <script>
+									formElem2.onsubmit = async(e) => {
+										e.preventDefault();
+
+										const response = await fetch(`${ROOT_URL}/article/formdata/post/user-avatar`,{
+											method: 'POST',
+											// mode:"no-cors",
+											body: new FormData(formElem2)
+										});
+
+										const result = await response.json();
+										cl('result.message',result.message);
+									}
+              </script>
+            </div>
+
+						<div class="border rounded p-3 m-3">
+              <button onclick="sendCanvasImageFetchPost()" class="m-3 btn btn-primary">
+                sendCanvasImageFetchPost
+              </button>
+							<div>
+								<canvas id="canvasElem" width='100' height="100" style='border: 1px solid'></canvas>
+							</div>
+
+              <script>
+								const canvasElem = document.getElementById('canvasElem');
+
+								var ctx1 = canvasElem.getContext("2d");
+								ctx1.moveTo(0,0);
+								ctx1.lineTo(200,100);
+								ctx1.stroke();
+
+								canvasElem.onmousemove = function(e){
+									let ctx = canvasElem.getContext('2d');
+									ctx.lineTo(e.clientX, e.clientY);
+									ctx.stroke();
+								};
+
+                async function sendCanvasImageFetchPost() {
+									const rootUrl = `https://javascript.info`;
+									const imageBlob = await new Promise(resolve=> canvasElem.toBlob(resolve, 'image/png'));
+									cl('imageBlob canvas', imageBlob);
+
+									const formData = new FormData();
+									formData.append('name', 'Steve');
+									formData.append('image', imageBlob, 'image.png')
+
+									const response = await fetch(`${rootUrl}/article/formdata/post/image-form`,{
+										method: 'POST',
+										// mode:"no-cors",
+										body: formData
+									});
+									cl('response', response);
+
+									const result = await response.json();
+									cl('result.message ', result.message);
+									
+								}
+              </script>
+            </div>
+
+
+            <div class="border rounded p-3 m-3">
+
+							<div>
+								<h2>
+									Track download process
+								</h2>
+
+								<p>
+									to track download process, we can use response.body property with type <span class="bg-light">ReadableStream</span>
+								</p>
+								<p>That obj provides body chunk-by-chunk, as it comes</p>
+							</div>
+							<div>
+								<p>sketch of code that reads the response from response.body</p>
+								<div><code>
+									//insted of response.json() <br>
+									const reader = response.body.getReader(); <br>
+									while(true){<br>
+										// value is Uinit8Array of the chunk bytes <br>
+										const{done, value} = await reader.read(); <br>
+										if(done) break;<br>
+										console.log(`Received ${value.length} bytes`); <br>
+									}
+								</code></div>
+
+								<div>
+									<p>
+										Stream Api also describes asynchoronous iteration over ReadableStream
+										with for await..of loop, but it's not yet wides supported 
+									</p>
+								</div>
+								<div>
+									<p>
+										there is no way with fetch to track the upload progress, only for download progress
+									</p>
+								</div>
+							</div>
+              <button onclick="trackDownLoadProcess()" class="m-3 btn btn-primary">
+                trackDownLoadProcess
+              </button>
+							<div class="loadingDiv">
+
+							</div>
+              <script>
+                async function trackDownLoadProcess() {
+									const loadingDiv = document.querySelector('.loadingDiv');
+									//step 1
+									const url = `https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100`;
+									let response = await fetch(`${url}`);
+									const reader = response.body.getReader();
+									//step 2
+									const contentLength = +response.headers.get('Content-Length');
+									cl('contentLength', contentLength);
+									//step 3
+									let receivedBytesLength = 0;
+									let ArrayOfBinaryChunks = []
+									while(true){
+										const {done ,value} = await reader.read();
+										if(done) break;
+										ArrayOfBinaryChunks.push(value);
+										receivedBytesLength +=value.length;
+										let plog = document.createElement('p');
+										plog.innerText = `Received ${receivedBytesLength} of ${contentLength}`;
+										loadingDiv.appendChild(plog);
+									}
+									// step 4 concatenate all chunks
+									let allArraysOfBinaryChunks = new Uint8Array(receivedBytesLength);
+									let position = 0;
+									for(let chunk of ArrayOfBinaryChunks){
+										allArraysOfBinaryChunks.set(chunk, position);
+										position +=chunk.length;
+									}
+									// step 5 decode
+									const result = new TextDecoder('utf-8').decode(allArraysOfBinaryChunks);
+									const commits = JSON.parse(result);
+									cl(commits[0].author.login);
+
+									// let plogCommits = document.createElement('p');
+									// plogCommits.innerText = JSON.stringify(result);
+									// loadingDiv.appendChild(plogCommits);
+								}
+              </script>
+            </div>
+
+						<div class="border rounded p-3 m-3">
+
+							<div>
+								<h2>
+									Fetch: Abort
+								</h2>
+								<div>
+									AbortController can be used to abort not only fetch, but other asynchronous Tasks
+									as well
+								</div>
+
+								<div>
+									<p>Create AbortController</p>
+									<code>
+										let controller  = new AbortController();
+									</code> <br>
+
+									<p>
+										methods: 
+										<ul>
+											<li>
+												abort();
+											</li>
+											<li>
+												property signal that allows to set event listeners on it.
+											</li>
+										</ul>
+									</p>
+									<p>
+										when abort() it called
+									</p>
+									<ol>
+										<li>controller.signal emits "abort" event</li>
+										<li>controller.signal.aborted prop becomes true</li>
+									</ol>
+								</div>
+							</div>
+
+              <button onclick="abortFetchRequest()" class="m-3 btn btn-primary">
+                abortFetchRequest
+              </button>
+
+              <script>
+                function abortFetchRequest() {
+									let controller = new AbortController();
+									let signal = controller.signal;
+									signal.addEventListener('abort', (e)=>{
+										cl('operation is aborted. e =', e);
+									});
+
+									controller.abort();
+
+									cl('signal.aborted', signal.aborted)
+								}
+              </script>
+            </div>
+
+
+						<div class="border rounded p-3 m-3">
+              <button onclick="integrateAbortControllerIntoFetch()" class="m-3 btn btn-primary">
+                integrateAbortControllerIntoFetch
+              </button>
+
+              <script>
+                async function integrateAbortControllerIntoFetch() {
+									let cont = new AbortController();
+									setTimeout(()=>cont.abort(), 1000);
+
+									try {
+										let response = await fetch(`${ROOT_URL}/article/fetch-abort/demo/hang`,{
+											signal: cont.signal
+										});
+									} catch (error) {
+										if(error.name === 'AbortError'){
+											cl('aborted')
+										}else{
+											throw error;
+										}
+									}
+								}
+              </script>
+            </div>
+
+						<div class="border rounded p-3 m-3">
+
+              <button onclick="runPromises()" class="m-3 btn btn-primary">
+                runPromises
+              </button>
+
+              <button onclick="runPromisesWithAbort()" class="m-3 btn btn-primary">
+                runPromisesWithAbort
+              </button>
+
+              <script>
+								let cont = new AbortController();
+
+								const urls = [
+									`https://dev.to/api/articles?per_page=4`,
+									`https://dev.to/api/articles?per_page=10`,
+									`https://dev.to/api/articles?per_page=20`,
+								];
+
+								const promiseArr = urls.map(url=>fetch(url,{
+									signal: cont.signal
+								}))
+
+								async function runPromises(){
+									const responses = await Promise.allSettled(promiseArr);
+									cl('responses', responses);
+									for(let response of responses){
+										let result = await response.value.json();
+										cl('result', result)
+									}
+								}
+
+								async function runPromisesWithAbort(){
+									const responses = await Promise.all(promiseArr);
+									cl('results', responses);
+									cont.abort();
+									cl('aborting...')
+
+									try {
+										for(let response of responses){
+										let result = await response.json();
+										cl('result', result)
+									}
+									} catch (error) {
+										if(error.name === 'AbortError'){
+											cl('aborted')
+										}else{
+											throw error;
+										}
+									}
+								}
+
+              </script>
+            </div>
+
+						<div class="border rounded p-3 m-3">
+							<div>
+								<h2>Cors for save requests</h2>
+								<img src="./imgs/Screenshot 2021-10-26 171350.jpg" alt="">
+							</div>
+
+							<div>
+								<p>some response headers</p>
+								<img src="./imgs/Screenshot 2021-10-26 171500.jpg" alt="">
+							</div>
+
+							<div>
+								<p>unsave request operation</p>
+								<img src="./imgs/Screenshot 2021-10-26 171646.jpg" alt="">
+							</div>
+
+							<div>
+								<p>preflight request headers</p>
+								<img src="./imgs/Screenshot 2021-10-26 171845.jpg" alt="">
+							</div>
+
+							<div>
+								<p>preflight response</p>
+								<img src="./imgs/Screenshot 2021-10-26 171956.jpg" alt="">
+							</div>
+							<div>
+								<p>main request</p>
+								<img src="./imgs/Screenshot 2021-10-26 172050.jpg" alt="">
+							</div>
+							<div>
+								<p>
+									when we sending credentials with credentials: 'include',
+									Access-Control-Allow-Origin is prohibited from using a star *.
+									Like shown above it must provide the exact origin there.
+								</p>
+							</div>
+            </div>
+						<div class="border rounded p-3 m-3">
+							<div>
+								<h2>Fetch API</h2>
+								<p>
+<code>
+<pre>
+	let promise = fetch(url,{
+		method: 'GET', //POST, PUT, DELETE, 
+		headers: {
+			//the cnotent type header value is usually auto-set
+			//depending on the request body
+			"Content-Type": "text/plain;charset=UTF-8", //"application/json"
+		},
+		body: undefined //string, FormData, Blob, BufferSource, URLSearchParams,
+		referrer: 'about:client', // or "" to send no Referer header
+		// or an url from the current origin
+		referrerPolicy: 'no-referrer-when-downgrade', // no-referrer, origin, same-origin
+		mode: 'cors', //same-origin, no-cors 
+		credentials: 'same-origin', // omit, include 
+		cache: 'default', //no-store, reload, no-cache, force-cache, only-if-cached 
+		redirect: 'follow', //manual, error 
+		integrity: "", // "sha256-abcdef1234567890",
+		keepalive: 'false', //true 
+		signal: undefined, // AbortController
+		window: window //null
+	})
+</pre>
+</code>
+								</p>
+
+
+							</div>
+
+
+							<div>
+								<h2>mode</h2>
+								<ul>
+									<li>
+										<b>cors</b> the default, cross-origin requests are allowed
+									</li>
+									<li><b>same-origin</b> cross-origin requests are forbidden </li>
+									<li><b>no-cors</b>only safe cross-origin requests are allowed </li>
+									
+								</ul>
+							</div>
+							<div>
+								<h2>credentials</h2>
+								<p>specifies whether fetch should send cookies and HTTP-Authorization 
+									headers with the request
+								</p>
+								<ul>
+									<li>
+										<b>same-origin</b> - default, don't send for cross-origin requests
+									</li>
+									<li>
+										<b>include</b> - always send, requires Access-Control-Allow-Credentials 
+										from cross-origin server in order for js to access the response
+									</li>
+									<li>
+										<b>omit</b> never send
+									</li>
+								</ul>
+							</div>
+            </div>
+						<div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
