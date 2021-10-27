@@ -1,0 +1,366 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+            <p>we have several classes to work with files</p>
+            <ul>
+              <li>ArrayBuffer</li>
+              <li>Uint8Array</li>
+              <li>DataView</li>
+              <li>Blob</li>
+              <li>File</li>
+              <li>...</li>
+            </ul>
+            <p>ArrayBuffer is not an Array</p>
+            <ul>
+              <li>its length is fixed we cannot increase or decrease it</li>
+              <li>
+                ArrayBuffer takes up exactly as much memory space as specified
+                at creation
+              </li>
+              <li>
+                for access for separate bytes we desire helper obj buffer[index]
+                not work
+              </li>
+            </ul>
+            <p>
+              <b
+                >for work with <kbd>ArrayBuffer</kbd> we desire special object,
+                that embody view of the data</b
+              >
+            </p>
+            <ul>
+              <li>
+                <p>
+                  <kbd>Uint8Array</kbd> displays every byte in ArrayBuffer as a
+                  separate number
+                </p>
+                <p>
+                  The possible numbers stored at range from 0 to 255 (in byte we
+                  have 8 bit). This value is called unsigned 8-bit
+                </p>
+              </li>
+              <li>
+                <p>
+                  <kbd>Uint16Array</kbd> displays every 2 byte in ArrayBuffer as
+                  a separate int number
+                </p>
+                <p>
+                  The possible numbers stored at range from 0 to 65535. This
+                  value is called unsigned 16-bit
+                </p>
+              </li>
+              <li>
+                <p>
+                  <kbd>Uint32Array</kbd> displays every 4 byte in ArrayBuffer as
+                  a separate int number
+                </p>
+                <p>
+                  The possible numbers stored at range from 0 to 4294967295.
+                  This value is called unsigned 32-bit int number
+                </p>
+              </li>
+              <li>
+                <p>
+                  <kbd>Float64Array</kbd> displays every 8 byte in ArrayBuffer
+                  as a floating point number
+                </p>
+                <p>
+                  The possible numbers stored at range from 5.0x10^-324 to
+                  1.8x10^308.
+                </p>
+              </li>
+            </ul>
+            <div>
+              <img src="./imgs/Screenshot 2021-10-13 171239.jpg" alt="" />
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="createArrayBuffer()" class="m-3 btn btn-primary">
+                createArrayBuffer
+              </button>
+
+              <script>
+                function createArrayBuffer() {
+                  let buffer = new ArrayBuffer(16);
+
+                  cl(`buffer.byteLength `, buffer.byteLength);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="goThroughArrayBuffer()"
+                class="m-3 btn btn-primary"
+              >
+                goThroughArrayBuffer
+              </button>
+
+              <script>
+                function goThroughArrayBuffer() {
+                  let buffer = new ArrayBuffer(16);
+                  let view = new Uint32Array(buffer);
+
+                  cl(
+                    `Uint32Array.BYTES_PER_ELEMENT `,
+                    Uint32Array.BYTES_PER_ELEMENT
+                  );
+                  cl(`view.length `, view.length);
+                  cl(`view.byteLength `, view.byteLength);
+
+                  view[0] = 1244;
+
+                  cl("view", view);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div>
+                <h2>TypedArray</h2>
+                <p>
+                  common term for such views as (Uint8Array, Uint32Array) is
+                  TypedArray
+                </p>
+                <p>
+                  <code>
+                    new TypedArray(buffer, [byteOffset], [length]);<br />
+                    new TypedArray(object); <br />
+                    new TypedArray(typedArray); <br />
+                    new TypedArray(length); <br />
+                    new TypedArray();<br />
+                  </code>
+                </p>
+              </div>
+
+              <button onclick="createUintArr()" class="m-3 btn btn-primary">
+                createUintArr
+              </button>
+
+              <script>
+                function createUintArr() {
+                  let arr = new Uint8Array([1, 2, 3, 4]);
+
+                  cl(`arr Uint8Array`, arr);
+                  cl(`arr Uint8Array arr.buffer`, arr.buffer);
+
+                  let int16Arr = new Uint16Array(4);
+                  cl(`int16Arr.BYTES_PER_ELEMENT `, int16Arr.BYTES_PER_ELEMENT);
+                  cl(`int16Arr `, int16Arr);
+
+                  let int16ArrCreatedFromArrBuffer = new Uint16Array(
+                    arr.buffer
+                  );
+                  cl(
+                    "int16ArrCreatedFromArrBuffer ",
+                    int16ArrCreatedFromArrBuffer
+                  );
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div>
+                <p>
+                  if we try to store a number in a typed array, that exceeds
+                  maximum
+                </p>
+                <p>
+                  valid for such array. There wont be an error. Extra bits will
+                  be thrown out
+                </p>
+              </div>
+              <button
+                onclick="storeExtraNumInUint8Array()"
+                class="m-3 btn btn-primary"
+              >
+                storeExtraNumInUint8Array
+              </button>
+
+              <script>
+                function storeExtraNumInUint8Array() {
+                  let uint8Arr = new Uint8Array(16);
+                  cl("uint8Arr ", uint8Arr);
+                  let num = 256;
+                  cl(`num.toString(2) `, num.toString(2));
+                  uint8Arr[0] = 256;
+                  uint8Arr[1] = 257;
+
+                  cl(`uint8Arr[0] `, uint8Arr[0]); // 0
+                  cl(`uint8Arr[1] `, uint8Arr[1]); // 1
+                  cl("uint8Arr ", uint8Arr);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div class="fs-4">
+                <h4>TypedArray methods</h4>
+                <p>we can go through arr, and call map, slice, find, reduce</p>
+                <p>
+                  <b>we can have some thing that can not be implemented</b>
+                </p>
+                <ul>
+                  <li>
+                    there is no method splice. TypedArray is only view of
+                    ArrayBuffer. buffer is uninterrupted memory location with
+                    fixed length. we can only set 0 instead of value
+                  </li>
+                  <li>there is no concat method</li>
+                </ul>
+                <p>but we have two additional methods</p>
+                <ul>
+                  <li>
+                    <kbd>arr.set(fromArr, [offset])</kbd> copies all elements
+                    from fromArr into arr, starting from offset position
+                    (default is 0)
+                  </li>
+                  <li>
+                    <kbd>arr.subarray([begin, end])</kbd> creates new view.
+                    similar to slice but without actual coping of data
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <div class="fs-4">
+                <h4>DataView</h4>
+                <p>
+                  DataView - is a special very flexible untyped view of
+                  arrayBuffer data.
+                </p>
+                <p>it allowes access data from any position and any format</p>
+
+                <p>
+                  <code>
+                    new DataView(buffer, [byteOffset], [byteLength])
+                  </code>
+                </p>
+              </div>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button
+                onclick="retriveDataWithDiffFormatsFromTheSameBuffer()"
+                class="m-3 btn btn-primary"
+              >
+                retriveDataWithDiffFormatsFromTheSameBuffer
+              </button>
+
+              <script>
+                function retriveDataWithDiffFormatsFromTheSameBuffer() {
+                  let buffer = new Uint8Array([255, 255, 255, 255]).buffer;
+
+                  let dataView = new DataView(buffer);
+
+                  cl("dataView", dataView);
+
+                  cl(`dataView.getUint(0) `, dataView.getUint8(0)); // 255
+                  cl(`dataView.getUint16(0) `, dataView.getUint16(0)); // 65535 max 16-bit unsigned num
+                  cl(`dataView.getUint32(0) `, dataView.getUint32(0)); // 4294967295 max 32-bit unsigned num
+
+                  dataView.setUint32(0, 0);
+                  cl("dataView", dataView);
+                }
+              </script>
+            </div>
+
+            <div>
+              <img src="./imgs/Screenshot 2021-10-13 181137.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="concatUint8Arrays()" class="m-3 btn btn-primary">
+                concatUint8Arrays
+              </button>
+
+              <script>
+                function concatUint8Arrays() {
+                  function concat(arrays) {
+                    const resultArr = Array.from(arrays).reduce((prev, current)=>{
+											return prev.concat(...current);
+										},[]);
+										return new Uint8Array(resultArr);
+                  }
+
+                  let chunks = [
+                    new Uint8Array([0, 1, 2]),
+                    new Uint8Array([3, 4, 5]),
+                    new Uint8Array([6, 7, 8]),
+                  ];
+
+                  console.log(Array.from(concat(chunks))); // 0, 1, 2, 3, 4, 5, 6, 7, 8
+
+                  console.log(concat(chunks).constructor.name); // Uint8Array
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

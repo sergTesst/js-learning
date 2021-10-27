@@ -1,0 +1,145 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+		'use strict';
+		
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+						<div>
+							<h4>Blob</h4>
+							<img src="./imgs/Screenshot 2021-10-13 204730.jpg" alt="">
+
+							<div>
+								<p><code>
+									let blob = new Blob(blobParts, options);
+
+								</code></p>
+								<ul>
+									<li>
+										blobParts - array of Blob/BufferSource/String
+									</li>
+									<li>
+										<p>options- not required obj with add opts</p>
+										<ul>
+											<li>type image/png</li>
+											<li>endings - if set endings of Blob will be changed according to the current
+												operation system (\r\n or \n). Default "transparent" or "native"
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="createBlobFromString()" class="m-3 btn btn-primary">
+                createBlobFromString
+              </button>
+
+              <script>
+                function createBlobFromString() {
+									let blob = new Blob(['<html></html>'], {type: 'text/html'});
+
+									cl('string blob', blob);
+
+									let hello = new Uint8Array([72, 101, 108, 108, 111]);
+
+									let blobHello = new Blob([hello, ' ', 'somebody'], {type: 'text/plain'});
+
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="createBlobFromURL()" class="m-3 btn btn-primary">
+                createBlobFromURL
+              </button>
+							<div>
+								<a download="hello.txt" href='#' id='link1'>download</a>
+							</div>
+              <script>
+                function createBlobFromURL() {
+									
+									//bug hello.txt contains all document text
+									let blob = new Blob(["Hi mike. I Glad to see you"], {type: 'text/plain'});
+
+									// let link = document.getElementById('link1')
+									link1.href = URL.createObjectURL(blob);
+								}
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

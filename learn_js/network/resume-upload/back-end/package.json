@@ -1,0 +1,16 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "back end server for file upload",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "serhii",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.3.2",
+    "node-static": "^0.7.11"
+  }
+}
