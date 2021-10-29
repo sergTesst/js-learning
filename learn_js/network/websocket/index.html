@@ -1,0 +1,452 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <div>
+                <h2>websocket</h2>
+              </div>
+
+              <pre>
+	<code class="language-js">
+		let socket = new WebSocket('ws://javascript.info') 
+		
+	</code>
+</pre>
+
+              <div>
+                there's also encrypted
+                <span class="bg-light">wss://</span> protocol like https
+              </div>
+
+              <div>
+                <h4>websocket events</h4>
+                <ul>
+                  <li>open - connection established</li>
+                  <li>message - data received</li>
+                  <li>error - websocket error</li>
+                  <li>close - connection closed</li>
+                </ul>
+              </div>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="myNodeServerRadio1"
+                  />
+                  <label class="form-check-label" for="myNodeServerRadio1">
+                    my node websocket server
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="jsInfoRadio1"
+										checked
+                  />
+                  <label class="form-check-label" for="jsInfoRadio1">
+                    javascript.info server
+                  </label>
+                </div>
+
+                <button
+                  onclick="sendDataWith_websocket()"
+                  class="m-3 btn btn-primary"
+                >
+                  sendDataWith_websocket
+                </button>
+              </div>
+
+              <div id="log1"></div>
+
+              <script>
+
+								let url = `${ROOT_URL.replace(
+                    "https",
+                    "wss"
+                  )}/article/websocket/demo/hello`;
+
+								document.getElementById('jsInfoRadio1').addEventListener('change',jsInfoRadioChangeHandler);
+                function jsInfoRadioChangeHandler(e) {
+                  // cl("js info changed", e);
+									let jsInfoUrl = `${ROOT_URL.replace(
+                    "https",
+                    "wss"
+                  )}/article/websocket/demo/hello`;
+									url = jsInfoUrl;
+                }
+
+								document.getElementById('myNodeServerRadio1').addEventListener('change',myNodeRadioChangeHandler)
+                function myNodeRadioChangeHandler(e) {
+                  // cl("my node js server radio", e);
+									let myNodeJsWebSocketServerUlr = `http://localhost:3002`.replace(
+                    "http",
+                    "ws"
+                  );
+									url = myNodeJsWebSocketServerUlr;
+                }
+
+                function sendDataWith_websocket() {
+
+                  let socket = new WebSocket(url);
+
+                  // socket.onopen = (e) => {
+                  // 	let obj = this; // this is window obj
+                  // 	debugger;
+                  // }
+
+                  function logData(data) {
+                    cl(data);
+                    let div = document.createElement("div");
+                    div.innerText = data;
+                    log1.append(div);
+                  }
+
+                  socket.onopen = function (e) {
+                    let websocket = this; // this is websocket obj
+                    logData(`[open] connection established`);
+                    logData("sending to server");
+                    logData("Some info from me");
+                    websocket.send("Some info from me");
+                  };
+
+                  socket.onmessage = function (e) {
+                    let msg = `[message] data received from server ${e.data}`;
+                    logData(msg);
+                  };
+
+                  socket.onclose = function (e) {
+                    if (e.wasClean) {
+                      logData(
+                        `[close] connection closed cleanly, code = ${e.code}, reason ${e.reason}`
+                      );
+                    } else {
+                      // server process killed or network down
+                      // e.code is 1006
+                      logData("[close] connection died");
+                    }
+                  };
+
+                  socket.onerror = function (er) {
+                    logData(`[error] ${er.message}`);
+                  };
+                }
+              </script>
+            </div>
+
+
+						<div class="border rounded p-3 m-3">
+              <h4>web socket connection</h4>
+							<div>
+								<img src="./imgs/Screenshot 2021-10-28 142024.jpg" alt="">
+							</div>
+
+							<div>
+								example headers request made by new WebSocket('wss://javascript.info/chat');
+							</div>
+							<div>
+								<img src="./imgs/Screenshot 2021-10-28 142235.jpg" alt="">
+							</div>
+
+							<div>
+								<p class="border mt-2">
+									WebSocket handshake can't be emulated. We can't use XMLHttpRequest or fetch to make this 
+									kind of HTTP-request, because JS is not allowed to set these headers
+								</p>
+
+								<p>if the server agrees to switch to WebSocket, it should send code 101 response</p>
+								<img src="./imgs/Screenshot 2021-10-28 143013.jpg" alt="">
+							</div>
+
+							<div>
+<pre>
+	<code class="language-js">
+		let socket = new WebSocket('ws://javascript.info', ['soap', 'wamp']) 
+		
+	</code>
+</pre>
+							</div>
+
+							<div>
+								<p>There may be add headers Sec-WebSocket-Extension and Sec-WebSocket-Protocol </p>
+							</div>
+							<div>
+								<ul>
+									<li>
+										Sec-WebSocket-Extension: deflate-frame means that the browser supports data compression
+									</li>
+									<li>
+										Sec-WebSocket-Protocol: soap, wamp means that we'd like to transfer not just any data, 
+										but in SOAP or WAMP ('The WebSocket Applicaiton Messaging Protocol') protocols
+									</li>
+								</ul>
+							</div>
+
+							<div>
+								<p>the server should response with a list of protocols and extensions that it agrees to use.</p>
+								<p>Example request</p>
+								<img src="./imgs/Screenshot 2021-10-28 143759.jpg" alt="">
+								<p>Example response</p>
+								<img src="./imgs/Screenshot 2021-10-28 143838.jpg" alt="">
+							</div>
+            </div>
+
+						<div class="border rounded p-3 m-3">
+							<h3>Data transfer</h3>
+
+							<p>WebSocket communication consists of 'frames' - data fragments, that can be sent from either side 
+								and can be of several kinds
+							</p>
+							<ul>
+								<li>
+									text frames - contains of text data that each side send to each other.
+								</li>
+								<li>
+									binary data frame contains of binary data that each side send to each other.  
+								</li>
+								<li>
+									ping/pong frames that are used to check the connection, sent from the server, 
+									the browser responds to these automatically
+								</li>
+								<li>
+									connection close frame and a few other service frames
+ 								</li>
+							</ul>
+							<p>In the browser, we directly work only with text or binary frames</p>
+
+							<p>
+								<p>WebSocket .send() method can send either text or binary data.</p>
+							</p>
+							<p>
+								<b>
+									When we receive the data, text always comes as a string. And for binary data, we can choose between Blob and
+									ArrayBuffer formats
+								</b>
+								<p>
+									that is set by socket.binaryType prop (default 'blob') so binary data comes as Blob objs
+								</p>
+							</p>
+							<div>
+<pre><code class="language-js">
+	socket.binaryType = 'arraybuffer';
+	socket.onmessage = e => {
+		//e.data is either a string (if text) or arraybuffer (if binary)
+	}
+</code></pre>
+							</div>
+
+							<div>
+								calling socket.send(data) data will be buffered (stored ) in memory and sent out only as fast as network speed allows
+							</div>
+
+							<div>
+								socket.bufferedAmount prop stores how many bytes remain buffered at this moment waiting to be sent over the network
+							</div>
+
+							<div>
+<pre><code class="language-js">
+	//every 100ms examine the socket and sent more data
+	// only if all the existing data was sent out 
+	setInterval(()=>{
+		if(socket.bufferedAmount === 0){
+			socket.send(moreData())
+		}
+	},100)
+</code></pre>
+							</div>
+
+
+            </div>
+						<div class="border rounded p-3 m-3">
+							<div>
+								when parts want to close the connection (both browser and server have equal right)
+								they send a 'connection close frame' with numeric code and a textual reason
+							</div>
+<pre><code class="language-js">
+	socket.close([code], [reason]);
+</code></pre>
+
+						<ul>
+							<li>
+								code is a special websocket closing code (optinal)
+							</li>
+							<li>
+								reason is a string that describes the reason of closing (opt)
+							</li>
+						</ul>
+
+<pre><code class="language-js">
+	//closing side
+	socket.close(1000, 'work complete');
+
+	//other side
+	socket.onclose = e => {
+		// e.code === 1000
+		// e.reason === 'work complete'
+		// e.wasClean === true (closed cleanly)
+	}
+</code></pre>						
+						<div>
+							<p>
+								code values
+							</p>
+							<ul>
+								<li>
+									1000 - default normal close (if no code supplied)
+								</li>
+								<li>
+									1006 - connection was lost
+								</li>
+								<li>
+									1001 the side is going away server is shutting down, browser leaves the page
+								</li>
+								<li>
+									1009 the message is too big to process
+								</li>
+								<li>
+									1011 unexpected error on the server
+								</li>
+							</ul>
+						</div>
+            </div>
+
+						<div class="border rounded p-3 m-3">
+							<h4>Connection state</h4>
+
+							<div>
+								<p>to get the connection state, add socket.readyState prop</p>
+								<ul>
+									<li>
+										0 - 'CONNECTING' the connection has not yet been established
+									</li>
+									<li>
+										1 - 'OPEN' communicating
+									</li>
+									<li>
+										2 - 'CLOSING' the connection is closing
+									</li>
+									<li>
+										3 - 'CLOSED' the connection is closed
+									</li>
+								</ul>
+								
+							</div>
+
+							<div>
+								<h3>Summary</h3>
+
+								<div>
+									<p>WebSocket is modern way to have persistent browser-server connections</p>
+
+									<ul>
+										<li>
+											WebSockets don't have cross-origin limitations
+										</li>
+										<li>
+											they are well-supported in browsers
+										</li>
+										<li>
+											Can sen/receive string and binary data.
+										</li>
+									</ul>
+								</div>
+							</div>
+
+            </div>
+						<div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

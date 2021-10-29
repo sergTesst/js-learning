@@ -1,0 +1,19 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "server sent events example",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest test",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "node",
+    "js"
+  ],
+  "author": "serhii",
+  "license": "MIT",
+  "dependencies": {
+    "node-static": "^0.7.11"
+  }
+}

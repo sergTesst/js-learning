@@ -1,0 +1,324 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-9 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <h3>Server sent Events</h3>
+
+              <p>
+                it describes a built-in class EventSource, that keeps connection
+                with the server and allows to receive events from it.
+              </p>
+              <p>connection is persistent like in WebSocket</p>
+
+              <div>
+                <table class="table">
+                  <thead>
+                    <th>websocket</th>
+                    <th>eventSource</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Bi-directional: both client and server can exchange
+                        messages
+                      </td>
+                      <td>One-directional: only server sends data</td>
+                    </tr>
+                    <tr>
+                      <td>Binary and text data</td>
+                      <td>Only text</td>
+                    </tr>
+                    <tr>
+                      <td>WebSocket protocol</td>
+                      <td>HTTP</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div>
+                  <p>
+                    when we need to receive chat messages, market prices we use
+                    EventSource
+                  </p>
+                  <p>
+                    It supports auto-reconnect, something we need to implement
+                    manually with WebSocket
+                  </p>
+                </div>
+
+                <div>
+                  <h3>Getting messages</h3>
+
+                  <pre><code class="language-js " style="tab-size: 0.1;">
+										let source = new EventSource(url);
+									</code></pre>
+
+                  <div>
+                    the browser will connect ot url and keep the connection
+                    open, waiting for event
+                  </div>
+                  <p>
+                    the server respond with status 200 and the header
+                    Content-Type: text/event-stream, than keep the connection
+                    and write messages into it in the special format
+                  </p>
+                  <div>
+                    <pre><code class="language-none" style="tab-size: 0.1;">
+											data: Message 1
+											data: Message 2
+											data: Message 3
+											data: of two lines
+										</code></pre>
+                  </div>
+
+                  <div>
+                    <pre><code class="language-js" style="tab-size: 0.1;">
+											data: {"user":"John","message":"First line\n Second line"}
+										</code></pre>
+                  </div>
+
+                  <div>
+                    <p>for each such message the message event is generated</p>
+                    <pre><code class="language-js" style="tab-size: 0.1;">
+											let eventSource = new EventSource('https://example.com');
+
+											eventSource.onmessage = function(e){
+												console.log(`New message ${e.data}`);
+
+											}
+											// or eventSource.addEventListener('message', ...)
+										</code></pre>
+                  </div>
+
+                  <div>
+                    <h4>Cross-origin requests</h4>
+                    <pre><code class="language-js" style="tab-size: 0.1;">
+											let eventSource = new EventSource('https://another-site.com/events');
+										</code></pre>
+                    <p>
+                      the remote server will get the Origin header and must
+                      respond with access-control-allow-origin to proceed
+                    </p>
+                    <p>to pass credentials</p>
+
+                    <pre><code class="language-js" style="tab-size: 0.1;">
+											let eventSource = new EventSource('https://another-site.com/events',{
+												withCredential: true
+											});
+										</code></pre>
+                  </div>
+
+                  <div>
+                    <h3>Reconnection</h3>
+                    <p>
+                      new EventSource connects to the server, and if the
+                      connection is broken - reconnects
+                    </p>
+                    <p>
+                      the server can set the recommended delay using retry: in
+                      response milliseconds
+                    </p>
+                    <pre><code class="language-none" style="tab-size: 0.1;">
+											retry: 15000
+											data: Hello, i set the reconnection delay to 15 seconds.
+										</code></pre>
+
+                    <ul>
+                      <li>
+                        if the server wants the browser to stop reconnecting, it
+                        should respond with http status 204
+                      </li>
+                      <li>
+                        if the browser wants to close the connection call
+                        eventSource.close()
+                      </li>
+                    </ul>
+                    <pre><code class="language-js" style="tab-size: 0.1;">
+											let eventSource = new EventSource('https://another-site.com/events');
+
+											eventSource.close();
+										</code></pre>
+
+                    <p>
+                      incorrect Content-Type, or http differs from 301, 307,
+                      200, 204 causes error
+                    </p>
+                    <p>
+                      if conn is closed, unable to reopen it. create a new
+                      EventSource for a new connection
+                    </p>
+                  </div>
+                  <div>
+                    <h3>message id</h3>
+                    <p>
+                      when we have connection problems, and we want to know
+                      which message we received we use message id
+                    </p>
+                    <p>to correctly resume the conn msg have id</p>
+                    <div>
+                      <pre><code class="language-none" style="tab-size: 0.1;">
+												data: Message 1
+												id: 1
+
+												data: Message 2
+												id: 2
+
+												data: Message 3
+												data: of two lines
+												id: 3
+											</code></pre>
+                    </div>
+
+                    <p>when a message with id: is received, the browser</p>
+                    <ul>
+                      <li>sets the prop eventSource.lastEventId to its val</li>
+                      <li>
+                        upcon reconnection sends the header Last-Event-ID with
+                        that id, so that the server may re-send following
+                        messages
+                      </li>
+                    </ul>
+										<p>
+											<b>
+												put id: after data
+											</b>
+											<p>
+												the id is appended below message data by the server, to ensure that lastEventId is updated afther the message is received
+											</p>
+										</p>
+                  </div>
+									<div>
+										<h3>Connection status: ready State</h3>
+										<p>the eventSource obj has readyState prop, that has one  of these values</p>
+
+										<pre><code class="language-js" style="tab-size: 0.1;">
+											EventSource.CONNECTING = 0; // connecting or reconnecting
+											EventSource.OPEN = 1; // connected
+											EventSource.CLOSED = 2; // connection is closed
+										</code></pre>
+									</div>
+									<div>
+										<h3>Event types</h3>
+										<p>EventSource obj generates three events</p>
+										<ul>
+											<li>message - a msg received, available is event.data</li>
+											<li>open - the connection is open</li>
+											<li>error - the connection could not be established </li>
+										</ul>
+										<p>the server may specify another type of event with event: ... at the event start</p>
+										<pre><code class="language-none" style="tab-size: 0.1;">
+											event: join
+											data: Bob
+
+											data: hello
+
+											event:leave
+											data: Bob 
+										</code></pre>
+
+										<p>to handle custom events, we must use addEventListener, not onmessage</p>
+										<pre><code class="language-js" style="tab-size: 0.1;">
+											eventSource.addEventListener('join', e => {
+												console.log(`Joined ${e.data}`)
+											})
+											eventSource.addEventListener('message', e => {
+												console.log(`message received ${e.data}`)
+											})
+											eventSource.addEventListener('leave', e => {
+												console.log(`left ${e.data}`)
+											})
+										</code></pre>
+									</div>
+                </div>
+              </div>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

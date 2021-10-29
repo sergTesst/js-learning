@@ -1,0 +1,19 @@
+{
+  "name": "server_sample1",
+  "version": "1.0.0",
+  "description": "websocket sample",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest test",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "node.js",
+    "websocket"
+  ],
+  "author": "serhii",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.2.3"
+  }
+}
