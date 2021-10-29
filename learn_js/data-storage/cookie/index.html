@@ -1,0 +1,665 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-9 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <h3>Cookies, document.cookie</h3>
+              <p>
+                Cookies are usually set by a web-server using the header
+                Set-Cookie.
+              </p>
+              <p>
+                then the browser automatically adds them to (almost) every
+                request to the same domain using the Cookie HTTP-header
+              </p>
+              <p>One of the most widespread use cases is authentication</p>
+              <ul>
+                <li>
+                  server users the Set-Cookie HTTP-header in the response to set
+                  a cookie with a unique 'session identifier'
+                </li>
+                <li>
+                  next time when the request is sent to the same domain, the
+                  browser sends the cookie over the net using the Cookie
+                  HTTP-header
+                </li>
+                <li>The server knows who made the request</li>
+              </ul>
+              <p>we access cookies from the browser with document.cookie</p>
+              <p>read the document.cookie</p>
+              <pre><code class="language-js" style="tab-size: 0.1;">
+								console.log(document.cookie);
+							</code></pre>
+              <p>
+                the value of document.cookie consists of name=value pairs,
+                delimited by ; Each one is a separate cookie.
+              </p>
+              <div class="border rounded p-3 m-3">
+                <button
+                  onclick="readDocumentCookie()"
+                  class="m-3 btn btn-primary"
+                >
+                  readDocumentCookie
+                </button>
+                <script>
+                  function readDocumentCookie() {
+                    cl("document.cookie ", document.cookie);
+                  }
+                </script>
+              </div>
+              <p>
+                To find a particular cookie we can split document.cookie by ;
+                and find the right name. we can use regex
+              </p>
+
+              <h3>Writing to document.cookie</h3>
+              <div>
+                <pre><code class="language-js" style="tab-size: 0.1;">
+									document.cookie = 'user=MyCustomUser';
+									document.cookie = 'user=MyCustomUser1';
+									document.cookie = 'secret=secretVal';
+									cl(document.cookie)
+								</code></pre>
+                <p>
+                  <b>
+                    A write operation to document.cookie updates only cookies
+                    mentioned in it but does not touch other cookies
+                  </b>
+                </p>
+                <button onclick="cookieWrite()" class="m-3 btn btn-primary">
+                  cookieWrite
+                </button>
+
+                <script>
+                  function cookieWrite() {
+                    document.cookie = "user=MyCustomUser";
+                    document.cookie = "user=MyCustomUser1";
+                    document.cookie = "secret=secretVal";
+                    cl(document.cookie);
+                  }
+                </script>
+                <p>
+                  The name and value can have acy chars. To keep the valid
+                  formatting, they should be escaped using a build-in
+                  encodeURIComponent func
+                </p>
+
+                <pre><code class="language-js" style="tab-size: 0.1;">
+									let name = 'set my name';
+									let val = ' Steve Smith';
+									document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+									cl(document.cookie);
+								</code></pre>
+
+                <button onclick="encodeCookies()" class="m-3 btn btn-primary">
+                  encodeCookies
+                </button>
+
+                <script>
+                  function encodeCookies() {
+                    let name = "set my name";
+                    let val = " Steve Smith";
+                    document.cookie = `${encodeURIComponent(
+                      name
+                    )}=${encodeURIComponent(val)}`;
+                    cl(document.cookie);
+                  }
+                </script>
+
+                <h3>limitations</h3>
+
+                <div>
+                  <ul>
+                    <li>
+                      the name=value pair after encodeURIComponent should not
+                      exceed 4KB. We can not save huge in a cookie
+                    </li>
+                    <li>
+                      the total number of cookies per domain is limited to
+                      around 20+, the exact limit depends on the browser
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <p>Cookies several options</p>
+                <pre><code class="language-js" style="tab-size: 0.1;">
+									document.cookie = "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT"
+									cl(document.cookie);
+								</code></pre>
+
+                <button onclick="setCookies2()" class="m-3 btn btn-primary">
+                  setCookies2
+                </button>
+
+                <script>
+                  function setCookies2() {
+                    document.cookie =
+                      "user=John; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT";
+                    cl(document.cookie);
+                  }
+                </script>
+              </div>
+
+              <div>
+                <h3>path</h3>
+                <p>path=/mypath</p>
+
+                <p>
+                  the url path prefix must be absolute. it makes the cookie
+                  accessible for pages under that path.
+                </p>
+                <p>/ is default</p>
+                <p>
+                  if cookie is set with pat=/admin its visible at pages /admin
+                  and /admin/other but not /home or /adminpage
+                </p>
+                <em> usually, we set path to the root path=/ </em>
+              </div>
+
+              <div>
+                <h3>domain</h3>
+
+                <pre><code class="language-js" style="tab-size: 0.1;">
+									// at site.com 
+									document.cookie = 'user=UserName';
+
+									//at forum.site.com 
+									cl(document.cookie) // no user
+								</code></pre>
+
+                <b>
+                  there's no way to let a cookie be accessible from another
+                  2nd-level domain, so other.com will never receive a cookie set
+                  at site.com
+                </b>
+                <p>we should explicitly set the domain option</p>
+                <pre><code class="language-js" style="tab-size: 0.1;">
+									// at site.com 
+									// make the cookie accessible on any subdomain *.site.com
+									document.cookie = 'user=UserName; domain=site.com'; // or domain=.site.com for older browsers
+
+									//at forum.site.com 
+									cl(document.cookie) // has cookie user=UserName
+								</code></pre>
+              </div>
+
+              <div>
+                <h3>expires, max-age</h3>
+
+                <p>
+                  no default options, cookies disappears if they dont have such
+                  options when the browser is closed. (session cookies)
+                </p>
+
+                <p>set the cookies that expire in 1 day</p>
+
+                <pre><code class="language-js" style="tab-size: 0.1;">
+									let date = new Date(Date.now() + 86400e3);
+									date = date.toUTCString();
+									document.cookie = `user=NextUser; expires=${date}`;
+									cl(document.cookie);
+								</code></pre>
+
+                <button
+                  onclick="setCookiesInOneDay()"
+                  class="m-3 btn btn-primary"
+                >
+                  setCookiesInOneDay
+                </button>
+
+                <script>
+                  function setCookiesInOneDay() {
+                    let date = new Date(Date.now() + 86400e3);
+                    date = date.toUTCString();
+                    document.cookie = `user=NextUser; expires=${date}`;
+                    cl(document.cookie);
+                  }
+                </script>
+
+                <p>
+                  if we set expires to a date in the past, the cookie is deleted
+                </p>
+
+                <p>
+                  <b> max-age=3600 </b>
+                  the cookie's expiration from the current moment in seconds
+                </p>
+                <p>delete is it set to 0 or negative</p>
+
+                <div>
+                  <pre><code class="language-js " style="tab-size: 0;">
+                    //cookie will die in 1 hour from now
+                    document.cookie = `user=CustomUser1; max-age=3600`;
+                    //delete cookie 
+                    document.cookie = `user=NextUserDeleted; max-age=0`;
+                    cl(document.cookie);
+                  </code></pre>
+                </div>
+
+                <button
+                  onclick="setCookiesInOneDay()"
+                  class="m-3 btn btn-primary"
+                >
+                  setCookiesInOneDay
+                </button>
+
+                <script>
+                  function setCookiesInOneDay() {
+                    // cookie will die in 1 hour from now
+                    document.cookie = `user=CustomUser1; max-age=3600`;
+
+                    //delete cookie
+                    document.cookie = `user=NextUserDeleted; max-age=0`;
+                    cl(document.cookie);
+                  }
+                </script>
+              </div>
+
+              <div>
+                <h3>secure</h3>
+
+                <p>the cookie should be transferred only over HTTPS</p>
+
+                <p>
+                  <b>
+                    Default, if we set a cookie at http://site.com, then it also
+                    appears at https://site.com and vice versa.
+                  </b>
+                </p>
+
+                <p>
+                  if a cookie is set by https://site.com they won't be accessed
+                  from http://site.com
+                </p>
+
+                <pre><code class="language-js" style="tab-size: 0.1;">
+                  //assuming we're on https:// now
+                  //set the cookie to be secure (only accessible over https)
+                  document.cookie = 'user=UserName; secure';
+								</code></pre>
+              </div>
+
+              <div>
+                <h3>samesite</h3>
+                <p>
+                  that's another security attribute samesite. it is designed to
+                  protect from xsrf (cross-site request forgery) attacks.
+                </p>
+              </div>
+
+              <div>
+                <h4>XSRF attack</h4>
+                <img
+                  class="img img-fuid"
+                  src="./imgs/Screenshot 2021-10-29 202602.jpg"
+                  alt=""
+                />
+
+                <p>
+                  all forms generated by bank.com have a special field called
+                  'XSRF protection token' that an evil page can't gen. evil.com
+                  can submit form but can't get data back. the site bank.com
+                  checks for such token in every form it receives.
+                </p>
+
+                <h5>samesite option</h5>
+                <ul>
+                  <li>samesite=strict (same as samesite without val)</li>
+                  <li>
+                    samesite=lax
+                    <p>send if</p>
+                    <ul>
+                      <li>methods are (get, but not post) (read methods)</li>
+                      <li>
+                        the operation performs a top-level navigation (changes
+                        URL in the browser address bar )
+
+                        <p>not in iframe</p>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3>httpOnly</h3>
+
+                <p>
+                  when the browser set-cookie set httpOnly option. it forbids
+                  any js access to the cookie. we can not see such cookie with
+                  document.cookie.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h4>functions demo with cookies</h4>
+
+              <div>
+                <h5>getCookie(name)</h5>
+
+                <div>
+                  <div>
+                    <pre><code class="language-js " style="tab-size: 0;">
+                      function getCookieByName() {
+                        let name = "user";
+                        let targetCookie = getCookie(name);
+                        cl('targetCookie', targetCookie);
+  
+                        function getCookie(name) {
+                          const matches = document.cookie.match(
+                            new RegExp(
+                              "(?:^|; )" +
+                                name.replace(
+                                  /([\.$?*|{}\(\)\[\]\\\/\+^])/g,
+                                  "\\$"
+                                ) +
+                                "=([^;]*)"
+                            )
+                          );
+  
+                          return matches
+                            ? decodeURIComponent(matches[1])
+                            : undefined;
+                        }
+                      }
+                    </code></pre>
+                  </div>
+
+                  <button
+                    onclick="getCookieByName()"
+                    class="m-3 btn btn-primary"
+                  >
+                    getCookieByName
+                  </button>
+
+                  <script>
+                    function getCookieByName() {
+                      let name = "user";
+                      let targetCookie = getCookie(name);
+                      cl("targetCookie", targetCookie);
+
+                      function getCookie(name) {
+                        const matches = document.cookie.match(
+                          new RegExp(
+                            "(?:^|; )" +
+                              name.replace(
+                                /([\.$?*|{}\(\)\[\]\\\/\+^])/g,
+                                "\\$"
+                              ) +
+                              "=([^;]*)"
+                          )
+                        );
+
+                        return matches
+                          ? decodeURIComponent(matches[1])
+                          : undefined;
+                      }
+                    }
+                  </script>
+                </div>
+              </div>
+
+              <div>
+                <h5>setCookie(name, value, options)</h5>
+
+                <div>
+                  <div>
+                    <pre><code class="language-js " style="tab-size: 0;">
+                      function setCookieByNameValueOptions() {
+
+                        setCookie('usertoset', 'Richard', {secure:true, 'max-age': 3600});
+                        cl(`document.cookie `,document.cookie);
+                        
+                        function setCookie(name, value, options={}){
+                          options = {
+                            path: '/',
+                            ...options
+                          };
+  
+                          if(options.expires instanceof Date){
+                            options.expires = options.expires.toUTCString();
+                          }
+  
+                          let updatedCookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+  
+                          for(let optionKey in options){
+                            updatedCookie +="; "+optionKey;
+                            let optionValue = options[optionKey];
+                            if(optionValue !==true){
+                              updatedCookie += '=' + optionValue;
+                            }
+                          }
+                          cl('updatedCookie', updatedCookie);
+  
+                          document.cookie = updatedCookie;
+                        }
+  
+                      }
+                    </code></pre>
+                  </div>
+
+                  <button
+                    onclick="setCookieByNameValueOptions()"
+                    class="m-3 btn btn-primary"
+                  >
+                    getCookiesetCookieByNameValueOptionsByName
+                  </button>
+
+                  <script>
+                    function setCookieByNameValueOptions() {
+                      setCookie("usertoset", "Richard", {
+                        secure: true,
+                        "max-age": 3600,
+                      });
+                      cl(`document.cookie `, document.cookie);
+                    }
+
+                    function setCookie(name, value, options = {}) {
+                      options = {
+                        path: "/",
+                        ...options,
+                      };
+
+                      if (options.expires instanceof Date) {
+                        options.expires = options.expires.toUTCString();
+                      }
+
+                      let updatedCookie =
+                        encodeURIComponent(name) +
+                        "=" +
+                        encodeURIComponent(value);
+
+                      for (let optionKey in options) {
+                        updatedCookie += "; " + optionKey;
+                        let optionValue = options[optionKey];
+                        if (optionValue !== true) {
+                          updatedCookie += "=" + optionValue;
+                        }
+                      }
+                      cl("updatedCookie", updatedCookie);
+
+                      document.cookie = updatedCookie;
+                    }
+                  </script>
+                </div>
+              </div>
+
+              <div>
+                <h5>deleteCookie(name)</h5>
+
+                <div>
+                  <div>
+                    <pre><code class="language-js " style="tab-size: 0;">
+                      function deleteCookieByName() {
+                        deleteCookie('usertoset')
+                        cl(`document.cookie `,document.cookie);
+                        
+                        function deleteCookie(name) {
+                          setCookie(name, "", {
+                            'max-age': -1
+                          });
+                        }
+                      }
+                    </code></pre>
+                  </div>
+
+                  <button
+                    onclick="deleteCookieByName()"
+                    class="m-3 btn btn-primary"
+                  >
+                    deleteCookieByName
+                  </button>
+
+                  <script>
+                    function deleteCookieByName() {
+                      deleteCookie('usertoset')
+                      cl(`document.cookie `,document.cookie);
+
+                      function deleteCookie(name) {
+                        setCookie(name, "", {
+                          'max-age': -1
+                        });
+                      }
+                    }
+                  </script>
+                </div>
+              </div>
+
+            </div>
+
+
+            <div>
+              <h3>Third-party cookies</h3>
+
+              <div>
+                <p>
+                  A page site.com loads a banner from another site 
+                  <img src='https://www.ads.com/images/ads-phone.png' />
+                </p>
+
+                <p>
+                  remote server at ads.com may set the Set-Cookie header with 
+                  a cookie like id=1234
+                </p>
+
+                <img src="./imgs/Screenshot 2021-10-29 212340.jpg" alt="">
+
+                <p>
+                  next time when ads.com is accessed, the remote server gets the id cookie 
+                  and recognizes the user
+                </p>
+
+                <img src="./imgs/Screenshot 2021-10-29 212519.jpg" alt="">
+
+                <p>
+                  when the user moves from site.com to another site other.com , which also has 
+                  a banner then ads.com gets the cookie, as it belongs to ads.com, thus 
+                  recognizing the visitor tracking him as he moves between sites
+                </p>
+
+                <img src="./imgs/Screenshot 2021-10-29 212712.jpg" alt="">
+
+                <b>
+                  blocked by safari, adblock, firefox black lists
+                </b>
+              </div>
+            </div>
+
+
+            <div>
+              <h3>GDPR</h3>
+
+              <p>
+                RULE is to require an explicit permission for tracking cookies from the user.
+              </p>
+              <p>
+                that's  only about tracking/identifying/authorizing cookies
+              </p>
+              <p>
+                so, if we set a cookie that just saves some info, but neither tracks nor 
+                identities the user, than we are free to do it.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>
