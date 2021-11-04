@@ -18,6 +18,11 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+	
+	<link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
 
     <style>
       .clearConsole {
@@ -33,6 +38,7 @@
   <body>
     <script>
       const cl = console.log;
+	  const ROOT_URL = `https://javascript.info`;
     </script>
 
     <div class="border rounded p-3 m-3 clearConsole">
@@ -48,11 +54,19 @@
 
     <div id="app">
       <div class="container">
-        <div class="row">
-          <div class="col-sm-12 border">
+        <div class="row justify-content-center">
+          <div class="col-sm-9 border">
             <h1>Theory</h1>
 
             <div class="border rounded p-3 m-3">
+				<h3>Title</h3>
+				
+				<pre><code class="language-js" style="tab-size: 0.1;">
+					sample code block
+				</code></pre>
+            </div>
+			
+			<div class="border rounded p-3 m-3">
               <button onclick="funcName()" class="m-3 btn btn-primary">
                 funcName
               </button>
@@ -61,6 +75,8 @@
                 function funcName() {}
               </script>
             </div>
+			
+			
           </div>
         </div>
 
@@ -80,5 +96,9 @@
         </div>
       </div>
     </div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  
   </body>
 </html>
