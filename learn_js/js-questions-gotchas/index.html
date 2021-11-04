@@ -1,0 +1,1890 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>front-end questions</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-9 border">
+            <div class="border rounded p-3 m-3">
+              <h3>equations</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function equationPrimitives() {
+									cl(`1==1 `,1==1)
+									cl(`1=='1' `, 1=='1')
+									cl(` 1==[] `, 1==[])
+								}
+							</code></pre>
+
+              <button
+                onclick="equationPrimitives()"
+                class="m-3 btn btn-primary"
+              >
+                equationPrimitives
+              </button>
+
+              <script>
+                function equationPrimitives() {
+                  cl(`1==1 `, 1 == 1);
+                  cl(`1=='1' `, 1 == "1");
+                  cl(` 1==[] `, 1 == []);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>var and let</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+                function varAndLet() {
+
+									for(let i = 0; i< 10; i++){
+									}
+									try {
+										cl('i ', i);
+									} catch (error) {
+										cl(error);
+									}
+									for(var j = 0; j< 10; j++){
+									}
+									cl('j ', j);
+								}
+							</code></pre>
+
+              <button onclick="varAndLet()" class="m-3 btn btn-primary">
+                varAndLet
+              </button>
+
+              <script>
+                function varAndLet() {
+                  for (let i = 0; i < 10; i++) {}
+                  try {
+                    cl("i ", i);
+                  } catch (error) {
+                    cl(error);
+                  }
+                  for (var j = 0; j < 10; j++) {}
+                  cl("j ", j);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>addition and concatenations</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function addNumsAndStrings() {
+									cl( `1 + 1 `,1 + 1);
+									cl( `1 + '1' `,1 + '1');
+									cl( `1 - '1' `,1 - '1');
+									cl( `1 * '1' `,1 * '1');
+									cl( `1 / '1' `,1 / '1');
+									cl( `'1' * '1' `,'1' * '1');
+									cl( `'21' * '4323' `,'21' * '4323');
+								}
+							</code></pre>
+
+              <button onclick="addNumsAndStrings()" class="m-3 btn btn-primary">
+                addNumsAndStrings
+              </button>
+
+              <script>
+                function addNumsAndStrings() {
+                  cl(`1 + 1 `, 1 + 1);
+                  cl(`1 + '1' `, 1 + "1");
+                  cl(`1 - '1' `, 1 - "1");
+                  cl(`1 * '1' `, 1 * "1");
+                  cl(`1 / '1' `, 1 / "1");
+                  cl(`'1' * '1' `, "1" * "1");
+                  cl(`'21' * '4323' `, "21" * "4323");
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>Nan Gotchas</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function NaNSamples() {
+									cl(` NaN === NaN `, NaN === NaN);
+									cl( 'NaN == NaN', NaN == NaN);
+									cl( 'NaN == NaN ',NaN == NaN);
+									cl( 'typeof NaN  ',typeof NaN );
+									cl( `"" == NaN  `, "" == NaN );
+									cl(` 0 == NaN  `, 0 == NaN );
+									cl(` false == NaN `, false == NaN );
+									cl( `undefined == NaN `, undefined == NaN );
+									cl(` [] == NaN  `, [] == NaN );
+
+									cl(` isNaN('string') `, isNaN('string'));
+									cl(` isNaN(123) `, isNaN(123) );
+									cl(` isNaN("") `, isNaN("") );
+									cl(` isNaN("32") `, isNaN("32") );
+									cl(` isNaN([]) `, isNaN([]) );
+									cl(` isNaN([1, 2]) `, isNaN([1, 2]) );
+									cl(` isNaN({}) `, isNaN({}) );
+									cl(` isNaN(()=>{}) `, isNaN(()=>{}) );
+								}
+							</code></pre>
+
+              <button onclick="NaNSamples()" class="m-3 btn btn-primary">
+                NaNSamples
+              </button>
+
+              <script>
+                function NaNSamples() {
+                  cl(` NaN === NaN `, NaN === NaN);
+                  cl("NaN == NaN", NaN == NaN);
+                  cl("NaN == NaN ", NaN == NaN);
+                  cl("typeof NaN  ", typeof NaN);
+                  cl(`"" == NaN  `, "" == NaN);
+                  cl(` 0 == NaN  `, 0 == NaN);
+                  cl(` false == NaN `, false == NaN);
+                  cl(`undefined == NaN `, undefined == NaN);
+                  cl(` [] == NaN  `, [] == NaN);
+
+                  cl(` isNaN('string') `, isNaN("string"));
+                  cl(` isNaN(123) `, isNaN(123));
+                  cl(` isNaN("") `, isNaN(""));
+                  cl(` isNaN("32") `, isNaN("32"));
+                  cl(` isNaN([]) `, isNaN([]));
+                  cl(` isNaN([1, 2]) `, isNaN([1, 2]));
+                  cl(` isNaN({}) `, isNaN({}));
+                  cl(
+                    ` isNaN(()=>{}) `,
+                    isNaN(() => {})
+                  );
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>equality / truthy vs Falsy</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								cl(`null == undefined `,null == undefined)
+								cl(`null === undefined `,null === undefined)
+								cl(`null != undefined `,null != undefined)
+								cl(`null !== undefined `,null !== undefined)
+								cl(`false == '0' `,false == '0')
+								cl(`0 == false `,0 == false)
+								cl(`'' == 0 `,'' == 0)
+								cl(`false == '' `,false == '')
+								cl(`[] == '' `,[] == '')
+								cl(`'1' == true `,'1' == true)
+								cl(` 1 == true `, 1 == true)
+								cl(` 'false' == true `, 'false' == true)
+
+								''? cl(true): cl(false);
+								if([]) cl(true);
+								if([] == '') cl(true)
+								if({}) cl(true)
+							</code></pre>
+
+              <button onclick="truthyFalsy()" class="m-3 btn btn-primary">
+                truthyFalsy
+              </button>
+
+              <script>
+                function truthyFalsy() {
+                  cl(`null == undefined `, null == undefined);
+                  cl(`null === undefined `, null === undefined);
+                  cl(`null != undefined `, null != undefined);
+                  cl(`null !== undefined `, null !== undefined);
+                  cl(`false == '0' `, false == "0");
+                  cl(`0 == false `, 0 == false);
+                  cl(`'' == 0 `, "" == 0);
+                  cl(`false == '' `, false == "");
+                  cl(`[] == '' `, [] == "");
+                  cl(`'1' == true `, "1" == true);
+                  cl(` 1 == true `, 1 == true);
+                  cl(` 'false' == true `, "false" == true);
+
+                  "" ? cl(true) : cl(false);
+                  if ([]) cl(true);
+                  if ([] == "") cl(true);
+                  if ({}) cl(true);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>automatic semicolon insertion</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function incrementReturnsUndefined() {
+									function increment(num){
+										return 
+										++num;
+									}
+									cl(`increment(12) `,increment(12))
+								}
+							</code></pre>
+
+              <button
+                onclick="incrementReturnsUndefined()"
+                class="m-3 btn btn-primary"
+              >
+                incrementReturnsUndefined
+              </button>
+
+              <script>
+                function incrementReturnsUndefined() {
+                  function increment(num) {
+                    return;
+                    ++num;
+                  }
+                  cl(`increment(12) `, increment(12));
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>Global vars</h3>
+              <pre>
+                <code class="language-js" style="tab-size: 0;">
+                  function createImplicitlyGlobalVar() {
+                    for(i=0;i<10;i++){}
+                    cl(`i `,i);
+                  }
+                  function createImplicitlyGlobalVar2() {
+                    function foo() {
+                      let a = b = c = 0;
+                      e = a++;
+                      d = ++c;
+                      cl('a', a);
+                      cl('b', b);
+                      cl('c', c);
+                      cl('d', d);
+                      cl('e', e);
+                      return a;
+                    }
+                    foo();
+                    cl(`typeof a `, typeof a); // typeof a  undefined
+                    cl(`typeof b `, typeof b); // typeof b  number
+  
+                    function explanationExecutionOfFooInBrowser(){
+                      let a;
+                      window.b = 0;
+                      a = window.b;
+                      a++;
+                      return a;
+                    }
+                    foo();
+                    typeof a; // 'undefined'
+                    typeof window.b; // 'number' 
+                  }
+
+                  function checkGlobalVarI(){
+                    cl(`i `,i);
+                    cl(`b `, b);
+                  }
+							  </code>
+              </pre>
+
+              <button
+                onclick="createImplicitlyGlobalVar()"
+                class="m-3 btn btn-primary"
+              >
+                createImplicitlyGlobalVar
+              </button>
+              <button
+                onclick="createImplicitlyGlobalVar2()"
+                class="m-3 btn btn-primary"
+              >
+                createImplicitlyGlobalVar2
+              </button>
+              <button onclick="checkGlobalVarI()" class="m-3 btn btn-primary">
+                checkGlobalVarI
+              </button>
+
+              <script>
+                function createImplicitlyGlobalVar() {
+                  for (i = 0; i < 10; i++) {}
+                  cl(`i `, i);
+                }
+
+                function createImplicitlyGlobalVar2() {
+                  function foo() {
+                    let a = (b = c = 0);
+                    e = a++;
+                    d = ++c;
+                    cl("a", a);
+                    cl("b", b);
+                    cl("c", c);
+                    cl("d", d);
+                    cl("e", e);
+                    return a;
+                  }
+                  foo();
+                  cl(`typeof a `, typeof a); // typeof a  undefined
+                  cl(`typeof b `, typeof b); // typeof b  number
+
+                  function explanationExecutionOfFooInBrowser() {
+                    let a;
+                    window.b = 0;
+                    a = window.b;
+                    a++;
+                    return a;
+                  }
+                  foo();
+                  typeof a; // 'undefined'
+                  typeof window.b; // 'number'
+                }
+
+                function checkGlobalVarI() {
+                  cl(`i `, i);
+                  cl(`b `, b);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>hoisting foo bar</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function hoistingFooBar() {
+									cl('bar ', bar);
+									bar = 15;
+									var foo = 1;
+									cl('foo ', foo, ' bar ', bar);
+									var bar;
+								}
+							</code></pre>
+
+              <button onclick="hoistingFooBar()" class="m-3 btn btn-primary">
+                hoistingFooBar
+              </button>
+
+              <script>
+                function hoistingFooBar() {
+                  cl("bar ", bar);
+                  bar = 15;
+                  var foo = 1;
+                  cl("foo ", foo, " bar ", bar);
+                  var bar;
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>hoisting greeting</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function hoistingGreetings() {
+									greetings();
+									var greetings = function () {
+										cl('first greetings');
+									};
+									greetings();
+									function greetings() {
+										cl('first greetings');
+									};
+									greetings();
+
+								}
+							</code></pre>
+
+              <button onclick="hoistingGreetings()" class="m-3 btn btn-primary">
+                hoistingGreetings
+              </button>
+
+              <script>
+                function hoistingGreetings() {
+                  greetings();
+                  var greetings = function () {
+                    cl("first greetings");
+                  };
+                  greetings();
+                  function greetings() {
+                    cl("first greetings");
+                  }
+                  greetings();
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>hoisting var 1</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function hoistingVar1() {
+									var varia = 10;
+									(()=>{
+										cl('varia 1', varia);
+										varia = 20;
+										cl('varia 2', varia);
+										
+									})();
+
+									cl('varia 2', varia);
+									var varia = 30;
+								}
+							</code></pre>
+
+              <button onclick="hoistingVar1()" class="m-3 btn btn-primary">
+                hoistingVar1
+              </button>
+
+              <script>
+                function hoistingVar1() {
+                  var varia = 10;
+                  (() => {
+                    cl("varia 1", varia);
+                    varia = 20;
+                    cl("varia 2", varia);
+                  })();
+
+                  cl("varia 2", varia);
+                  var varia = 30;
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>hoisting var 2</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+                function hoistingVar2() {
+									var varia = 10;
+									(()=>{
+										varia_3 = 35;
+										cl('varia_3 ', varia_3);
+										var varia_3 = 45;
+										varia_2 = 15;
+										cl('varia', varia);
+										
+									})();
+									cl('varia_2', varia_2);
+									try {
+										cl('varia_3', varia_3);
+									} catch (error) {
+										cl(error);
+									}
+									var varia = 30;
+
+									for(let i = 0; i< 2;i++){
+										var varia_4 = 99;
+									}
+									cl('varia_4', varia_4);
+
+									function notCallSomething(){
+										var varia_5 = 21;
+									}
+									try {
+										cl('varia_5', varia_5);
+										
+									} catch (error) {
+										cl(error)
+									}
+
+									function callSomething(){
+										var varia_6 = 21;
+									}
+									callSomething();
+									try {
+										cl(' varia_6 ', varia_6)
+									} catch (error) {
+										cl(error)
+									}
+								}
+							</code></pre>
+
+              <button onclick="hoistingVar2()" class="m-3 btn btn-primary">
+                hoistingVar2
+              </button>
+
+              <textarea name="" id="" cols="10" rows="5"></textarea>
+
+              <script>
+                function hoistingVar2() {
+                  var varia = 10;
+                  (() => {
+                    varia_3 = 35;
+                    cl("varia_3 ", varia_3);
+                    var varia_3 = 45;
+                    varia_2 = 15;
+                    cl("varia", varia);
+                  })();
+                  cl("varia_2", varia_2);
+                  try {
+                    cl("varia_3", varia_3);
+                  } catch (error) {
+                    cl(error);
+                  }
+                  var varia = 30;
+
+                  for (let i = 0; i < 2; i++) {
+                    var varia_4 = 99;
+                  }
+                  cl("varia_4", varia_4);
+
+                  function notCallSomething() {
+                    var varia_5 = 21;
+                  }
+                  try {
+                    cl("varia_5", varia_5);
+                  } catch (error) {
+                    cl(error);
+                  }
+
+                  function callSomething() {
+                    var varia_6 = 21;
+                  }
+                  callSomething();
+                  try {
+                    cl(" varia_6 ", varia_6);
+                  } catch (error) {
+                    cl(error);
+                  }
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>Closure and var scope</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+                function closureVarScope() {
+									for(let i = 0; i<5; i++){
+										setTimeout(()=>{
+											cl('let i ', i)
+										},0);
+									}
+
+									function innerLoopWithVarI(){
+										for(var i = 0; i<5; i++){
+											setTimeout(()=>{
+												cl('var i ', i)
+											},0);
+										}
+
+									}
+									innerLoopWithVarI();
+								}
+							</code></pre>
+
+              <button onclick="closureVarScope()" class="m-3 btn btn-primary">
+                closureVarScope
+              </button>
+
+              <script>
+                function closureVarScope() {
+                  for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                      cl("let i ", i);
+                    }, 0);
+                  }
+
+                  function innerLoopWithVarI() {
+                    for (var i = 0; i < 5; i++) {
+                      setTimeout(() => {
+                        cl("var i ", i);
+                      }, 0);
+                    }
+                  }
+                  innerLoopWithVarI();
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>closure counter 1</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function closureCounter1() {
+									let counter = function () {
+										let c = 0;
+										return () => c++;
+									}();
+									
+									cl(`counter() `,counter());
+									cl(`counter() `,counter());
+									cl(`counter() `,counter());
+									
+								}
+							</code></pre>
+
+              <button onclick="closureCounter1()" class="m-3 btn btn-primary">
+                closureCounter1
+              </button>
+
+              <script>
+                function closureCounter1() {
+                  let counter = (function () {
+                    let c = 0;
+                    return () => c++;
+                  })();
+
+                  cl(`counter() `, counter());
+                  cl(`counter() `, counter());
+                  cl(`counter() `, counter());
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>closure array 1 gone wrong !</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function closureArray1() {
+									function createClosureArray(){
+										var barArr = [];
+
+										for(var ind = 0; ind< 5; ind++){
+											barArr[ind] = function(){
+												return `n = ${ind}`;
+											}
+										}
+										return barArr;
+									}
+
+									var barArr = createClosureArray();
+
+									for(var ind in barArr){
+										//on call ind is 5 always
+										cl('barArr[ind]() ', barArr[ind]() );
+									}
+								}
+							</code></pre>
+
+              <button onclick="closureArray1()" class="m-3 btn btn-primary">
+                closureArray1
+              </button>
+
+              <script>
+                function closureArray1() {
+                  function createClosureArray() {
+                    var barArr = [];
+
+                    for (var ind = 0; ind < 5; ind++) {
+                      barArr[ind] = function () {
+                        return `n = ${ind}`;
+                      };
+                    }
+                    return barArr;
+                  }
+
+                  var barArr = createClosureArray();
+
+                  for (var ind in barArr) {
+                    //on call ind is 5 always
+                    cl("barArr[ind]() ", barArr[ind]());
+                  }
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>closure array 1 with let instead</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+                function closureArray1WiLet() {
+									function createClosureArray(){
+										let barArr = [];
+
+										for(let ind = 0; ind< 5; ind++){
+											barArr[ind] = function(){
+												return `n = ${ind}`;
+											}
+										}
+										return barArr;
+									}
+
+									let barArr = createClosureArray();
+
+									for(let ind in barArr){
+										//let saves its assigned value
+										cl('barArr[ind]() ', barArr[ind]() );
+									}
+								}
+							</code></pre>
+
+              <button
+                onclick="closureArray1WiLet()"
+                class="m-3 btn btn-primary"
+              >
+                closureArray1WiLet
+              </button>
+
+              <script>
+                function closureArray1WiLet() {
+                  function createClosureArray() {
+                    let barArr = [];
+
+                    for (let ind = 0; ind < 5; ind++) {
+                      barArr[ind] = function () {
+                        return `n = ${ind}`;
+                      };
+                    }
+                    return barArr;
+                  }
+
+                  let barArr = createClosureArray();
+
+                  for (let ind in barArr) {
+                    //let saves its assigned value
+                    cl("barArr[ind]() ", barArr[ind]());
+                  }
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>closure array 1 gone wrong ! Corrected</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function ClosureArray1Corrected() {
+									var arr = [];
+
+									function createClosure(val){
+										return function() {
+											return ` n = ${val} `;
+										}
+									}
+
+									for (var index = 0; index < 5; index++) {
+										arr[index] = createClosure(index);
+									}
+
+									for(var index in arr ){
+										cl(`arr[index]() `,arr[index]());
+									}
+								}
+							</code></pre>
+
+              <button
+                onclick="ClosureArray1Corrected()"
+                class="m-3 btn btn-primary"
+              >
+                ClosureArray1Corrected
+              </button>
+
+              <script>
+                function ClosureArray1Corrected() {
+                  var arr = [];
+                  function createClosure(val) {
+                    return function () {
+                      return ` n = ${val} `;
+                    };
+                  }
+                  for (var index = 0; index < 5; index++) {
+                    arr[index] = createClosure(index);
+                  }
+                  for (var index in arr) {
+                    cl(`arr[index]() `, arr[index]());
+                  }
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>tricky this</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+
+                var fullname = "John Doe";
+
+                function trickyThis1() {
+                  var obj = {
+                    fullname: "Colin Ihrig",
+                    prop: {
+                      fullname: "Aurelio De Rosa",
+                      getFullName: function () {
+                        return this.fullname;
+                      },
+                    },
+                    getMyName: function () {
+                      return this.fullname;
+                    },
+                    getFirstName: () => {
+                      return this.fullname?.split(" ")[0];
+                    },
+                    getLastName: (function () {
+                      return this.fullname?.split(" ")[1];
+                    })(),
+                  };
+
+                  cl("obj.prop.getFullName() ", obj.prop.getFullName());
+                  cl(" obj.getFirstName() ", obj.getFirstName());
+                  cl(" obj.getMyName() ", obj.getMyName());
+                  cl(" obj.getLastName ", obj.getLastName);
+
+
+									class Person{
+										constructor(name, surname){
+											this.name  = name;
+											this.surname = surname;
+										}
+
+										getName(){
+											return this.name;
+										}
+
+										getFullName(){
+											return this.fullname;
+										}
+
+										get fullname(){
+
+											return `${this.name} ${this.surname}`;
+										}
+
+										static toUpperCaseCurrentName(){
+											cl(` this.name `,this.name)
+											return this.fullname.toUpperCase();
+										}
+										static toUpperCaseCurrentNameLambda = () =>{
+											cl(` this.name `,this.name)
+											return this.fullname.toUpperCase();
+										}
+
+									}
+
+									try {
+										cl(`Person.toUpperCaseCurrentName() `,Person.toUpperCaseCurrentName() )
+									} catch (error) {
+										cl(error)
+									}
+
+									try {
+										Person.fullname = 'John Richardson'
+										cl(`Person.toUpperCaseCurrentName() `,Person.toUpperCaseCurrentName() )
+									} catch (error) {
+										cl(error)
+									}
+
+									try {
+										cl(`Person.toUpperCaseCurrentName() `,Person.toUpperCaseCurrentNameLambda() )
+									} catch (error) {
+										cl(error)
+									}
+									
+									try {
+										cl(` Person.fullname `,Person.fullname )
+									} catch (error) {
+										cl(error)
+									}
+
+									const pers = new Person('Steve','Smith');
+									
+									cl(`pers.fullname `,pers.fullname)
+									cl(`pers.getFullName() `, pers.getFullName());
+									cl(`pers.getName() `, pers.getName());
+
+									try {
+										cl(`pers.toUpperCaseCurrentName() `, pers.toUpperCaseCurrentName());
+									} catch (error) {
+										cl(`error `,error)										
+									}
+									try {
+										cl(`pers.toUpperCaseCurrentName() `, pers.prototype.toUpperCaseCurrentName());
+									} catch (error) {
+										cl(`error `,error)										
+									}
+
+									try {
+										cl(`pers.toUpperCaseCurrentName() `, pers.__proto__.toUpperCaseCurrentName());
+									} catch (error) {
+										cl(`error `,error)										
+									}
+
+									try {
+										cl(`pers.__proto__.constructor.toUpperCaseCurrentName() `, pers.__proto__.constructor.toUpperCaseCurrentName());
+									} catch (error) {
+										cl(`error `,error)										
+									}
+
+									try {
+										cl(`pers.toUpperCaseCurrentNameLambda() `, pers.toUpperCaseCurrentNameLambda());
+									} catch (error) {
+										cl(`error `,error)										
+									}
+									try {
+										cl(`pers.toUpperCaseCurrentNameLambda() `, pers.prototype.toUpperCaseCurrentNameLambda());
+									} catch (error) {
+										cl(`error `,error)										
+									}
+                }
+							</code></pre>
+
+              <button onclick="trickyThis1()" class="m-3 btn btn-primary">
+                trickyThis1
+              </button>
+              <textarea name="" id="" cols="20" rows="5"></textarea>
+              <script>
+                var fullname = "John Doe";
+
+                function trickyThis1() {
+                  var obj = {
+                    fullname: "Colin Ihrig",
+                    prop: {
+                      fullname: "Aurelio De Rosa",
+                      getFullName: function () {
+                        return this.fullname;
+                      },
+                    },
+                    getMyName: function () {
+                      return this.fullname;
+                    },
+                    getFirstName: () => {
+                      return this.fullname?.split(" ")[0];
+                    },
+                    getLastName: (function () {
+                      return this.fullname?.split(" ")[1];
+                    })(),
+                  };
+
+                  cl("obj.prop.getFullName() ", obj.prop.getFullName());
+                  cl(" obj.getFirstName() ", obj.getFirstName());
+                  cl(" obj.getMyName() ", obj.getMyName());
+                  cl(" obj.getLastName ", obj.getLastName);
+
+                  class Person {
+                    constructor(name, surname) {
+                      this.name = name;
+                      this.surname = surname;
+                    }
+
+                    getName() {
+                      return this.name;
+                    }
+
+                    getFullName() {
+                      return this.fullname;
+                    }
+
+                    get fullname() {
+                      return `${this.name} ${this.surname}`;
+                    }
+
+                    static toUpperCaseCurrentName() {
+                      cl(` this.name `, this.name);
+                      return this.fullname.toUpperCase();
+                    }
+                    static toUpperCaseCurrentNameLambda = () => {
+                      cl(` this.name `, this.name);
+                      return this.fullname.toUpperCase();
+                    };
+                  }
+
+                  try {
+                    cl(
+                      `Person.toUpperCaseCurrentName() `,
+                      Person.toUpperCaseCurrentName()
+                    );
+                  } catch (error) {
+                    cl(error);
+                  }
+
+                  try {
+                    Person.fullname = "John Richardson";
+                    cl(
+                      `Person.toUpperCaseCurrentName() `,
+                      Person.toUpperCaseCurrentName()
+                    );
+                  } catch (error) {
+                    cl(error);
+                  }
+
+                  try {
+                    cl(
+                      `Person.toUpperCaseCurrentName() `,
+                      Person.toUpperCaseCurrentNameLambda()
+                    );
+                  } catch (error) {
+                    cl(error);
+                  }
+
+                  try {
+                    cl(` Person.fullname `, Person.fullname);
+                  } catch (error) {
+                    cl(error);
+                  }
+
+                  const pers = new Person("Steve", "Smith");
+
+                  cl(`pers.fullname `, pers.fullname);
+                  cl(`pers.getFullName() `, pers.getFullName());
+                  cl(`pers.getName() `, pers.getName());
+
+                  try {
+                    cl(
+                      `pers.toUpperCaseCurrentName() `,
+                      pers.toUpperCaseCurrentName()
+                    );
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+
+                  try {
+                    cl(
+                      `pers.prototype.toUpperCaseCurrentName() `,
+                      pers.prototype.toUpperCaseCurrentName()
+                    );
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+
+                  try {
+                    cl(
+                      ` pers.__proto__.toUpperCaseCurrentName() `,
+                      pers.__proto__.toUpperCaseCurrentName()
+                    );
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+
+                  try {
+                    cl(
+                      `pers.__proto__.constructor.toUpperCaseCurrentName() `,
+                      pers.__proto__.constructor.toUpperCaseCurrentName()
+                    );
+                    cl(
+                      `pers.__proto__.constructor.toUpperCaseCurrentNameLambda() `,
+                      pers.__proto__.constructor.toUpperCaseCurrentNameLambda()
+                    );
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+
+                  try {
+                    cl(
+                      `pers.toUpperCaseCurrentNameLambda() `,
+                      pers.toUpperCaseCurrentNameLambda()
+                    );
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+                  try {
+                    cl(
+                      `pers.toUpperCaseCurrentNameLambda() `,
+                      pers.prototype.toUpperCaseCurrentNameLambda()
+                    );
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>
+                Difference between object creation by Object constructor and
+                Object.create()
+              </h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function ObjectConstObjectCreate() {
+									function ObjectConstructorExample(){
+										this.foo = 'Object constructor foo';
+									}
+									const obj = new ObjectConstructorExample();
+
+									const obj1 = Object.create({
+										foo: 'Object create foo'
+									})
+
+									cl('obj ', obj);
+									cl('obj.foo ', obj.foo);
+									delete obj.height;
+									cl('obj.height', obj.height);
+
+									cl('obj1 ', obj1);
+									cl('obj1.foo ', obj1.foo);
+
+									const pers = Object.create({
+										name: 'Amit Pal',
+										height: '5.7'
+									});
+
+									delete pers.height;
+
+									cl('pers.height ', pers.height);
+
+									cl('pers.__proto__ ', pers.__proto__);
+
+									delete  pers.__proto__.height;
+
+									cl('pers.__proto__ ', pers.__proto__);
+
+								}
+							</code></pre>
+
+              <button
+                onclick="ObjectConstObjectCreate()"
+                class="m-3 btn btn-primary"
+              >
+                ObjectConstObjectCreate
+              </button>
+
+              <script>
+                function ObjectConstObjectCreate() {
+                  function ObjectConstructorExample() {
+                    this.foo = "Object constructor foo";
+                    this.height = "180cm";
+                  }
+                  const obj = new ObjectConstructorExample();
+
+                  const obj1 = Object.create({
+                    foo: "Object create foo",
+                  });
+
+                  cl("obj ", obj);
+                  cl("obj.foo ", obj.foo);
+                  delete obj.height;
+                  cl("obj.height", obj.height);
+
+                  cl("obj1 ", obj1);
+                  cl("obj1.foo ", obj1.foo);
+
+                  const pers = Object.create({
+                    name: "Amit Pal",
+                    height: "5.7",
+                  });
+
+                  delete pers.height;
+
+                  cl("pers.height ", pers.height);
+
+                  cl("pers.__proto__ ", pers.__proto__);
+
+                  delete pers.__proto__.height;
+
+                  cl("pers.__proto__ ", pers.__proto__);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>Executing multiple promises sequentially</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								async function exactSameAsAuthors_runPromiseSequently(){
+									const arr = [1, 2, 3, 4, 5];
+
+									function myPromise(num){
+										return new Promise((resolve) => {
+											setTimeout(()=>{
+												resolve(`sequence ${num}`);
+											},1000)
+										})
+									}
+
+									const reducedRes = await arr.reduce((acc, currentVal)=>{
+										let promiseRes =  new Promise((resolve)=>{
+											resolve(acc.then(async ()=>{
+												let myPromiseRes = await myPromise(currentVal);
+												cl('myPromiseRes ', myPromiseRes);
+												return myPromiseRes;
+											} ))
+										})
+										return promiseRes;
+									}, Promise.resolve());
+
+									cl('reducedRes ', reducedRes);
+								}
+
+                async function runPromiseSequently() {
+									const arr = [1, 2, 3, 4, 5];
+
+									function timeoutPromise(num, ms){
+										return new Promise(resolve => {
+											setTimeout(()=>{
+												resolve(`sequence ${num}`);
+											},ms)
+										})
+									}
+
+									async function getAwaitedReduce(){
+									  
+										const res = await arr.reduce( async  (prev, curr)=>{
+											const timeOutPromiseResult = await timeoutPromise(curr, 1000);
+											cl(' time Out Promise Result ', timeOutPromiseResult);
+											const prevres = await prev;
+											return prevres.concat(timeOutPromiseResult);
+										}, Promise.resolve([]));
+
+										console.log('res ', res);
+
+									}
+
+									await getAwaitedReduce();
+									
+								}
+							</code></pre>
+
+              <button
+                onclick="runPromiseSequently()"
+                class="m-3 btn btn-primary"
+              >
+                runPromiseSequently
+              </button>
+              <button
+                onclick="exactSameAsAuthors_runPromiseSequently()"
+                class="m-3 btn btn-primary"
+              >
+                exactSameAsAuthors_runPromiseSequently
+              </button>
+
+              <script>
+                async function exactSameAsAuthors_runPromiseSequently() {
+                  const arr = [1, 2, 3, 4, 5];
+
+                  function myPromise(num) {
+                    return new Promise((resolve) => {
+                      setTimeout(() => {
+                        resolve(`sequence ${num}`);
+                      }, 1000);
+                    });
+                  }
+
+                  const reducedRes = await arr.reduce((acc, currentVal) => {
+                    let promiseRes = new Promise((resolve) => {
+                      resolve(
+                        acc.then(async () => {
+                          let myPromiseRes = await myPromise(currentVal);
+                          cl("myPromiseRes ", myPromiseRes);
+                          return myPromiseRes;
+                        })
+                      );
+                    });
+                    return promiseRes;
+                  }, Promise.resolve());
+
+                  cl("reducedRes ", reducedRes);
+                }
+
+                async function runPromiseSequently() {
+                  const arr = [1, 2, 3, 4, 5];
+
+                  function timeoutPromise(num, ms) {
+                    return new Promise((resolve) => {
+                      setTimeout(() => {
+                        resolve(`sequence ${num}`);
+                      }, ms);
+                    });
+                  }
+
+                  async function getAwaitedReduce() {
+                    const res = await arr.reduce(async (prev, curr) => {
+                      const timeOutPromiseResult = await timeoutPromise(
+                        curr,
+                        1000
+                      );
+                      cl(" time Out Promise Result ", timeOutPromiseResult);
+                      const prevres = await prev;
+                      return prevres.concat(timeOutPromiseResult);
+                    }, Promise.resolve([]));
+
+                    console.log("res ", res);
+                  }
+
+                  await getAwaitedReduce();
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>Memoization function</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function MemoizationFunc() {
+
+									const memoize = (callback) => {
+										const cache = {};
+
+										return (...args) => {
+											let jsonArgs = JSON.stringify(args);
+											const  res = cache[jsonArgs] || callback(...args);
+											cache[jsonArgs] = res;
+											return res;
+										}
+									}
+
+									const add = ( a, b) => a+b;
+									const memoAdd = memoize(add);
+									
+									cl(` memoAdd(2,4) `,memoAdd(2,4))
+									cl(` memoAdd(2,4) `,memoAdd(2,4))
+								}
+							</code></pre>
+
+              <button onclick="MemoizationFunc()" class="m-3 btn btn-primary">
+                MemoizationFunc
+              </button>
+
+              <script>
+                function MemoizationFunc() {
+                  const memoize = (callback) => {
+                    const cache = {};
+
+                    return (...args) => {
+                      let jsonArgs = JSON.stringify(args);
+                      const res = cache[jsonArgs] || callback(...args);
+                      cache[jsonArgs] = res;
+                      return res;
+                    };
+                  };
+
+                  const add = (a, b) => a + b;
+                  const memoAdd = memoize(add);
+
+                  cl(` memoAdd(2,4) `, memoAdd(2, 4));
+                  cl(` memoAdd(2,4) `, memoAdd(2, 4));
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>debounce function</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								function debounceFunc() {
+                  const debounce = (callback, delay) => {
+                    let allowedToCall = true;
+
+										return function(...args){
+											if(!allowedToCall) return;
+
+											callback(...args);
+											allowedToCall = false;
+
+											setTimeout(()=>{
+												allowedToCall = true;
+											},delay)
+										}
+                  };
+
+                  function sayHi() {
+                    console.log("hi from ", Array.from(arguments));
+                  }
+
+                  let f = debounce(sayHi, 1000);
+                  f(1); // executing 
+                  f(2); // ignored
+
+                  setTimeout(() => f(3), 100); // ignored (100 ms has passed)
+                  setTimeout(() => f(4), 1100); // executing
+                  setTimeout(() => f(5), 1500); // ignored ( only 400 ms has passed from the last call )
+                }
+							</code></pre>
+
+              <button onclick="debounceFunc()" class="m-3 btn btn-primary">
+                debounceFunc
+              </button>
+
+              <script>
+                function debounceFunc() {
+                  const debounce = (callback, delay) => {
+                    let allowedToCall = true;
+
+                    return function (...args) {
+                      if (!allowedToCall) return;
+
+                      callback(...args);
+                      allowedToCall = false;
+
+                      setTimeout(() => {
+                        allowedToCall = true;
+                      }, delay);
+                    };
+                  };
+
+                  function sayHi() {
+                    console.log("hi from ", Array.from(arguments));
+                  }
+
+                  let f = debounce(sayHi, 1000);
+                  f(1); // executing
+                  f(2); // ignored
+
+                  setTimeout(() => f(3), 100); // ignored (100 ms has passed)
+                  setTimeout(() => f(4), 1100); // executing
+                  setTimeout(() => f(5), 1500); // ignored ( only 400 ms has passed from the last call )
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>title</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								code
+							</code></pre>
+
+              <button
+                onclick="fireObjectsWithInnerMethodsAndObjs()"
+                class="m-3 btn btn-primary"
+              >
+                fireObjectsWithInnerMethodsAndObjs
+              </button>
+
+              <script>
+                const ob = {
+                  myMethodLambda: () => {
+                    cl("myMethodLambda this", this);
+                    const innerMethodLambda = () => {
+                      cl("innerMethodLambda this", this);
+                    };
+                    innerMethodLambda();
+                    function innerMethod() {
+                      cl("innerMethod this", this);
+                    }
+                    innerMethod();
+
+                    const innerObj = {
+                      innerObjMethod() {
+                        cl("innerObjMethod this", this);
+                      },
+                      innerObjMethodLambda: () => {
+                        cl("innerObjMethodLambda this", this);
+                      },
+                    };
+                    innerObj.innerObjMethod();
+                    innerObj.innerObjMethodLambda();
+                  },
+                  myMethod() {
+                    cl("myMethod this", this);
+                    const innerMethodLambda = () => {
+                      cl("innerMethodLambda this", this);
+                    };
+                    innerMethodLambda();
+                    function innerMethod() {
+                      cl("innerMethod this", this);
+                    }
+                    innerMethod();
+                  },
+                };
+                function fireObjectsWithInnerMethodsAndObjs() {
+                  ob.myMethodLambda();
+                  ob.myMethod();
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>arr length</h3>
+
+              <div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Property attributes of Array.prototype.length</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>writable</td>
+                      <td>yes</td>
+                    </tr>
+                    <tr>
+                      <td>enumerable</td>
+                      <td>no</td>
+                    </tr>
+                    <tr>
+                      <td>configurable</td>
+                      <td>no</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pre><code class="language-js" style="tab-size: 1;">
+              function shortenArrLength() {
+                const arr = [1, 2];
+                cl('arr', arr);
+                arr.length = 5;
+                cl('arr', arr);
+                arr.forEach(el => cl('el ', el));
+              }
+              function shortenArrLength(){
+                const arr = [1, 2, 3, 4, 5];
+                cl('arr ', arr);
+                arr.length = 3;
+                cl('arr', arr);
+                cl('arr.length', arr.length);
+              }
+            </code></pre>
+
+              <button onclick="increaseArrLength()" class="m-3 btn btn-primary">
+                increaseArrLength
+              </button>
+              <button onclick="shortenArrLength()" class="m-3 btn btn-primary">
+                shortenArrLength
+              </button>
+
+              <script>
+                function increaseArrLength() {
+                  const arr = [1, 2];
+                  cl("arr", arr);
+                  arr.length = 5;
+                  cl("arr", arr);
+                  arr.forEach((el) => cl("el ", el));
+                }
+                function shortenArrLength() {
+                  const arr = [1, 2, 3, 4, 5];
+                  cl("arr ", arr);
+                  arr.length = 3;
+                  cl("arr", arr);
+                  cl("arr.length", arr.length);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>eagle eye test</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								code
+							</code></pre>
+
+              <button onclick="eagleEyeTest()" class="m-3 btn btn-primary">
+                eagleEyeTest
+              </button>
+
+              <script>
+                function eagleEyeTest() {
+                  const len = 4;
+                  const numsForI = [];
+                  const numsForJ = [];
+                  for (var i = 0; i < len; i++);
+                  {
+                    numsForI.push(i + 1);
+                  }
+                  cl("numsForI ", numsForI);
+                  for (j = 0; j < len; j++);
+                  {
+                    numsForJ.push(i + 1);
+                  }
+                  cl("numsForJ ", numsForJ);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>tricky questions</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								code
+							</code></pre>
+
+              <button onclick="trickyQuestions()" class="m-3 btn btn-primary">
+                trickyQuestions
+              </button>
+
+              <script>
+                function trickyQuestions() {
+                  let i;
+                  for (i = 0; i < 3; i++) {
+                    const log = () => {
+                      console.log(`setTimeout(log, 100), i`, i);
+                    };
+                    setTimeout(log, 100);
+                  }
+
+                  cl("0.1 + 0.2 ", 0.1 + 0.2);
+                  cl("0.1 + 0.2 === 0.3 ", 0.1 + 0.2 === 0.3);
+
+                  cl(`parseInt('$1.2') `,parseInt('$1.2'))
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <h3>weak map weak set</h3>
+              <p>
+                weak map only has such methods. it does not support keys(),
+                values(), entries(); weakmap keys must be object not primitives
+                values.
+              </p>
+              <div>
+                <ul>
+                  <li>weakMap.get(key)</li>
+                  <li>weakMap.set(key, val)</li>
+                  <li>weakMap.delete(key)</li>
+                  <li>weakMap.has(key)</li>
+                </ul>
+              </div>
+              <pre><code class="language-js" style="tab-size: 1;">
+                function mapSampleToShowDifferenceWithWeakMap() {
+                  let visitorsCountMap = new Map();
+
+                  cl("initial visitorsCountMap", visitorsCountMap);
+
+                  let visitor1 = { name: "Steve" };
+                  countUser(visitor1, visitorsCountMap);
+                  cl("visitorsCountMap after countUser", visitorsCountMap);
+                  cl(
+                    `visitorsCountMap.has(visitor1) `,
+                    visitorsCountMap.has(visitor1)
+                  );
+
+                  visitor1 = null;
+
+                  cl(
+                    "visitorsCountMap after visitor1 = null",
+                    visitorsCountMap
+                  );
+                  cl(
+                    `visitorsCountMap.has(visitor1) `,
+                    visitorsCountMap.has(visitor1)
+                  );
+
+                  cl("map collection should be empty but not");
+                }
+
+                function countUser(user, usersCollection) {
+                  let count = usersCollection.get(user) || 0;
+                  usersCollection.set(user, count + 1);
+                }
+
+                function weakMapSolvingProblem() {
+                  let visitorsCountWeakMap = new WeakMap();
+                  cl("weak map collection init", visitorsCountWeakMap);
+
+                  let visitor1 = { name: "Steve" };
+                  // countUser(visitor1, visitorsCountWeakMap);
+
+                  function countUserWithWeakMap(user) {
+                    let count = visitorsCountWeakMap.get(user) || 0;
+                    visitorsCountWeakMap.set(user, count + 1);
+                  }
+
+                  countUserWithWeakMap(visitor1);
+
+                  cl(
+                    `visitorsCountWeakMap.has(visitor1) `,
+                    visitorsCountWeakMap.has(visitor1)
+                  );
+
+                  cl("visitorsCountWeakMap", visitorsCountWeakMap);
+                  visitor1 = null;
+
+                  cl(
+                    `visitorsCountWeakMap.has(visitor1) `,
+                    visitorsCountWeakMap.has(visitor1)
+                  );
+
+                  cl(
+                    "visitorsCountWeakMap after visitor1",
+                    visitorsCountWeakMap
+                  );
+
+                  cl(`visitorsCountWeakMap.get({ name: "Steve" }) `,visitorsCountWeakMap.get({ name: "Steve" }))
+
+                }
+              </code></pre>
+
+              <button
+                onclick="mapSampleToShowDifferenceWithWeakMap()"
+                class="m-3 btn btn-primary"
+              >
+                mapSampleToShowDifferenceWithWeakMap
+              </button>
+
+              <button
+                onclick="weakMapSolvingProblem()"
+                class="m-3 btn btn-primary"
+              >
+                weakMapSolvingProblem
+              </button>
+
+              <script>
+                function mapSampleToShowDifferenceWithWeakMap() {
+                  let visitorsCountMap = new Map();
+
+                  cl("initial visitorsCountMap", visitorsCountMap);
+
+                  let visitor1 = { name: "Steve" };
+                  countUser(visitor1, visitorsCountMap);
+                  cl("visitorsCountMap after countUser", visitorsCountMap);
+                  cl(
+                    `visitorsCountMap.has(visitor1) `,
+                    visitorsCountMap.has(visitor1)
+                  );
+
+                  visitor1 = null;
+
+                  cl(
+                    "visitorsCountMap after visitor1 = null",
+                    visitorsCountMap
+                  );
+                  cl(
+                    `visitorsCountMap.has(visitor1) `,
+                    visitorsCountMap.has(visitor1)
+                  );
+
+                  cl("map collection should be empty but not");
+                }
+
+                function countUser(user, usersCollection) {
+                  let count = usersCollection.get(user) || 0;
+                  usersCollection.set(user, count + 1);
+                }
+
+                function weakMapSolvingProblem() {
+                  
+                  let visitorsCountWeakMap = new WeakMap();
+                  cl("weak map collection init", visitorsCountWeakMap);
+
+                  let visitor1 = { name: "Steve" };
+                  // countUser(visitor1, visitorsCountWeakMap);
+
+                  function countUserWithWeakMap(user) {
+                    let count = visitorsCountWeakMap.get(user) || 0;
+                    visitorsCountWeakMap.set(user, count + 1);
+                  }
+
+                  countUserWithWeakMap(visitor1);
+
+                  cl(
+                    `visitorsCountWeakMap.has(visitor1) `,
+                    visitorsCountWeakMap.has(visitor1)
+                  );
+
+                  cl("visitorsCountWeakMap", visitorsCountWeakMap);
+                  visitor1 = null;
+
+                  cl(
+                    `visitorsCountWeakMap.has(visitor1) `,
+                    visitorsCountWeakMap.has(visitor1)
+                  );
+
+                  cl(
+                    "visitorsCountWeakMap after visitor1",
+                    visitorsCountWeakMap
+                  );
+
+                  cl(
+                    `visitorsCountWeakMap.get({ name: "Steve" }) `,
+                    visitorsCountWeakMap.get({ name: "Steve" })
+                  );
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>WeakSet</h3>
+
+              <p>weakset only can store object not primitives</p>
+
+              <pre><code class="language-js" style="tab-size: 1;">
+                function weakSetExample() {
+                  const visitedSet = new WeakSet();
+
+                  let john = {name: 'John'};
+                  let richard = {name: 'Richard'};
+                  let robert = {name: 'Robert'};
+
+                  visitedSet.add(john);
+                  visitedSet.add(richard);
+                  visitedSet.add(robert);
+
+                  cl('visitedSet.has(john)', visitedSet.has(john))
+                  cl('visitedSet.has(robert)', visitedSet.has(robert))
+                  john = null;
+                  cl('visitedSet.has(john)', visitedSet.has(john))
+
+                }
+							</code></pre>
+
+              <button onclick="weakSetExample()" class="m-3 btn btn-primary">
+                weakSetExample
+              </button>
+
+
+              <script>
+                function weakSetExample() {
+                  const visitedSet = new WeakSet();
+
+                  let john = { name: "John" };
+                  let richard = { name: "Richard" };
+                  let robert = { name: "Robert" };
+
+                  visitedSet.add(john);
+                  visitedSet.add(richard);
+                  visitedSet.add(robert);
+
+                  cl("visitedSet.has(john)", visitedSet.has(john));
+                  cl("visitedSet.has(robert)", visitedSet.has(robert));
+                  john = null;
+                  cl("visitedSet.has(john)", visitedSet.has(john));
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <b>I consider to know the answers to the following questions</b>
+              <a href="https://www.interviewbit.com/javascript-interview-questions/#this-keyword">link</a>
+              <p>
+                Basic js interview questions:<br>
+                1. What are the different data types present in javascript?<br>
+                2. Explain Hoisting in javascript.<br>
+                3. Difference between “==” and “===” operators.<br>
+                4. Explain Implicit Type Coercion in javascript.<br>
+                5. Is javascript a statically typed or a dynamically typed language?<br>
+                6. What is NaN property in JavaScript?<br>
+                7. Explain passed by value and passed by reference.<br>
+                8. What is an Immediately Invoked Function in javascript?<br>
+                9. Explain Higher Order Functions in javascript.<br>
+                10. Explain “this” keyword.<br>
+                11. Explain call(), apply() and, bind() methods.<br>
+                12. What is Currying in javascript?<br>
+                13. Explain Scope and Scope Chain in javascript.<br>
+                14. Explain Closures in JavaScript.<br>
+                15. What are object prototypes?<br>
+                16. What are callbacks?<br>
+                17. What is memoization?<br>
+                18. What is recursion in a programming language?<br>
+                19. What is the use of a constructor function in javascript?<br>
+                20. What is DOM?<br>
+                Advanced js interview questions:<br>
+                21. What are arrow functions?<br>
+                22. Differences between declaring variables using var, let and const.<br>
+                23. What is the rest parameter and spread operator?<br>
+                24. What is the use of promises in javascript?<br>
+                25. What are classes in javascript?<br>
+                26. What are generator functions?<br>
+                27. Explain WeakSet in javascript.<br>
+                28. Explain WeakMap in javascript.<br>
+                29. What is Object Destructuring?<br>
+                30. What is a Temporal Dead Zone?<br>
+              </p>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <h3>title</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+								code
+							</code></pre>
+
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

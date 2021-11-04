@@ -1,0 +1,345 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-9 border">
+            <h1>Theory</h1>
+
+            <h3>LocalStorage, sessionStorage</h3>
+
+            <p>
+              most browsers allow to store 2 megabytes of data (or more) and
+              have settings to configure that.
+            </p>
+            <p>the store is bound to the origin (domain/protocol/port )</p>
+
+            <p>storage methods</p>
+
+            <ul>
+              <li>setItem(key, value)</li>
+              <li>getItem(key)</li>
+              <li>removeItem(key)</li>
+              <li>clear() delete everything</li>
+              <li>key(index)</li>
+              <li>length - the number of stored items</li>
+            </ul>
+            <p>when we modify data the storage event is emitted.</p>
+            <div class="border rounded p-3 m-3">
+              <pre><code class="language-js" style="tab-size: 0.1;">
+                localStorage.setItem('val', 'data');
+                let val = window.localStorage.getItem('val');
+                cl('val ', val);
+                localStorage.myCustomProp = 'my value';
+                cl(localStorage.myCustomProp);
+                delete localStorage.myCustomProp;
+                  cl(localStorage);
+							</code></pre>
+
+              <button
+                onclick="setItemToLocalStorage()"
+                class="m-3 btn btn-primary"
+              >
+                setItemToLocalStorage
+              </button>
+
+              <script>
+                function setItemToLocalStorage() {
+                  localStorage.setItem("val", "data");
+                  let val = window.localStorage.getItem("val");
+                  cl("val ", val);
+                  localStorage.myCustomProp = "my value";
+                  cl(localStorage.myCustomProp);
+                  delete localStorage.myCustomProp;
+                  cl(localStorage);
+                }
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <pre><code class="language-js" style="tab-size: 0.1;">
+                function LoopThroughLocalStorage() {
+                  for(let i = 0; i < window.localStorage.length; i++){
+                    let key = localStorage.key(i);
+                    cl(`${key}: ${localStorage.getItem(key)}`);
+                  }
+                }
+
+                function LoopThroughLocalStorageWithForIn(){
+                  for(let key in window.localStorage){
+                    cl(key);
+                    if(!window.localStorage.hasOwnProperty(key)){
+                      cl('! ', key);
+                    }
+
+                    cl(key, ': ', localStorage.getItem(key));
+                  }
+                }
+							</code></pre>
+
+              <button
+                onclick="LoopThroughLocalStorage()"
+                class="m-3 btn btn-primary"
+              >
+                LoopThroughLocalStorage
+              </button>
+              <button
+                onclick="LoopThroughLocalStorageWithForIn()"
+                class="m-3 btn btn-primary"
+              >
+                LoopThroughLocalStorageWithForIn
+              </button>
+              <button
+                onclick="LoopThroughLocalStorageObjectKeys()"
+                class="m-3 btn btn-primary"
+              >
+                LoopThroughLocalStorageObjectKeys
+              </button>
+
+              <script>
+                function LoopThroughLocalStorage() {
+                  for (let i = 0; i < window.localStorage.length; i++) {
+                    let key = localStorage.key(i);
+                    cl(`${key}: ${localStorage.getItem(key)}`);
+                  }
+                }
+
+                function LoopThroughLocalStorageWithForIn() {
+                  for (let key in window.localStorage) {
+                    cl(`key `, key);
+                    if (!window.localStorage.hasOwnProperty(key)) {
+                      continue;
+                    }
+                    cl(
+                      `key, ': ', localStorage.getItem(key) `,
+                      key,
+                      ": ",
+                      localStorage.getItem(key)
+                    );
+                  }
+                }
+
+                function LoopThroughLocalStorageObjectKeys() {
+                  let keys = Object.keys(localStorage);
+                  for (let key of keys) {
+                    cl(
+                      "${key}, ${localStorage.getItem(key)} ",
+                      `${key}, ${localStorage.getItem(key)}`
+                    );
+                  }
+                }
+              </script>
+
+              <div class="border rounded p-3 m-3">
+                <button
+                  onclick="storeJsonInStorage()"
+                  class="m-3 btn btn-primary"
+                >
+                  storeJsonInStorage
+                </button>
+
+                <script>
+                  function storeJsonInStorage() {
+                    sessionStorage.user = JSON.stringify({ user: "Elvis" });
+
+                    const user = JSON.parse(sessionStorage.user);
+
+                    cl("user ", user);
+                  }
+                </script>
+              </div>
+              <div class="border rounded p-3 m-3">
+                <h3>sessionStorage</h3>
+
+                <ul>
+                  <li>the sessionStorage exists only within the current tab</li>
+                  <li>it is shared between iframes in the same tab</li>
+                  <li>
+                    the data exists on page refresh only. not open/close tab
+                  </li>
+                </ul>
+              </div>
+
+              <div class="border rounded p-3 m-3">
+                <h3>Storage event</h3>
+
+                <p>not working as expected</p>
+                <p>
+                  works when two tabs are opened and one of them make changes to
+                  local storage
+                </p>
+                <p>
+                  <a
+                    href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API#responding_to_storage_changes_with_the_storageevent"
+                  >
+                    Storage event</a
+                  >
+                </p>
+
+                <button
+                  onclick="emittStorageEvent()"
+                  class="m-3 btn btn-primary"
+                >
+                  emittStorageEvent
+                </button>
+
+                <button
+                  onclick="clearEmittStorageEvent()"
+                  class="m-3 btn btn-primary"
+                >
+                  clearEmittStorageEvent
+                </button>
+
+                <script>
+                  // window.onstorage = (e) => {
+                  //   if(event.key != 'now') return;
+                  //   cl("event ", e);
+                  //   alert(JSON.stringify(e));
+                  // };
+
+                  window.addEventListener("storage", function (event) {
+                    // When local storage changes, dump the list to
+                    // the console.
+                    let nowItem = JSON.parse(
+                      window.localStorage.getItem("now")
+                    );
+                    console.log(nowItem);
+                    alert(nowItem);
+                  });
+
+                  function emittStorageEvent() {
+                    const { localStorage } = window;
+                    window.localStorage.setItem("now", Date.now());
+                    console.log(localStorage);
+
+                    window.dispatchEvent(new Event("storage"));
+                  }
+
+                  function clearEmittStorageEvent() {
+                    const { localStorage } = window;
+                    localStorage.removeItem("now");
+                    console.log(localStorage);
+                    window.dispatchEvent(new Event("storage"));
+                  }
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <div>
+                <textarea
+                  name="savingArea"
+                  id="savingArea"
+                  cols="30"
+                  rows="10"
+                ></textarea>
+              </div>
+              <div>
+                <button class="btn border-primary" id="clearAreaBtn">
+                  clear
+                </button>
+              </div>
+              <script>
+                const areaNameInStorage = "areaValue";
+                const area = document.getElementById("savingArea");
+
+                let areaValueFromStorage =
+                  window.localStorage.getItem(areaNameInStorage);
+                if (areaValueFromStorage) {
+                  area.value = areaValueFromStorage;
+                }
+
+                // area.addEventListener("keyup", areaDifferentChangesHandler);
+                area.oninput = areaDifferentChangesHandler;
+                function areaDifferentChangesHandler(e) {
+                  // cl(`e `,e);
+                  window.localStorage.setItem(areaNameInStorage, this.value);
+                }
+
+                document
+                  .getElementById("clearAreaBtn")
+                  .addEventListener("click", clearAreaHandler);
+
+                function clearAreaHandler(e) {
+                  area.value = "";
+                  window.localStorage.removeItem(areaNameInStorage);
+                }
+              </script>
+            </div>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+
+
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>
