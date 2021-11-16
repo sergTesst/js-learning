@@ -1,0 +1,2 @@
+run command 
+` tsc && node ./dist/narrowing.js `

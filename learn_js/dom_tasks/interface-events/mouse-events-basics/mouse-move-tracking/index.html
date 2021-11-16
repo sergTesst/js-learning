@@ -1,0 +1,114 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+      #app {
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container border rounded">
+        <div class="row justify-content-center bg-light">
+          <h4>row</h4>
+          <div id="windowSize"></div>
+          <div id="log"></div>
+					<div id="leavingWindowDetector" style="width: 100px; height:50px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const appel = document.getElementById("app");
+      const log = document.getElementById("log");
+      const windowDimentionsEl = document.getElementById("windowSize");
+      const leavingWindowDetector = document.getElementById("leavingWindowDetector");
+
+      const docel = document.documentElement;
+			const body = document.body;
+			const bodyRect = document.body.getBoundingClientRect();
+
+
+      function updateValues() {
+        windowDimentionsEl.innerText = `
+				window
+				innerHeight: ${window.innerHeight} innerWidth: ${window.innerWidth}
+				
+				document.documentElement
+				clientHeight: ${docel.clientHeight} clientWidth: ${docel.clientWidth}
+				offsetHeight: ${docel.offsetHeight} offsetWidth: ${docel.offsetWidth}
+				scrollHeight: ${docel.scrollHeight} scrollWidth: ${docel.scrollWidth}
+
+				document.body
+				clientHeight: ${body.clientHeight} clientWidth: ${body.clientWidth}
+				offsetHeight: ${body.offsetHeight} offsetWidth: ${body.offsetWidth}
+				scrollHeight: ${body.scrollHeight} scrollWidth: ${body.scrollWidth}
+
+				document.body.getBoundingClientRect()
+				bodyRect top : ${bodyRect.top} bodyRect bottom: ${bodyRect.bottom} 				
+				bodyRect left : ${bodyRect.left} bodyRect right : ${bodyRect.right}				
+				bodyRect height: ${bodyRect.height} bodyRect width: ${bodyRect.width}		
+				bodyRect x: ${bodyRect.x} bodyRect y: ${bodyRect.y}
+
+			`;
+      }
+
+      appel.addEventListener("mousemove", function (e) {
+				updateValues();
+        log.innerText = `e.clientX : ${e.clientX}, e.clientY : ${e.clientY}`;
+
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

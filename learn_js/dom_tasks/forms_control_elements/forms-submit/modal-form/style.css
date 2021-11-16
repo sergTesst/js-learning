@@ -9,14 +9,15 @@
   overflow-x: hidden;
   overflow-y: hidden;
   transition: 0.2s;
-	color:#FFF;
+  color: #fff;
 }
 
-.warning{
-	border-color: red !important;
+.warning {
+  border-color: red !important;
 }
-.focusedMessage{
-	outline: none !important;
-	border-color: none !important;
-	box-shadow: none !important;
+
+.focusedMessage {
+  outline: none !important;
+  border-color: none !important;
+  box-shadow: none !important;
 }

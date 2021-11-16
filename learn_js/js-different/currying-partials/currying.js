@@ -50,7 +50,10 @@ function curryingSamples() {
   function customCurry() {
     function curry(func) {
       return function curried(...args) {
-        if (args.length >= func.length) {
+        let argsOfCalledFuncGreaterOrEqualThanRootFunc = Boolean(
+          args.length >= func.length
+        );
+        if (argsOfCalledFuncGreaterOrEqualThanRootFunc) {
           return func.apply(this, args);
         } else {
           return function pass(...args2) {
@@ -120,16 +123,14 @@ function curryingSamples() {
     console.log(String(curriedSum(1, 2, 3))); /* 6 */
     console.log(Number(curriedSum(1)(2, 3)(1, 2, 3, 4)(4))); /* 20 */
     console.log(Number(curriedSum(1)(2)(3)(4))); /* 10 */
-		
   }
 
   function runFuncsAbove() {
-
-		multipleArgsCurry();
+    // multipleArgsCurry();
 
     // objectToPrimitive();
 
-    // customCurry();
+    customCurry();
 
     //lodashCurring();
 

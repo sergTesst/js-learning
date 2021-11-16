@@ -1,0 +1,351 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .clearConsole {
+        position: fixed;
+        width: 300px;
+        height: 100px;
+        background-color: rgba(255, 140, 0, 0.659);
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const cl = console.log;
+      const ROOT_URL = `https://javascript.info`;
+    </script>
+
+    <div class="border rounded p-3 m-3 clearConsole">
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">
+        clearConsole
+      </button>
+      <script>
+        "use strict";
+
+        const clearConsole = () => console.clear();
+      </script>
+    </div>
+
+    <div id="app">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-9 border">
+            <h1>Theory</h1>
+
+            <div class="border rounded p-3 m-3">
+              <h3>pinter events</h3>
+
+							<p>
+								tapping a touchscreen generates mousedown event
+							</p>
+
+							<p>
+								touch events: touchstart, touchend, touchmove
+							</p>
+							<p>
+								Pointer Events provides a single set of events for all kind of pointing devices
+							</p>
+
+							<h3>
+								pointer event types
+							</h3>
+
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Pointer event</th>
+										<th>Similar mouse event</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>pointerdown</td>
+										<td>mousedown</td>
+									</tr>
+									<tr>
+										<td>pointerup</td>
+										<td>mouseup</td>
+									</tr>
+									<tr>
+										<td>pointermove</td>
+										<td>mousemove</td>
+									</tr>
+									<tr>
+										<td>pointerover</td>
+										<td>mouseover</td>
+									</tr>
+									<tr>
+										<td>pointerout</td>
+										<td>mouseout</td>
+									</tr>
+									<tr>
+										<td>pointerenter</td>
+										<td>mouseenter</td>
+									</tr>
+									<tr>
+										<td>pointerleave</td>
+										<td>mouseleave</td>
+									</tr>
+
+									<tr>
+										<td>pointercancel</td>
+										<td>-</td>
+									</tr>
+									<tr>
+										<td>pointercapture</td>
+										<td>-</td>
+									</tr>
+									<tr>
+										<td>lostpointercapture</td>
+										<td>-</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="m-5">
+								<b>
+									How do you display HTML tags in HTML?
+	You can show HTML tags as plain text in HTML on a website or webpage by replacing < with &lt; or &60; and > with &gt; or &62; on each HTML tag that you want to be visible. Ordinarily, HTML tags are not visible to the reader on the browser.
+								</b>
+
+							</div>
+
+							<p>
+								<b>
+									we can change mouse &lt;event&gt; with pointer<event> in our code
+								</b>
+							</p>
+
+							<h3>
+								props of pointer events
+							</h3>
+
+							<ul>
+								<li>pointerId</li>
+								<li>
+									pointerType
+								</li>
+								<li>
+									isPrimary - is true for the primary pointer (the first finger in multi-touch)
+								</li>
+
+							</ul>
+
+							<p>
+								measure contact area and pressure
+							</p>
+
+							<ul>
+								<li>
+									width
+								</li>
+								<li>
+									height
+								</li>
+								<li>
+									pressure
+								</li>
+								<li>
+									tangentialPressure
+								</li>
+								<li>
+									tiltX, tiltY, twist
+								</li>
+							</ul>
+
+							<h3>
+								multi touch example
+							</h3>
+
+              <pre><code class="language-js" style="tab-size: 0.1;">
+								sample code block
+							</code></pre>
+									</div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="enableMultiTouch()" class="m-3 btn btn-primary">
+                enableMultiTouch
+              </button>
+							<style>
+								#area1{
+									overflow-y: scroll;
+									user-select: none;
+									cursor: pointer;
+									background-color: bisque;
+									width: 300px;
+									height: 200px;
+								}
+							</style>
+							
+							<div id="area1">
+
+							</div>
+
+              <script>
+                function enableMultiTouch() {
+									document.onpointerdown = document.onpointerup = log;
+									
+									const area = document.getElementById('area1');
+
+									function log(e) {
+										area.insertAdjacentHTML('beforeend',`
+											<div>
+												type: ${e.type},
+												isPrimary: ${e.isPrimary},
+												pointerId: ${e.pointerId}
+											</div>
+										`);
+										area.scrollTop = 1e9;
+									}
+								}
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+							<h3>
+								draggable slider with pointer events
+							</h3>
+							<style>
+								.slider-draggable{
+									border-radius: 5px;
+									background: #E0E0E0;
+									background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+									width: 310px;
+									height: 15px;
+									margin: 5px;
+									position: relative;
+									margin-top: 33px;
+									margin-left:45px;
+									cursor: pointer;
+								}
+
+								.thumb-custom {
+									width: 10px;
+									height: 25px;
+									border-radius: 3px;
+									position:absolute;
+									left: 10px;
+									top: -5px;
+									background: blue;
+									cursor: pointer;
+								}
+							</style>
+
+							<div class="slider-draggable">
+									
+								<div class="thumb-custom"></div>
+
+							</div>
+
+              <script>
+
+								document.addEventListener('blur', blurHandler);
+								function blurHandler(e){
+									cl('document blur');
+								}
+
+                const thumb = document.querySelector('.thumb-custom');
+                const slider = document.querySelector('.slider-draggable');
+
+								let sliderRectLeft = slider.getBoundingClientRect().left;
+								let shiftX;
+
+								thumb.addEventListener('pointerdown', pointerDownHandler);
+								thumb.addEventListener('pointerup', onPointerUp);
+								thumb.ondragstart = () => false;
+
+								function pointerDownHandler(e){
+									event.preventDefault();// prevent selection start of the elem
+
+									let thumbRectLeft = thumb.getBoundingClientRect().left;
+
+									shiftX = e.clientX - thumbRectLeft;
+									thumb.setPointerCapture(e.pointerId);
+									console.clear();
+									cl('thumbRectLeft ', thumbRectLeft);
+									cl('e.clientX ', e.clientX);
+									cl('shiftX ', shiftX);
+
+									thumb.addEventListener('pointermove', pointerMoveHandler);
+								}
+
+								function pointerMoveHandler(e){
+
+									let newLeft = e.clientX - shiftX - sliderRectLeft;
+
+									if(newLeft<0) newLeft = 0;
+
+									let rightMax = slider.offsetWidth - thumb.offsetWidth;
+									if(newLeft > rightMax) newLeft = rightMax;
+
+									thumb.style.left = `${newLeft}px`;
+								}
+
+								function onPointerUp() {
+									thumb.removeEventListener("pointermove", pointerMoveHandler);
+								}
+
+								
+              </script>
+            </div>
+
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 border">
+            <h1>Tasks</h1>
+            <div class="border rounded p-3 m-3">
+              <button onclick="funcName()" class="m-3 btn btn-primary">
+                funcName
+              </button>
+
+              <script>
+                function funcName() {}
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

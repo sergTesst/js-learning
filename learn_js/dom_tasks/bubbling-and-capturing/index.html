@@ -1020,18 +1020,20 @@
                       toolipelem.classList.add("custom-tooltip");
                       document.body.append(toolipelem);
 
-                      let left = rect.left +  (button.offsetWidth - toolipelem.offsetWidth)/2;
-                      if(left<0){
+                      let left =
+                        rect.left +
+                        (button.offsetWidth - toolipelem.offsetWidth) / 2;
+                      if (left < 0) {
                         left = 0;
                       }
                       let top = rect.top - 5 - toolipelem.offsetHeight;
-                      if(top<0){
+                      if (top < 0) {
                         top = rect.top + 5 + button.offsetHeight;
                       }
                       toolipelem.style.cssText = `
                         top: ${top};
-                        left: ${left };
-                      `;                      
+                        left: ${left};
+                      `;
                     }
                   });
 

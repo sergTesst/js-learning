@@ -1,3 +1,5 @@
+const cl = console.log;
+
 function NFERuns() {
   function functionLength() {
     const c1 = (a) => {};
@@ -75,7 +77,6 @@ function NFERuns() {
 
   function makeFuncSum() {
     let sum = function thisSum(val) {
-
       function innerSum(val1) {
         return thisSum(val1 + val);
       }
@@ -84,10 +85,13 @@ function NFERuns() {
     };
 
     console.log(
-			`sum(1)(2).result`, sum(1)(2).result, 
-			`sum(1)(2).result === 3 `, sum(1)(2).result === 3); // 1 + 2
-    
-		console.log(
+      `sum(1)(2).result`,
+      sum(1)(2).result,
+      `sum(1)(2).result === 3 `,
+      sum(1)(2).result === 3
+    ); // 1 + 2
+
+    console.log(
       `sum(1)(2)(3)`,
       sum(1)(2)(3),
       `sum(1)(2)(3) == 6 `,
@@ -112,23 +116,21 @@ function NFERuns() {
       sum(0)(1)(2)(3)(4)(5) == 15
     );
   }
-	function makeFuncSumSolution(){
-		function sum(a){
-			let currentSum = a;
-			function innerSum(b){
-				currentSum+=b;
-				return innerSum;
-			}
-			innerSum.toString = function(){
-				return currentSum;
-			}
-			return innerSum;
-		}
+  function makeFuncSumSolution() {
+    function sum(a) {
+      let currentSum = a;
+      function innerSum(b) {
+        currentSum += b;
+        return innerSum;
+      }
+      innerSum.toString = function () {
+        return currentSum;
+      };
+      return innerSum;
+    }
+    console.log(`sum(1)(2)`, sum(1)(2), `sum(1)(2) === 3 `, sum(1)(2) === 3); // 1 + 2
+
     console.log(
-			`sum(1)(2)`, sum(1)(2), 
-			`sum(1)(2) === 3 `, sum(1)(2) === 3); // 1 + 2
-    
-		console.log(
       `sum(1)(2)(3)`,
       sum(1)(2)(3),
       `sum(1)(2)(3) == 6 `,
@@ -152,10 +154,9 @@ function NFERuns() {
       `sum(0)(1)(2)(3)(4)(5) == 15`,
       sum(0)(1)(2)(3)(4)(5) == 15
     );
+  }
 
-	}
-
-	makeFuncSumSolution();
+  makeFuncSumSolution();
 
   //makeFuncSum();
   // makeCounter();
