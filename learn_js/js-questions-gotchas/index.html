@@ -19,10 +19,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.min.css" rel="stylesheet" />
 
     <style>
       .clearConsole {
@@ -42,9 +39,7 @@
     </script>
 
     <div class="border rounded p-3 m-3 clearConsole">
-      <button onclick="clearConsole()" class="m-3 btn btn-primary">
-        clearConsole
-      </button>
+      <button onclick="clearConsole()" class="m-3 btn btn-primary">clearConsole</button>
       <script>
         "use strict";
 
@@ -55,7 +50,7 @@
     <div id="app">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-sm-9 border">
+          <div class="col-sm-12 border">
             <div class="border rounded p-3 m-3">
               <h3>equations</h3>
               <pre><code class="language-js" style="tab-size: 1;">
@@ -66,12 +61,7 @@
 								}
 							</code></pre>
 
-              <button
-                onclick="equationPrimitives()"
-                class="m-3 btn btn-primary"
-              >
-                equationPrimitives
-              </button>
+              <button onclick="equationPrimitives()" class="m-3 btn btn-primary">equationPrimitives</button>
 
               <script>
                 function equationPrimitives() {
@@ -100,9 +90,7 @@
 								}
 							</code></pre>
 
-              <button onclick="varAndLet()" class="m-3 btn btn-primary">
-                varAndLet
-              </button>
+              <button onclick="varAndLet()" class="m-3 btn btn-primary">varAndLet</button>
 
               <script>
                 function varAndLet() {
@@ -132,9 +120,7 @@
 								}
 							</code></pre>
 
-              <button onclick="addNumsAndStrings()" class="m-3 btn btn-primary">
-                addNumsAndStrings
-              </button>
+              <button onclick="addNumsAndStrings()" class="m-3 btn btn-primary">addNumsAndStrings</button>
 
               <script>
                 function addNumsAndStrings() {
@@ -173,9 +159,7 @@
 								}
 							</code></pre>
 
-              <button onclick="NaNSamples()" class="m-3 btn btn-primary">
-                NaNSamples
-              </button>
+              <button onclick="NaNSamples()" class="m-3 btn btn-primary">NaNSamples</button>
 
               <script>
                 function NaNSamples() {
@@ -225,9 +209,7 @@
 								if({}) cl(true)
 							</code></pre>
 
-              <button onclick="truthyFalsy()" class="m-3 btn btn-primary">
-                truthyFalsy
-              </button>
+              <button onclick="truthyFalsy()" class="m-3 btn btn-primary">truthyFalsy</button>
 
               <script>
                 function truthyFalsy() {
@@ -263,10 +245,7 @@
 								}
 							</code></pre>
 
-              <button
-                onclick="incrementReturnsUndefined()"
-                class="m-3 btn btn-primary"
-              >
+              <button onclick="incrementReturnsUndefined()" class="m-3 btn btn-primary">
                 incrementReturnsUndefined
               </button>
 
@@ -323,21 +302,13 @@
 							  </code>
               </pre>
 
-              <button
-                onclick="createImplicitlyGlobalVar()"
-                class="m-3 btn btn-primary"
-              >
+              <button onclick="createImplicitlyGlobalVar()" class="m-3 btn btn-primary">
                 createImplicitlyGlobalVar
               </button>
-              <button
-                onclick="createImplicitlyGlobalVar2()"
-                class="m-3 btn btn-primary"
-              >
+              <button onclick="createImplicitlyGlobalVar2()" class="m-3 btn btn-primary">
                 createImplicitlyGlobalVar2
               </button>
-              <button onclick="checkGlobalVarI()" class="m-3 btn btn-primary">
-                checkGlobalVarI
-              </button>
+              <button onclick="checkGlobalVarI()" class="m-3 btn btn-primary">checkGlobalVarI</button>
 
               <script>
                 function createImplicitlyGlobalVar() {
@@ -391,9 +362,7 @@
 								}
 							</code></pre>
 
-              <button onclick="hoistingFooBar()" class="m-3 btn btn-primary">
-                hoistingFooBar
-              </button>
+              <button onclick="hoistingFooBar()" class="m-3 btn btn-primary">hoistingFooBar</button>
 
               <script>
                 function hoistingFooBar() {
@@ -408,33 +377,30 @@
             <div class="border rounded p-3 m-3">
               <h3>hoisting greeting</h3>
               <pre><code class="language-js" style="tab-size: 1;">
-								function hoistingGreetings() {
-									greetings();
-									var greetings = function () {
-										cl('first greetings');
-									};
-									greetings();
-									function greetings() {
-										cl('first greetings');
-									};
-									greetings();
-
-								}
+                function hoistingGreetings() {
+                  greetings();
+                  var greetings = function () {
+                    cl("exp first greetings");
+                  };
+                  greetings();
+                  function greetings() {
+                    cl("decl first greetings");
+                  }
+                  greetings();
+                }
 							</code></pre>
 
-              <button onclick="hoistingGreetings()" class="m-3 btn btn-primary">
-                hoistingGreetings
-              </button>
+              <button onclick="hoistingGreetings()" class="m-3 btn btn-primary">hoistingGreetings</button>
 
               <script>
                 function hoistingGreetings() {
                   greetings();
                   var greetings = function () {
-                    cl("first greetings");
+                    cl("exp first greetings");
                   };
                   greetings();
                   function greetings() {
-                    cl("first greetings");
+                    cl("decl first greetings");
                   }
                   greetings();
                 }
@@ -457,9 +423,7 @@
 								}
 							</code></pre>
 
-              <button onclick="hoistingVar1()" class="m-3 btn btn-primary">
-                hoistingVar1
-              </button>
+              <button onclick="hoistingVar1()" class="m-3 btn btn-primary">hoistingVar1</button>
 
               <script>
                 function hoistingVar1() {
@@ -523,9 +487,7 @@
 								}
 							</code></pre>
 
-              <button onclick="hoistingVar2()" class="m-3 btn btn-primary">
-                hoistingVar2
-              </button>
+              <button onclick="hoistingVar2()" class="m-3 btn btn-primary">hoistingVar2</button>
 
               <textarea name="" id="" cols="10" rows="5"></textarea>
 
@@ -595,9 +557,7 @@
 								}
 							</code></pre>
 
-              <button onclick="closureVarScope()" class="m-3 btn btn-primary">
-                closureVarScope
-              </button>
+              <button onclick="closureVarScope()" class="m-3 btn btn-primary">closureVarScope</button>
 
               <script>
                 function closureVarScope() {
@@ -634,9 +594,7 @@
 								}
 							</code></pre>
 
-              <button onclick="closureCounter1()" class="m-3 btn btn-primary">
-                closureCounter1
-              </button>
+              <button onclick="closureCounter1()" class="m-3 btn btn-primary">closureCounter1</button>
 
               <script>
                 function closureCounter1() {
@@ -676,9 +634,7 @@
 								}
 							</code></pre>
 
-              <button onclick="closureArray1()" class="m-3 btn btn-primary">
-                closureArray1
-              </button>
+              <button onclick="closureArray1()" class="m-3 btn btn-primary">closureArray1</button>
 
               <script>
                 function closureArray1() {
@@ -726,12 +682,7 @@
 								}
 							</code></pre>
 
-              <button
-                onclick="closureArray1WiLet()"
-                class="m-3 btn btn-primary"
-              >
-                closureArray1WiLet
-              </button>
+              <button onclick="closureArray1WiLet()" class="m-3 btn btn-primary">closureArray1WiLet</button>
 
               <script>
                 function closureArray1WiLet() {
@@ -778,12 +729,7 @@
 								}
 							</code></pre>
 
-              <button
-                onclick="ClosureArray1Corrected()"
-                class="m-3 btn btn-primary"
-              >
-                ClosureArray1Corrected
-              </button>
+              <button onclick="ClosureArray1Corrected()" class="m-3 btn btn-primary">ClosureArray1Corrected</button>
 
               <script>
                 function ClosureArray1Corrected() {
@@ -817,6 +763,9 @@
                       getFullName: function () {
                         return this.fullname;
                       },
+                      getFullNameLambda: () => {
+                        return this.fullname;
+                      },
                     },
                     getMyName: function () {
                       return this.fullname;
@@ -830,6 +779,7 @@
                   };
 
                   cl("obj.prop.getFullName() ", obj.prop.getFullName());
+                  cl("obj.prop.getFullNameLambda() ", obj.prop.getFullNameLambda());
                   cl(" obj.getFirstName() ", obj.getFirstName());
                   cl(" obj.getMyName() ", obj.getMyName());
                   cl(" obj.getLastName ", obj.getLastName);
@@ -896,45 +846,59 @@
 									cl(`pers.getFullName() `, pers.getFullName());
 									cl(`pers.getName() `, pers.getName());
 
-									try {
-										cl(`pers.toUpperCaseCurrentName() `, pers.toUpperCaseCurrentName());
-									} catch (error) {
-										cl(`error `,error)										
-									}
-									try {
-										cl(`pers.toUpperCaseCurrentName() `, pers.prototype.toUpperCaseCurrentName());
-									} catch (error) {
-										cl(`error `,error)										
-									}
+                  try {
+                    cl(`pers.toUpperCaseCurrentName() `, pers.toUpperCaseCurrentName());
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
 
-									try {
-										cl(`pers.toUpperCaseCurrentName() `, pers.__proto__.toUpperCaseCurrentName());
-									} catch (error) {
-										cl(`error `,error)										
-									}
+                  try {
+                    cl(`pers.prototype.toUpperCaseCurrentName() `, pers.prototype.toUpperCaseCurrentName());
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
 
-									try {
-										cl(`pers.__proto__.constructor.toUpperCaseCurrentName() `, pers.__proto__.constructor.toUpperCaseCurrentName());
-									} catch (error) {
-										cl(`error `,error)										
-									}
+                  try {
+                    cl(` pers.__proto__.toUpperCaseCurrentName() `, pers.__proto__.toUpperCaseCurrentName());
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
 
-									try {
-										cl(`pers.toUpperCaseCurrentNameLambda() `, pers.toUpperCaseCurrentNameLambda());
-									} catch (error) {
-										cl(`error `,error)										
-									}
-									try {
-										cl(`pers.toUpperCaseCurrentNameLambda() `, pers.prototype.toUpperCaseCurrentNameLambda());
-									} catch (error) {
-										cl(`error `,error)										
-									}
+                  try {
+                    cl(
+                      `pers.__proto__.constructor.toUpperCaseCurrentName() `,
+                      pers.__proto__.constructor.toUpperCaseCurrentName()
+                    );
+                    cl(
+                      `pers.__proto__.constructor.toUpperCaseCurrentNameLambda() `,
+                      pers.__proto__.constructor.toUpperCaseCurrentNameLambda()
+                    );
+                    cl(
+                      `pers.prototype.constructor.toUpperCaseCurrentName() `,
+                      pers.prototype.constructor.toUpperCaseCurrentName()
+                    );
+                    cl(
+                      `pers.prototype.constructor.toUpperCaseCurrentNameLambda() `,
+                      pers.prototype.constructor.toUpperCaseCurrentNameLambda()
+                    );
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+
+                  try {
+                    cl(`pers.toUpperCaseCurrentNameLambda() `, pers.toUpperCaseCurrentNameLambda());
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
+                  try {
+                    cl(`pers.toUpperCaseCurrentNameLambda() `, pers.prototype.toUpperCaseCurrentNameLambda());
+                  } catch (error) {
+                    cl(`error `, error);
+                  }
                 }
 							</code></pre>
 
-              <button onclick="trickyThis1()" class="m-3 btn btn-primary">
-                trickyThis1
-              </button>
+              <button onclick="trickyThis1()" class="m-3 btn btn-primary">trickyThis1</button>
               <textarea name="" id="" cols="20" rows="5"></textarea>
               <script>
                 var fullname = "John Doe";
@@ -945,6 +909,9 @@
                     prop: {
                       fullname: "Aurelio De Rosa",
                       getFullName: function () {
+                        return this.fullname;
+                      },
+                      getFullNameLambda: () => {
                         return this.fullname;
                       },
                     },
@@ -960,6 +927,7 @@
                   };
 
                   cl("obj.prop.getFullName() ", obj.prop.getFullName());
+                  cl("obj.prop.getFullNameLambda() ", obj.prop.getFullNameLambda());
                   cl(" obj.getFirstName() ", obj.getFirstName());
                   cl(" obj.getMyName() ", obj.getMyName());
                   cl(" obj.getLastName ", obj.getLastName);
@@ -993,29 +961,20 @@
                   }
 
                   try {
-                    cl(
-                      `Person.toUpperCaseCurrentName() `,
-                      Person.toUpperCaseCurrentName()
-                    );
+                    cl(`Person.toUpperCaseCurrentName() `, Person.toUpperCaseCurrentName());
                   } catch (error) {
                     cl(error);
                   }
 
                   try {
                     Person.fullname = "John Richardson";
-                    cl(
-                      `Person.toUpperCaseCurrentName() `,
-                      Person.toUpperCaseCurrentName()
-                    );
+                    cl(`Person.toUpperCaseCurrentName() `, Person.toUpperCaseCurrentName());
                   } catch (error) {
                     cl(error);
                   }
 
                   try {
-                    cl(
-                      `Person.toUpperCaseCurrentName() `,
-                      Person.toUpperCaseCurrentNameLambda()
-                    );
+                    cl(`Person.toUpperCaseCurrentName() `, Person.toUpperCaseCurrentNameLambda());
                   } catch (error) {
                     cl(error);
                   }
@@ -1033,28 +992,19 @@
                   cl(`pers.getName() `, pers.getName());
 
                   try {
-                    cl(
-                      `pers.toUpperCaseCurrentName() `,
-                      pers.toUpperCaseCurrentName()
-                    );
+                    cl(`pers.toUpperCaseCurrentName() `, pers.toUpperCaseCurrentName());
                   } catch (error) {
                     cl(`error `, error);
                   }
 
                   try {
-                    cl(
-                      `pers.prototype.toUpperCaseCurrentName() `,
-                      pers.prototype.toUpperCaseCurrentName()
-                    );
+                    cl(`pers.prototype.toUpperCaseCurrentName() `, pers.prototype.toUpperCaseCurrentName());
                   } catch (error) {
                     cl(`error `, error);
                   }
 
                   try {
-                    cl(
-                      ` pers.__proto__.toUpperCaseCurrentName() `,
-                      pers.__proto__.toUpperCaseCurrentName()
-                    );
+                    cl(` pers.__proto__.toUpperCaseCurrentName() `, pers.__proto__.toUpperCaseCurrentName());
                   } catch (error) {
                     cl(`error `, error);
                   }
@@ -1068,23 +1018,25 @@
                       `pers.__proto__.constructor.toUpperCaseCurrentNameLambda() `,
                       pers.__proto__.constructor.toUpperCaseCurrentNameLambda()
                     );
+                    cl(
+                      `pers.prototype.constructor.toUpperCaseCurrentName() `,
+                      pers.prototype.constructor.toUpperCaseCurrentName()
+                    );
+                    cl(
+                      `pers.prototype.constructor.toUpperCaseCurrentNameLambda() `,
+                      pers.prototype.constructor.toUpperCaseCurrentNameLambda()
+                    );
                   } catch (error) {
                     cl(`error `, error);
                   }
 
                   try {
-                    cl(
-                      `pers.toUpperCaseCurrentNameLambda() `,
-                      pers.toUpperCaseCurrentNameLambda()
-                    );
+                    cl(`pers.toUpperCaseCurrentNameLambda() `, pers.toUpperCaseCurrentNameLambda());
                   } catch (error) {
                     cl(`error `, error);
                   }
                   try {
-                    cl(
-                      `pers.toUpperCaseCurrentNameLambda() `,
-                      pers.prototype.toUpperCaseCurrentNameLambda()
-                    );
+                    cl(`pers.toUpperCaseCurrentNameLambda() `, pers.prototype.toUpperCaseCurrentNameLambda());
                   } catch (error) {
                     cl(`error `, error);
                   }
@@ -1092,10 +1044,7 @@
               </script>
             </div>
             <div class="border rounded p-3 m-3">
-              <h3>
-                Difference between object creation by Object constructor and
-                Object.create()
-              </h3>
+              <h3>Difference between object creation by Object constructor and Object.create()</h3>
               <pre><code class="language-js" style="tab-size: 1;">
 								function ObjectConstObjectCreate() {
 									function ObjectConstructorExample(){
@@ -1133,12 +1082,7 @@
 								}
 							</code></pre>
 
-              <button
-                onclick="ObjectConstObjectCreate()"
-                class="m-3 btn btn-primary"
-              >
-                ObjectConstObjectCreate
-              </button>
+              <button onclick="ObjectConstObjectCreate()" class="m-3 btn btn-primary">ObjectConstObjectCreate</button>
 
               <script>
                 function ObjectConstObjectCreate() {
@@ -1235,16 +1179,8 @@
 								}
 							</code></pre>
 
-              <button
-                onclick="runPromiseSequently()"
-                class="m-3 btn btn-primary"
-              >
-                runPromiseSequently
-              </button>
-              <button
-                onclick="exactSameAsAuthors_runPromiseSequently()"
-                class="m-3 btn btn-primary"
-              >
+              <button onclick="runPromiseSequently()" class="m-3 btn btn-primary">runPromiseSequently</button>
+              <button onclick="exactSameAsAuthors_runPromiseSequently()" class="m-3 btn btn-primary">
                 exactSameAsAuthors_runPromiseSequently
               </button>
 
@@ -1289,10 +1225,7 @@
 
                   async function getAwaitedReduce() {
                     const res = await arr.reduce(async (prev, curr) => {
-                      const timeOutPromiseResult = await timeoutPromise(
-                        curr,
-                        1000
-                      );
+                      const timeOutPromiseResult = await timeoutPromise(curr, 1000);
                       cl(" time Out Promise Result ", timeOutPromiseResult);
                       const prevres = await prev;
                       return prevres.concat(timeOutPromiseResult);
@@ -1330,9 +1263,7 @@
 								}
 							</code></pre>
 
-              <button onclick="MemoizationFunc()" class="m-3 btn btn-primary">
-                MemoizationFunc
-              </button>
+              <button onclick="MemoizationFunc()" class="m-3 btn btn-primary">MemoizationFunc</button>
 
               <script>
                 function MemoizationFunc() {
@@ -1388,9 +1319,7 @@
                 }
 							</code></pre>
 
-              <button onclick="debounceFunc()" class="m-3 btn btn-primary">
-                debounceFunc
-              </button>
+              <button onclick="debounceFunc()" class="m-3 btn btn-primary">debounceFunc</button>
 
               <script>
                 function debounceFunc() {
@@ -1429,10 +1358,7 @@
 								code
 							</code></pre>
 
-              <button
-                onclick="fireObjectsWithInnerMethodsAndObjs()"
-                class="m-3 btn btn-primary"
-              >
+              <button onclick="fireObjectsWithInnerMethodsAndObjs()" class="m-3 btn btn-primary">
                 fireObjectsWithInnerMethodsAndObjs
               </button>
 
@@ -1522,12 +1448,8 @@
               }
             </code></pre>
 
-              <button onclick="increaseArrLength()" class="m-3 btn btn-primary">
-                increaseArrLength
-              </button>
-              <button onclick="shortenArrLength()" class="m-3 btn btn-primary">
-                shortenArrLength
-              </button>
+              <button onclick="increaseArrLength()" class="m-3 btn btn-primary">increaseArrLength</button>
+              <button onclick="shortenArrLength()" class="m-3 btn btn-primary">shortenArrLength</button>
 
               <script>
                 function increaseArrLength() {
@@ -1553,9 +1475,7 @@
 								code
 							</code></pre>
 
-              <button onclick="eagleEyeTest()" class="m-3 btn btn-primary">
-                eagleEyeTest
-              </button>
+              <button onclick="eagleEyeTest()" class="m-3 btn btn-primary">eagleEyeTest</button>
 
               <script>
                 function eagleEyeTest() {
@@ -1582,9 +1502,7 @@
 								code
 							</code></pre>
 
-              <button onclick="trickyQuestions()" class="m-3 btn btn-primary">
-                trickyQuestions
-              </button>
+              <button onclick="trickyQuestions()" class="m-3 btn btn-primary">trickyQuestions</button>
 
               <script>
                 function trickyQuestions() {
@@ -1599,16 +1517,15 @@
                   cl("0.1 + 0.2 ", 0.1 + 0.2);
                   cl("0.1 + 0.2 === 0.3 ", 0.1 + 0.2 === 0.3);
 
-                  cl(`parseInt('$1.2') `,parseInt('$1.2'))
+                  cl(`parseInt('$1.2') `, parseInt("$1.2"));
                 }
               </script>
             </div>
             <div class="border rounded p-3 m-3">
               <h3>weak map weak set</h3>
               <p>
-                weak map only has such methods. it does not support keys(),
-                values(), entries(); weakmap keys must be object not primitives
-                values.
+                weak map only has such methods. it does not support keys(), values(), entries(); weakmap keys must be
+                object not primitives values.
               </p>
               <div>
                 <ul>
@@ -1688,19 +1605,11 @@
                 }
               </code></pre>
 
-              <button
-                onclick="mapSampleToShowDifferenceWithWeakMap()"
-                class="m-3 btn btn-primary"
-              >
+              <button onclick="mapSampleToShowDifferenceWithWeakMap()" class="m-3 btn btn-primary">
                 mapSampleToShowDifferenceWithWeakMap
               </button>
 
-              <button
-                onclick="weakMapSolvingProblem()"
-                class="m-3 btn btn-primary"
-              >
-                weakMapSolvingProblem
-              </button>
+              <button onclick="weakMapSolvingProblem()" class="m-3 btn btn-primary">weakMapSolvingProblem</button>
 
               <script>
                 function mapSampleToShowDifferenceWithWeakMap() {
@@ -1711,21 +1620,12 @@
                   let visitor1 = { name: "Steve" };
                   countUser(visitor1, visitorsCountMap);
                   cl("visitorsCountMap after countUser", visitorsCountMap);
-                  cl(
-                    `visitorsCountMap.has(visitor1) `,
-                    visitorsCountMap.has(visitor1)
-                  );
+                  cl(`visitorsCountMap.has(visitor1) `, visitorsCountMap.has(visitor1));
 
                   visitor1 = null;
 
-                  cl(
-                    "visitorsCountMap after visitor1 = null",
-                    visitorsCountMap
-                  );
-                  cl(
-                    `visitorsCountMap.has(visitor1) `,
-                    visitorsCountMap.has(visitor1)
-                  );
+                  cl("visitorsCountMap after visitor1 = null", visitorsCountMap);
+                  cl(`visitorsCountMap.has(visitor1) `, visitorsCountMap.has(visitor1));
 
                   cl("map collection should be empty but not");
                 }
@@ -1736,7 +1636,6 @@
                 }
 
                 function weakMapSolvingProblem() {
-                  
                   let visitorsCountWeakMap = new WeakMap();
                   cl("weak map collection init", visitorsCountWeakMap);
 
@@ -1750,28 +1649,16 @@
 
                   countUserWithWeakMap(visitor1);
 
-                  cl(
-                    `visitorsCountWeakMap.has(visitor1) `,
-                    visitorsCountWeakMap.has(visitor1)
-                  );
+                  cl(`visitorsCountWeakMap.has(visitor1) `, visitorsCountWeakMap.has(visitor1));
 
                   cl("visitorsCountWeakMap", visitorsCountWeakMap);
                   visitor1 = null;
 
-                  cl(
-                    `visitorsCountWeakMap.has(visitor1) `,
-                    visitorsCountWeakMap.has(visitor1)
-                  );
+                  cl(`visitorsCountWeakMap.has(visitor1) `, visitorsCountWeakMap.has(visitor1));
 
-                  cl(
-                    "visitorsCountWeakMap after visitor1",
-                    visitorsCountWeakMap
-                  );
+                  cl("visitorsCountWeakMap after visitor1", visitorsCountWeakMap);
 
-                  cl(
-                    `visitorsCountWeakMap.get({ name: "Steve" }) `,
-                    visitorsCountWeakMap.get({ name: "Steve" })
-                  );
+                  cl(`visitorsCountWeakMap.get({ name: "Steve" }) `, visitorsCountWeakMap.get({ name: "Steve" }));
                 }
               </script>
             </div>
@@ -1801,10 +1688,7 @@
                 }
 							</code></pre>
 
-              <button onclick="weakSetExample()" class="m-3 btn btn-primary">
-                weakSetExample
-              </button>
-
+              <button onclick="weakSetExample()" class="m-3 btn btn-primary">weakSetExample</button>
 
               <script>
                 function weakSetExample() {
@@ -1830,38 +1714,38 @@
               <b>I consider to know the answers to the following questions</b>
               <a href="https://www.interviewbit.com/javascript-interview-questions/#this-keyword">link</a>
               <p>
-                Basic js interview questions:<br>
-                1. What are the different data types present in javascript?<br>
-                2. Explain Hoisting in javascript.<br>
-                3. Difference between “==” and “===” operators.<br>
-                4. Explain Implicit Type Coercion in javascript.<br>
-                5. Is javascript a statically typed or a dynamically typed language?<br>
-                6. What is NaN property in JavaScript?<br>
-                7. Explain passed by value and passed by reference.<br>
-                8. What is an Immediately Invoked Function in javascript?<br>
-                9. Explain Higher Order Functions in javascript.<br>
-                10. Explain “this” keyword.<br>
-                11. Explain call(), apply() and, bind() methods.<br>
-                12. What is Currying in javascript?<br>
-                13. Explain Scope and Scope Chain in javascript.<br>
-                14. Explain Closures in JavaScript.<br>
-                15. What are object prototypes?<br>
-                16. What are callbacks?<br>
-                17. What is memoization?<br>
-                18. What is recursion in a programming language?<br>
-                19. What is the use of a constructor function in javascript?<br>
-                20. What is DOM?<br>
-                Advanced js interview questions:<br>
-                21. What are arrow functions?<br>
-                22. Differences between declaring variables using var, let and const.<br>
-                23. What is the rest parameter and spread operator?<br>
-                24. What is the use of promises in javascript?<br>
-                25. What are classes in javascript?<br>
-                26. What are generator functions?<br>
-                27. Explain WeakSet in javascript.<br>
-                28. Explain WeakMap in javascript.<br>
-                29. What is Object Destructuring?<br>
-                30. What is a Temporal Dead Zone?<br>
+                Basic js interview questions:<br />
+                1. What are the different data types present in javascript?<br />
+                2. Explain Hoisting in javascript.<br />
+                3. Difference between “==” and “===” operators.<br />
+                4. Explain Implicit Type Coercion in javascript.<br />
+                5. Is javascript a statically typed or a dynamically typed language?<br />
+                6. What is NaN property in JavaScript?<br />
+                7. Explain passed by value and passed by reference.<br />
+                8. What is an Immediately Invoked Function in javascript?<br />
+                9. Explain Higher Order Functions in javascript.<br />
+                10. Explain “this” keyword.<br />
+                11. Explain call(), apply() and, bind() methods.<br />
+                12. What is Currying in javascript?<br />
+                13. Explain Scope and Scope Chain in javascript.<br />
+                14. Explain Closures in JavaScript.<br />
+                15. What are object prototypes?<br />
+                16. What are callbacks?<br />
+                17. What is memoization?<br />
+                18. What is recursion in a programming language?<br />
+                19. What is the use of a constructor function in javascript?<br />
+                20. What is DOM?<br />
+                Advanced js interview questions:<br />
+                21. What are arrow functions?<br />
+                22. Differences between declaring variables using var, let and const.<br />
+                23. What is the rest parameter and spread operator?<br />
+                24. What is the use of promises in javascript?<br />
+                25. What are classes in javascript?<br />
+                26. What are generator functions?<br />
+                27. Explain WeakSet in javascript.<br />
+                28. Explain WeakMap in javascript.<br />
+                29. What is Object Destructuring?<br />
+                30. What is a Temporal Dead Zone?<br />
               </p>
             </div>
 
@@ -1888,7 +1772,7 @@
 							</code></pre>
 
               <style>
-                #elementSpecial{
+                #elementSpecial {
                   display: inline-block;
                   box-sizing: content-box;
                   margin: 10px;
@@ -1902,32 +1786,25 @@
               <div id="elementSpecial">Special</div>
 
               <p>
-                <b>
-                  computed element style is 80px
-                </b>
+                <b> computed element style is 80px </b>
               </p>
 
-              <button onclick="elementSpecialGetWidth()" class="m-3 btn btn-primary">
-                elementSpecialGetWidth
-              </button>
+              <button onclick="elementSpecialGetWidth()" class="m-3 btn btn-primary">elementSpecialGetWidth</button>
 
               <script>
                 function elementSpecialGetWidth() {
-                  const elementSpecial = document.getElementById('elementSpecial');
-                  cl(`elementSpecial.offsetWidth `,elementSpecial.offsetWidth)
-                  cl(`elementSpecial.clientWidth `,elementSpecial.clientWidth)
-                  cl(`elementSpecial.scrollWidth `,elementSpecial.scrollWidth)
+                  const elementSpecial = document.getElementById("elementSpecial");
+                  cl(`elementSpecial.offsetWidth `, elementSpecial.offsetWidth);
+                  cl(`elementSpecial.clientWidth `, elementSpecial.clientWidth);
+                  cl(`elementSpecial.scrollWidth `, elementSpecial.scrollWidth);
                 }
               </script>
-
             </div>
 
             <div class="border rounded p-3 m-3">
               <h3>Concurrency model and event loop (модель паралелизма)</h3>
 
-
-              <img src="./imgs/the_javascript_runtime_environment_example.svg" alt="model Concurrency">
-
+              <img src="./imgs/the_javascript_runtime_environment_example.svg" alt="model Concurrency" />
 
               <pre><code class="language-js" style="tab-size: 1;">
                 function eventLoopSample1() {
@@ -1944,73 +1821,64 @@
                 }
 							</code></pre>
 
-              <button onclick="eventLoopSample1()" class="m-3 btn btn-primary">
-                eventLoopSample1
-              </button>
+              <button onclick="eventLoopSample1()" class="m-3 btn btn-primary">eventLoopSample1</button>
 
               <script>
                 function eventLoopSample1() {
-                  function foo(b){
+                  function foo(b) {
                     let a = 10;
                     return a + b + 11;
                   }
-                  function bar(x){
+                  function bar(x) {
                     let y = 3;
-                    return foo(x*y);
+                    return foo(x * y);
                   }
                   const baz = bar(7);
-                  cl('baz ', baz);
+                  cl("baz ", baz);
                 }
               </script>
 
-              <p>
-                order of operations
-              </p>
+              <p>order of operations</p>
 
               <ol>
                 <li>
-                  when calling bar, a first <b>frame</b> is created containing references to bar's arguments
-                  and local variables.
+                  when calling bar, a first <b>frame</b> is created containing references to bar's arguments and local
+                  variables.
                 </li>
                 <li>
-                  when bar calls foo, a second frame is created and pushed on top of the first one, containing references 
-                  to foo's arguments and local variables.
+                  when bar calls foo, a second frame is created and pushed on top of the first one, containing
+                  references to foo's arguments and local variables.
                 </li>
                 <li>
                   when foo returns, the top frame element is popped out of the stack (leaving only bar's call frame).
                 </li>
-                <li>
-                  when bar returns, the stack is empty.
-                </li>
+                <li>when bar returns, the stack is empty.</li>
               </ol>
 
-              <h3>
-                Heap
-              </h3>
+              <h3>Heap</h3>
 
               <p>
                 Objects are allocated in a heap which is just a name to denote a large unstructured region of memory.
               </p>
 
-              <h3>
-                Queue
-              </h3>
+              <h3>Queue</h3>
               <p>
-                A javascript runtime uses a message queue, which is a list of messages to be processed. 
-                Each message has an associated function which gets called in order to handle the message.
+                A javascript runtime uses a message queue, which is a list of messages to be processed. Each message has
+                an associated function which gets called in order to handle the message.
               </p>
+              <p>calling a function creates a new stack frame for that function's use.</p>
+
+              <b> setTimeout does not run Immediately after its time expires </b>
+
               <p>
-                calling a function creates a new stack frame for that function's  use.
+                The function setTimeout is called with 2 arguments: a message to add to the queue, and a time value
+                (optional; defaults to 0). The time value represents the (minimum) delay after which the message will
+                actually be pushed into the queue. If there is no other message in the queue, and the stack is empty,
+                the message is processed right after the delay. However, if there are messages, the setTimeout message
+                will have to wait for other messages to be processed. For this reason, the second argument indicates a
+                minimum time—not a guaranteed time.
               </p>
 
-              <b>
-                setTimeout does not run Immediately after its time expires
-              </b>
-              
-              <p>
-                The function setTimeout is called with 2 arguments: a message to add to the queue, and a time value (optional; defaults to 0). The time value represents the (minimum) delay after which the message will actually be pushed into the queue. If there is no other message in the queue, and the stack is empty, the message is processed right after the delay. However, if there are messages, the setTimeout message will have to wait for other messages to be processed. For this reason, the second argument indicates a minimum time—not a guaranteed time.
-              </p>
-              
               <pre><code class="language-js" style="tab-size: 1;">
                 function setTimeoutDoesNotRunImmediately() {
                   const startTimeSeconds = new Date().getSeconds();
@@ -2038,27 +1906,24 @@
               <script>
                 function setTimeoutDoesNotRunImmediately() {
                   const startTimeSeconds = new Date().getSeconds();
-                  //time value represents the (minimum) delay after which the 
+                  //time value represents the (minimum) delay after which the
                   // message will actually be pushed into the queue.
                   const time = 500;
-                  setTimeout(()=>{
+                  setTimeout(() => {
                     // prints out 2 meaning that the callback is not called immediately after 500 milliseconds.
-                    cl('Ran after ' + ( new Date().getSeconds() - startTimeSeconds ) + " seconds" );
+                    cl("Ran after " + (new Date().getSeconds() - startTimeSeconds) + " seconds");
                   }, time);
 
-                  while(true){
-                    if(new Date().getSeconds() - startTimeSeconds >= 2){
-                      cl('Loop 2 seconds');
+                  while (true) {
+                    if (new Date().getSeconds() - startTimeSeconds >= 2) {
+                      cl("Loop 2 seconds");
                       break;
                     }
                   }
                 }
               </script>
 
-
-              <h3>
-                zero delays
-              </h3>
+              <h3>zero delays</h3>
 
               <pre><code class="language-js" style="tab-size: 1;">
                 function zeroDelaysOfSetTimeout() {
@@ -2078,41 +1943,37 @@
                 }
 							</code></pre>
 
-              <button onclick="zeroDelaysOfSetTimeout()" class="m-3 btn btn-primary">
-                zeroDelaysOfSetTimeout
-              </button>
+              <button onclick="zeroDelaysOfSetTimeout()" class="m-3 btn btn-primary">zeroDelaysOfSetTimeout</button>
 
               <script>
                 function zeroDelaysOfSetTimeout() {
-                  console.log('this is a start');
+                  console.log("this is a start");
 
-                  setTimeout(()=>{
-                    cl('Callback: 1 setTimeout without specified time');
-                  })
+                  setTimeout(() => {
+                    cl("Callback: 1 setTimeout without specified time");
+                  });
 
-                  cl('this is just a message');
+                  cl("this is just a message");
 
-                  setTimeout(function cb1(){
-                    cl('Callback: 2 message from the callback')
-                  },0);
+                  setTimeout(function cb1() {
+                    cl("Callback: 2 message from the callback");
+                  }, 0);
 
-                  cl('this is the end');
+                  cl("this is the end");
                 }
               </script>
 
               <div>
-                <h3>
-                  Browser event loop visualization
-                </h3>
-                <img class="img img-fluid" src="./imgs/1 AkCusjggeTf2XhEjgNjz9w.png" alt="e loop vis">
+                <h3>Browser event loop visualization</h3>
+                <img class="img img-fluid" src="./imgs/1 AkCusjggeTf2XhEjgNjz9w.png" alt="e loop vis" />
 
                 <div>
-                  <a href="https://javascript.plainenglish.io/explaining-the-event-loop-to-hamsters-f18be93956d6">medium source</a>
+                  <a href="https://javascript.plainenglish.io/explaining-the-event-loop-to-hamsters-f18be93956d6"
+                    >medium source</a
+                  >
                 </div>
               </div>
-
             </div>
-
 
             <div class="border rounded p-3 m-3">
               <h3>title</h3>
@@ -2120,16 +1981,12 @@
 								code
 							</code></pre>
 
-              <button onclick="funcName()" class="m-3 btn btn-primary">
-                funcName
-              </button>
+              <button onclick="funcName()" class="m-3 btn btn-primary">funcName</button>
 
               <script>
                 function funcName() {}
               </script>
             </div>
-
-
           </div>
         </div>
       </div>

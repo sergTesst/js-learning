@@ -1,0 +1,33 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  margin: 1rem 0;
+  border: 1px solid yellowgreen;
+  border-radius: 0.5rem;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container-snake {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container-snake div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

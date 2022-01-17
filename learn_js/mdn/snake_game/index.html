@@ -1,0 +1,85 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="canvas-container">
+        <h2>Part one</h2>
+
+        <canvas id="tutorial" width="350" height="250">
+          <!-- can have a fallback content inside it -->
+          <img src="https://www.pngarts.com/files/4/Clock-PNG-High-Quality-Image.png" width="150" height="150" alt="" />
+        </canvas>
+
+        <canvas id="rectangularShape_canvas" width="350" height="250"></canvas>
+
+        <canvas id="drawTriangle_canvas" width="350" height="250"></canvas>
+
+        <canvas id="drawSmileFace_canvas" width="350" height="250"></canvas>
+
+        <canvas id="drawInnerSquares_canvas" width="350" height="250"></canvas>
+      </div>
+
+      <div class="canvas-container">
+        <h2>Part two</h2>
+        <canvas id="translateExample_canvas" width="350" height="250"></canvas>
+        <canvas id="drawRotatedSquares_canvas" width="350" height="250"></canvas>
+        <canvas id="scaleExample_canvas" width="350" height="250"></canvas>
+
+        <canvas id="transformMatrix_canvas" width="350" height="250"></canvas>
+        <canvas id="clipStarts_canvas" width="350" height="250"></canvas>
+      </div>
+
+      <div class="canvas-container">
+        <h2>Part three</h2>
+        <canvas id="solarSystem_canvas" width="450" height="350"></canvas>
+        <canvas id="yosemiteNationalPark_canvas" width="800" height="200"></canvas>
+      </div>
+
+      <div class="canvas-container">
+        <div>
+          <a href="https://freefrontend.com/javascript-snake-games/">interesting games in js</a>
+        </div>
+        <div class="container-snake">
+          <div>
+            <h2>Game</h2>
+          </div>
+          <div>
+            <h4>time: <span id="game-time"></span></h4>
+          </div>
+
+          <div>
+            <h4>points: <span id="points-count"></span></h4>
+          </div>
+        </div>
+        <canvas id="snakeBoard" width="400" height="400"> </canvas>
+      </div>
+    </div>
+
+    <div style="height: 600px"></div>
+
+    <script src="index.js" type="module"></script>
+    <script src="transformations_canvas.js" type="module"></script>
+    <script src="basic_animations.js" type="module"></script>
+    <script src="loopPanorama.js" type="module"></script>
+    <script src="snakeGame.js" type="module"></script>
+  </body>
+</html>
