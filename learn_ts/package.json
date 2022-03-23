@@ -1,6 +1,14 @@
 {
   "type": "module",
+  "scripts": {
+    "start": "tsc && node ./dist/nestjs_encryption_hashing/hashing_bcrypt.js"
+  },
   "dependencies": {
+    "@types/node": "^17.0.22",
+    "bcrypt": "^5.0.1",
     "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0"
   }
 }

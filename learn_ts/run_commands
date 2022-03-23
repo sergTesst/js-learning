@@ -1,2 +1,2 @@
 run command 
-` tsc && node ./dist/narrowing.js `
+`tsc && node ./dist/narrowing/narrowing.js`
