@@ -148,6 +148,7 @@
                 }
               </script>
             </div>
+
             <div class="border rounded p-3 m-3">
               <h3>Nan Gotchas</h3>
               <pre><code class="language-js" style="tab-size: 1;">
@@ -203,6 +204,7 @@
                 }
               </script>
             </div>
+
             <div class="border rounded p-3 m-3">
               <h3>equality / truthy vs Falsy</h3>
               <pre><code class="language-js" style="tab-size: 1;">
@@ -251,6 +253,7 @@
                 }
               </script>
             </div>
+
             <div class="border rounded p-3 m-3">
               <h3>automatic semicolon insertion</h3>
               <pre><code class="language-js" style="tab-size: 1;">
@@ -280,6 +283,7 @@
                 }
               </script>
             </div>
+
             <div class="border rounded p-3 m-3">
               <h3>Global vars</h3>
               <pre>
@@ -379,6 +383,7 @@
                 }
               </script>
             </div>
+
             <div class="border rounded p-3 m-3">
               <h3>hoisting foo bar</h3>
               <pre><code class="language-js" style="tab-size: 1;">
@@ -2389,11 +2394,52 @@
               </div>
             </div>
 
+            <!-- this in arrow functions  -->
+
+            <div class="border rounded p-3 m-3">
+              <h3>evaluateThisInArrowFunc</h3>
+              <pre><code class="language-js" style="tab-size: 1;">
+                function evaluateThisInArrowFunc() {
+                  const obj = {
+                  getThisGetter() {
+                    const getter = () => this;
+                    return getter;
+                  },
+                };
+
+                const fn = obj.getThisGetter();
+                console.log(`fn() === obj`,fn() === obj); // true
+
+                }
+							</code></pre>
+
+              <button
+                onclick="evaluateThisInArrowFunc()"
+                class="m-3 btn btn-primary"
+              >
+                evaluateThisInArrowFunc
+              </button>
+
+              <script>
+                function evaluateThisInArrowFunc() {
+                  const obj = {
+                    getThisGetter() {
+                      const getter = () => this;
+                      return getter;
+                    },
+                  };
+
+                  const fn = obj.getThisGetter();
+                  console.log(`fn() === obj`, fn() === obj); // true
+                }
+              </script>
+            </div>
+
             <div class="border rounded p-3 m-3">
               <h3>title</h3>
               <pre><code class="language-js" style="tab-size: 1;">
-								code
-							</code></pre>
+              code
+            </code></pre>
 
               <button onclick="funcName()" class="m-3 btn btn-primary">
                 funcName
@@ -2404,8 +2450,11 @@
               </script>
             </div>
           </div>
+          <!-- row -->
         </div>
+        <!-- container -->
       </div>
+      <!-- app -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/components/prism-core.min.js"></script>
